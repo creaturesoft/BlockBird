@@ -1,0 +1,19 @@
+using UnityEngine;
+
+public class Map : MonoBehaviour
+{
+    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    void Start()
+    {
+        
+    }
+
+    // Update is called once per frame
+    void FixedUpdate()
+    {
+        if(GameManager.Instance.Character != null)
+        {
+            transform.position += Vector3.left * Time.deltaTime * GameManager.Instance.Character.Speed;
+        }
+    }
+}

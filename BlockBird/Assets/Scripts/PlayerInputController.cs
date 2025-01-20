@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class PlayerInputController : MonoBehaviour
 {
-    private float jumpForce = 7f; // 점프 힘
+    private float jumpForce;
 
     [Header("Components")]
     public AudioSource jumpSound; // 점프 효과음 (선택 사항)
@@ -12,30 +12,27 @@ public class PlayerInputController : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        jumpForce = GetComponent<Character>().JumpForce;
     }
 
     void Update()
     {
-        
+
     }
 
     void OnAttack()
     {
+        if(GameManager.Instance.IsGameOver)
+        {
+            return;
+        }
+
         rb.linearVelocity = Vector2.zero;
         rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
 
-        if(jumpSound != null)
+        if (jumpSound != null)
         {
             jumpSound.Play();
-        }
-    }
-
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        if (collision.gameObject.CompareTag("Block"))
-        {
-            Debug.Log("Game Over!");
-            // 게임 오버 처리
         }
     }
 }

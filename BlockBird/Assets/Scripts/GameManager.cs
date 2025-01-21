@@ -6,7 +6,7 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager Instance { get; private set; }
 
-    public Character Character { get; private set; }
+    public Character Character { get; set; }
 
     public TextMeshProUGUI scoreText;
     public int Score { get; set; }
@@ -22,6 +22,8 @@ public class GameManager : MonoBehaviour
     public float ResultDelay { get; set; } = 2f;
 
     public static bool IsPaused { get; set; } = true;
+    public static bool IsRestart { get; set; } = false;
+
 
     void Awake()
     {
@@ -37,11 +39,12 @@ public class GameManager : MonoBehaviour
 
         // 다른 씬으로 전환해도 파괴되지 않도록 설정
         //DontDestroyOnLoad(gameObject);
+
+        IsPaused = true;
     }
 
     void Start()
     {
-        Character = GameObject.FindWithTag("Player").GetComponent<Character>();
     }
 
     // Update is called once per frame
@@ -75,7 +78,7 @@ public class GameManager : MonoBehaviour
 
         //Time.timeScale = 0;
 
-        yield return new WaitForSeconds(2.5f);
+        yield return new WaitForSeconds(2f);
         resultPopup.SetActive(true);
     }
 }

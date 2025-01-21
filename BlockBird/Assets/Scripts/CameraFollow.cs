@@ -29,7 +29,7 @@ public class CameraFollow : MonoBehaviour
                       targetX
                     , targetY - 3f
                     , transform.position.z)
-                , 1.2f * Time.deltaTime);
+                , 1.5f * Time.deltaTime);
 
             return;
         }

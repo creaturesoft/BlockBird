@@ -46,6 +46,7 @@ public class Character : MonoBehaviour
         set
         {
             hp = value;
+            hpText.text = Hp.ToString();
         }
     }
 
@@ -134,6 +135,8 @@ public class Character : MonoBehaviour
     void FixedUpdate()
     {
         if (GameManager.IsPaused) return;
+        if (GameManager.Instance.IsGameOver) return;
+        if (IsDie) return;
 
         if (transform.position.x < -0.001f || transform.position.x > 0.001f)
         {
@@ -194,8 +197,6 @@ public class Character : MonoBehaviour
     IEnumerator AfterDie()
     {
         yield return new WaitForSeconds(GameManager.Instance.ResultDelay);
-
-        hpText.text = string.Empty;
-        rb.constraints = RigidbodyConstraints2D.FreezePosition;
+        DisableCharacter();
     }
 }

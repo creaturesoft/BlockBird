@@ -5,6 +5,8 @@ public class StartButton : MonoBehaviour
 {
     public GameObject introButton;
     public GameObject map;
+    public CharacterSelect characterSelect;
+
 
     public void OnStart()
     {
@@ -14,6 +16,11 @@ public class StartButton : MonoBehaviour
 
     IEnumerator StartGame()
     {
+        if(CharacterSelect.SelectedCharacter == 0)
+        {
+            characterSelect.SetRandomCharacter();
+        }
+
         Vector3 initialScale = GameManager.Instance.Character.transform.localScale;
         Vector3 targetScale = initialScale / 2f; // 2배에서 1배로 줄어듦
         float duration = 1f;
@@ -45,15 +52,4 @@ public class StartButton : MonoBehaviour
         map.SetActive(true);
     }
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }

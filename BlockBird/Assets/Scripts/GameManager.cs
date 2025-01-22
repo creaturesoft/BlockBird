@@ -17,13 +17,13 @@ public class GameManager : MonoBehaviour
 
     public GameObject bulletGameObject;
     public GameObject[] resultHideList;
-    public GameObject resultPopup;
 
+    
     public float ResultDelay { get; set; } = 2f;
 
-    public static bool IsPaused { get; set; } = true;
     public static bool IsRestart { get; set; } = false;
 
+    public PageController pageController;
 
     void Awake()
     {
@@ -40,7 +40,9 @@ public class GameManager : MonoBehaviour
         // 다른 씬으로 전환해도 파괴되지 않도록 설정
         //DontDestroyOnLoad(gameObject);
 
-        IsPaused = true;
+#if UNITY_EDITOR
+        GetComponent<FPSDisplay>().enabled = true;
+#endif
     }
 
     void Start()
@@ -79,6 +81,7 @@ public class GameManager : MonoBehaviour
         //Time.timeScale = 0;
 
         yield return new WaitForSeconds(2f);
-        resultPopup.SetActive(true);
+
+        pageController.ShowResultPopup();
     }
 }

@@ -1,5 +1,7 @@
 using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
+using UnityEngine.UI;
 
 public class StartButton : MonoBehaviour
 {
@@ -16,7 +18,10 @@ public class StartButton : MonoBehaviour
 
     IEnumerator StartGame()
     {
-        if(CharacterSelect.SelectedCharacter == 0)
+        Time.timeScale = 0;
+
+        //랜덤 캐릭터
+        if (CharacterSelect.SelectedCharacter == 0)
         {
             characterSelect.SetRandomCharacter();
         }
@@ -29,7 +34,7 @@ public class StartButton : MonoBehaviour
 
         while (elapsedTime < duration)
         {
-            elapsedTime += Time.deltaTime;
+            elapsedTime += Time.unscaledDeltaTime;
 
             // 크기를 Lerp로 점진적으로 줄이기
             GameManager.Instance.Character.transform.localScale = Vector3.Lerp(initialScale, targetScale, elapsedTime / duration);
@@ -40,14 +45,15 @@ public class StartButton : MonoBehaviour
                 CameraFollow.InitCameraX
                 , Camera.main.transform.position.y
                 , Camera.main.transform.position.z)
-            , 2f * Time.deltaTime);
+            , 2f * Time.unscaledDeltaTime);
 
-            yield return null; // 다음 프레임까지 대기
+            yield return new WaitForSecondsRealtime(Time.unscaledDeltaTime); // 실시간 대기
         }
+
+        Time.timeScale = 1;
 
         // 최종적으로 목표 크기로 설정
         GameManager.Instance.Character.transform.localScale = targetScale;
-        GameManager.IsPaused = false;
         GameManager.Instance.Character.EnableCharacter();
         map.SetActive(true);
     }

@@ -34,7 +34,6 @@ public class Survival1 : MapBase
 
             totalDepth++;
 
-            while (GameManager.IsPaused) yield return null;
             yield return new WaitForSeconds((delay * Time.fixedDeltaTime) / GameManager.Instance.Character.Speed);
         }
         
@@ -57,7 +56,6 @@ public class Survival1 : MapBase
 
             totalDepth++;
 
-            while (GameManager.IsPaused) yield return null;
             yield return new WaitForSeconds((delay * Time.fixedDeltaTime) / GameManager.Instance.Character.Speed);
         }
 
@@ -80,7 +78,6 @@ public class Survival1 : MapBase
 
             totalDepth++;
 
-            while (GameManager.IsPaused) yield return null;
             yield return new WaitForSeconds((delay * Time.fixedDeltaTime) / GameManager.Instance.Character.Speed);
         }
 

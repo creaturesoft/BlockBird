@@ -78,7 +78,7 @@ public class Character : MonoBehaviour
     public List<GameObject> initBulletPrefabList;
     private Rigidbody2D rb;
     private TextMeshPro hpText; // HP를 표시할 텍스트
-
+    public bool isActive = false;
 
     void Start()
     {
@@ -88,24 +88,26 @@ public class Character : MonoBehaviour
         Hp = MaxHp;
 
         DisableCharacter();
-
-        foreach (GameObject bulletPrefab in initBulletPrefabList)
-        {
-            StartCoroutine(FireContinuously(bulletPrefab));
-        }
     }
 
     public void DisableCharacter()
     {
+        isActive = false;
         rb.constraints = RigidbodyConstraints2D.FreezePosition;
         hpText.text = string.Empty;
     }
 
     public void EnableCharacter()
     {
+        isActive = true;
         rb.constraints = RigidbodyConstraints2D.None;
         rb.constraints = RigidbodyConstraints2D.FreezeRotation;
         hpText.text = Hp.ToString();
+
+        foreach (GameObject bulletPrefab in initBulletPrefabList)
+        {
+            StartCoroutine(FireContinuously(bulletPrefab));
+        }
     }
 
 
@@ -115,12 +117,6 @@ public class Character : MonoBehaviour
         Bullet bullet = bulletPrefab.GetComponent<Bullet>();
         while (!IsDie)
         {
-            if (GameManager.IsPaused)
-            {
-                yield return null;
-                continue;
-            }
-
             Instantiate(bulletPrefab, new Vector3(transform.position.x, transform.position.y, transform.position.z), Quaternion.identity, GameManager.Instance.bulletGameObject.transform);
             yield return new WaitForSeconds(bullet.Delay / AttackSpeed);
         }
@@ -134,7 +130,7 @@ public class Character : MonoBehaviour
 
     void FixedUpdate()
     {
-        if (GameManager.IsPaused) return;
+        if (!isActive) return;
         if (GameManager.Instance.IsGameOver) return;
         if (IsDie) return;
 

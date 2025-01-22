@@ -16,8 +16,6 @@ public class CameraFollow : MonoBehaviour
 
     void Update()
     {
-        if (GameManager.IsPaused) return;
-
         float targetX = GameManager.Instance.Character.transform.position.x;
         float targetY = GameManager.Instance.Character.transform.position.y;
 
@@ -31,6 +29,11 @@ public class CameraFollow : MonoBehaviour
                     , transform.position.z)
                 , 1.5f * Time.deltaTime);
 
+            return;
+        }
+
+        if (!GameManager.Instance.Character.isActive)
+        {
             return;
         }
 

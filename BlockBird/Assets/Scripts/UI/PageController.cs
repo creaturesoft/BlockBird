@@ -8,6 +8,8 @@ public class PageController : MonoBehaviour
     public GameObject resultPopupPrefab;
     public GameObject noInternetPopupPrefab;
     public GameObject characterDrawPrefab;
+    public GameObject shopPrefab;
+    public GameObject worldRankPrefab;
 
     void Awake()
     {
@@ -58,10 +60,20 @@ public class PageController : MonoBehaviour
     {
         if (CheckInternetConnection())
         {
+            Time.timeScale = 0;
+            Instantiate(shopPrefab, ui.transform);
         }
     }
 
     public void ShowSetting()
     {
+    }
+
+    public void ShowWorldRank()
+    {
+        if (CheckInternetConnection())
+        {
+            Instantiate(worldRankPrefab, ui.transform);
+        }
     }
 }

@@ -79,14 +79,14 @@ public class CharacterDraw : MonoBehaviour
             currentImage++;
             previousImage++;
 
-            yield return new WaitForSecondsRealtime(0.05f + (float)currentCount/200);
+            yield return new WaitForSecondsRealtime(0.03f + (float)currentCount/200);
             if(maxCount - currentCount < 4)
             {
-                yield return new WaitForSecondsRealtime(0.2f);
+                yield return new WaitForSecondsRealtime(0.15f);
             }
             if (maxCount - currentCount < 2)
             {
-                yield return new WaitForSecondsRealtime(0.5f);
+                yield return new WaitForSecondsRealtime(0.4f);
             }
         }
 

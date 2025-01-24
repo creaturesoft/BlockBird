@@ -20,6 +20,16 @@ public class StartButton : MonoBehaviour
     {
         Time.timeScale = 0;
 
+        //광고 빈도
+        if (Random.Range(0, PersistentObject.InterstitialAdRate) == 0)
+        {
+            PersistentObject.Instance.interstitialAdManager.ShowInterstitial();
+            while (PersistentObject.Instance.interstitialAdManager.IsPlaying)
+            {
+                yield return new WaitForSecondsRealtime(0.2f); // 실시간 대기
+            }
+        }
+
         //랜덤 캐릭터
         if (CharacterSelect.SelectedCharacter == 0)
         {
@@ -34,7 +44,7 @@ public class StartButton : MonoBehaviour
 
         while (elapsedTime < duration)
         {
-            elapsedTime += Time.unscaledDeltaTime;
+            elapsedTime += Time.fixedDeltaTime;
 
             // 크기를 Lerp로 점진적으로 줄이기
             GameManager.Instance.Character.transform.localScale = Vector3.Lerp(initialScale, targetScale, elapsedTime / duration);
@@ -45,9 +55,9 @@ public class StartButton : MonoBehaviour
                 CameraFollow.InitCameraX
                 , Camera.main.transform.position.y
                 , Camera.main.transform.position.z)
-            , 2f * Time.unscaledDeltaTime);
+            , 2f * Time.fixedDeltaTime);
 
-            yield return new WaitForSecondsRealtime(Time.unscaledDeltaTime); // 실시간 대기
+            yield return new WaitForSecondsRealtime(Time.fixedDeltaTime); // 실시간 대기
         }
 
         Time.timeScale = 1;

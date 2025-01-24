@@ -18,9 +18,9 @@ public class BulletItemBase : MonoBehaviour
         }
     }
 
-    public Transform Init(Transform parent)
+    public Transform Init(GameObject parent)
     {
-        transform.SetParent(parent, false);
+        transform.SetParent(parent.transform, false);
         return transform;
     }
 }

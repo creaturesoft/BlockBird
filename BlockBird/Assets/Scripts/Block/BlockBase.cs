@@ -23,9 +23,9 @@ public class BlockBase : MonoBehaviour
 
     public TextMeshPro lifeText;
 
-    public Transform Init(Transform parent, float life)
+    public Transform Init(GameObject parent, float life)
     {
-        transform.SetParent(parent, false);
+        transform.SetParent(parent.transform, false);
         Life = life;
         return transform;
     }

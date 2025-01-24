@@ -13,7 +13,6 @@ public class CameraFollow : MonoBehaviour
         //transform.position = new Vector3(InitCameraX, transform.position.y, transform.position.z);
     }
 
-
     void Update()
     {
         float targetX = GameManager.Instance.Character.transform.position.x;

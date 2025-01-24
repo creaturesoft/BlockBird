@@ -387,10 +387,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 733b7b0f060b72c45847bce54b27be40, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 5
-  attackSpeed: 1
+  speed: 3
+  attackSpeed: 2
   jumpForce: 7
   hp: 3
   maxHp: 3
   initBulletPrefabList:
   - {fileID: 5116826413985697139, guid: df5a9adcab3fa9a47b3076a4811168ca, type: 3}
+  isActive: 0

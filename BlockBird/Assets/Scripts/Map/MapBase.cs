@@ -10,11 +10,4 @@ public class MapBase : MonoBehaviour
     {
     }
 
-    void FixedUpdate()
-    {
-        if (GameManager.Instance.Character != null)
-        {
-            transform.position += Vector3.left * Time.fixedDeltaTime * GameManager.Instance.Character.Speed;
-        }
-    }
 }

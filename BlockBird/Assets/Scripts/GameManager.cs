@@ -25,6 +25,8 @@ public class GameManager : MonoBehaviour
 
     public PageController pageController;
 
+    public GameObject[] itemPrefabList;
+
     void Awake()
     {
         // 싱글톤 인스턴스가 이미 존재하면 파괴

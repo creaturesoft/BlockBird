@@ -21,12 +21,42 @@ public class BlockBase : MonoBehaviour
         }
     }
 
+    private float itemDropRate;
+
     public TextMeshPro lifeText;
 
-    public Transform Init(GameObject parent, float life)
+    public Transform Init(Transform parent, float life, int type=0)
     {
-        transform.SetParent(parent.transform, false);
+        transform.SetParent(parent, false);
         Life = life;
+
+        Color newColor;
+        switch (type)
+        {
+            case 0:
+                break;
+            case 1:
+                ColorUtility.TryParseHtmlString("#C57200", out newColor);
+                gameObject.GetComponent<SpriteRenderer>().color = newColor;
+                break;
+            case 2:
+                ColorUtility.TryParseHtmlString("#6F00C5", out newColor);
+                gameObject.GetComponent<SpriteRenderer>().color = newColor;
+                itemDropRate = 10f;
+                break;
+            case 3:
+                ColorUtility.TryParseHtmlString("#C5009A", out newColor);
+                gameObject.GetComponent<SpriteRenderer>().color = newColor;
+                itemDropRate = 20f;
+                break;
+            case 4:
+                ColorUtility.TryParseHtmlString("#C60000", out newColor);
+                gameObject.GetComponent<SpriteRenderer>().color = newColor;
+                itemDropRate = 50f;
+                break;
+        }
+
+
         return transform;
     }
 
@@ -54,6 +84,13 @@ public class BlockBase : MonoBehaviour
 
     void Die()
     {
+        if (Random.Range(0f, 100f) < itemDropRate)
+        {
+            Instantiate(GameManager.Instance.itemPrefabList[Random.Range(1, GameManager.Instance.itemPrefabList.Length)], transform.position, Quaternion.identity, transform.parent)
+                .GetComponent<BulletItemBase>()
+                .Init(transform.parent);
+        }
+
         Destroy(gameObject);
     }
 }

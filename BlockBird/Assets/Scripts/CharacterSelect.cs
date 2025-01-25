@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 public class CharacterSelect : MonoBehaviour
 {
@@ -6,6 +7,11 @@ public class CharacterSelect : MonoBehaviour
     public static int SelectedCharacter;
     GameObject selectedPlayer;
     public StartButton startbutton;
+
+    public Slider hpSlider;
+    public Slider speedSlider;
+    public Slider attckSpeedSlider;
+    public Slider jumpSlider;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -32,7 +38,16 @@ public class CharacterSelect : MonoBehaviour
 
         selectedPlayer = Instantiate(CharactersPrefabs[select], new Vector3(0, 0, 0), Quaternion.identity);
         selectedPlayer.transform.localScale *= 2;
-        GameManager.Instance.Character = selectedPlayer.GetComponent<Character>();
+        selectedPlayer.transform.position = new Vector3(0, 0.5f, 0);
+
+        Character character = selectedPlayer.GetComponent<Character>();
+        GameManager.Instance.Character = character;
+
+        hpSlider.value = (float)character.MaxHp / 5;
+        speedSlider.value = character.Speed / 5;
+        attckSpeedSlider.value = character.AttackSpeed / 10;
+        jumpSlider.value = character.JumpForce / selectedPlayer.GetComponent<Rigidbody2D>().mass / 10;
+
     }
 
     public void SetRandomCharacter()

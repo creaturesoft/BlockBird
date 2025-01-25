@@ -37,7 +37,11 @@ public class StartButton : MonoBehaviour
         }
 
         Vector3 initialScale = GameManager.Instance.Character.transform.localScale;
+        Vector3 initialPosition = GameManager.Instance.Character.transform.position;
+        
         Vector3 targetScale = initialScale / 2f; // 2배에서 1배로 줄어듦
+        Vector3 targetPosition = Vector3.zero;
+
         float duration = 1f;
 
         float elapsedTime = 0f;
@@ -48,6 +52,7 @@ public class StartButton : MonoBehaviour
 
             // 크기를 Lerp로 점진적으로 줄이기
             GameManager.Instance.Character.transform.localScale = Vector3.Lerp(initialScale, targetScale, elapsedTime / duration);
+            GameManager.Instance.Character.transform.position = Vector3.Lerp(initialPosition, targetPosition, elapsedTime / duration);
 
             //카메라 위치 이동
             Camera.main.transform.position = Vector3.Lerp(Camera.main.transform.position

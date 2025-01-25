@@ -75,17 +75,24 @@ public class Character : MonoBehaviour
     float lastDamageTime = 0f; // 마지막으로 데미지를 준 시간
 
 
-    public List<GameObject> initBulletPrefabList;
+    public GameObject[] initGunPrefabList;
+    private List<GameObject> useGunPrefabList;
+    private List<GameObject> useGunList;
+
     private Rigidbody2D rb;
     private TextMeshPro hpText; // HP를 표시할 텍스트
     public bool isActive = false;
 
     void Start()
     {
+        useGunPrefabList = new List<GameObject>();
+        useGunList = new List<GameObject>();
+
         rb = GetComponent<Rigidbody2D>();
         hpText = GetComponentInChildren<TextMeshPro>();
 
         Hp = MaxHp;
+
 
         DisableCharacter();
     }
@@ -104,29 +111,47 @@ public class Character : MonoBehaviour
         rb.constraints = RigidbodyConstraints2D.FreezeRotation;
         hpText.text = Hp.ToString();
 
-        foreach (GameObject bulletPrefab in initBulletPrefabList)
+        foreach (GameObject gunPrefab in initGunPrefabList)
         {
-            StartCoroutine(FireContinuously(bulletPrefab));
+            useGunList.Add(Instantiate(gunPrefab, transform));
+            useGunPrefabList.Add(gunPrefab);
+            //Instantiate(gunPrefab, new Vector3(transform.position.x, transform.position.y, transform.position.z), Quaternion.identity, GameManager.Instance.bulletGameObject.transform);
         }
     }
 
 
-
-    IEnumerator FireContinuously(GameObject bulletPrefab)
+    public void TakeBulletItem(GameObject[] gunPrefabList)
     {
-        Bullet bullet = bulletPrefab.GetComponent<Bullet>();
-        while (!IsDie)
+        if (gunPrefabList == null || gunPrefabList.Length == 0)
         {
-            Instantiate(bulletPrefab, new Vector3(transform.position.x, transform.position.y, transform.position.z), Quaternion.identity, GameManager.Instance.bulletGameObject.transform);
-            yield return new WaitForSeconds(bullet.Delay / AttackSpeed);
+            gunPrefabList = initGunPrefabList;
+        }
+
+        foreach (GameObject gunPrefab in gunPrefabList)
+        {
+            GameObject addedGun = useGunPrefabList.Find(x => x.name == gunPrefab.name);
+            if (addedGun == null)
+            {
+                //아이템 추가
+                useGunList.Add(Instantiate(gunPrefab, transform));
+                useGunPrefabList.Add(gunPrefab);
+            }
+            else
+            {
+                GunBase addedGunBase = addedGun.GetComponent<GunBase>();
+
+                foreach(GameObject checkGun in useGunList)
+                {
+                    GunBase useGun = checkGun.GetComponent<GunBase>();
+                    if (useGun.GetType() == addedGunBase.GetType())
+                    {
+                        useGun.LevelUp();
+                    }
+                }
+
+            }
         }
     }
-
-    public void TakeBulletItem(GameObject bulletPrefab)
-    {
-        StartCoroutine(FireContinuously(bulletPrefab));
-    }
-
 
     void FixedUpdate()
     {

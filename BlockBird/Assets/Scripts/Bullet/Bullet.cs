@@ -34,6 +34,7 @@ public class Bullet : MonoBehaviour
         set { lifeTime = value; }
     }
 
+
     private Rigidbody2D rb;
 
     void Start()

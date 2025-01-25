@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class BulletItemBase : MonoBehaviour
 {
-    public GameObject bulletPrefab;
+    public GameObject[] gunPrefabList;
 
     void OnTriggerEnter2D(Collider2D collision)
     {
@@ -11,16 +11,16 @@ public class BulletItemBase : MonoBehaviour
             Character character = collision.GetComponent<Character>();
             if (character != null)
             {
-                character.TakeBulletItem(bulletPrefab);
+                character.TakeBulletItem(gunPrefabList);
             }
 
             Destroy(gameObject);
         }
     }
 
-    public Transform Init(GameObject parent)
+    public Transform Init(Transform parent)
     {
-        transform.SetParent(parent.transform, false);
+        transform.SetParent(parent, false);
         return transform;
     }
 }

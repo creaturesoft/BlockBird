@@ -4,7 +4,6 @@ using UnityEngine;
 public class Survival1 : MapBase
 {
     public GameObject block1Prefab;
-    public GameObject bullet2ItemPrefab;
 
     public GameObject depthBasePrefab;
 
@@ -17,6 +16,7 @@ public class Survival1 : MapBase
     IEnumerator SpawnBlock()
     {
         int totalDepth = 10;
+        float spawnPositionX = 25f;
 
         while (GameManager.Instance.Character == null)
         {
@@ -32,7 +32,7 @@ public class Survival1 : MapBase
 
             if(currentDepth == null)
             {
-                newDepthX = 25f;
+                newDepthX = spawnPositionX;
             }
             else
             {
@@ -43,29 +43,53 @@ public class Survival1 : MapBase
 
             for (int y = -Steps; y <= Steps; y++)
             {
-                int type = Random.Range(0, 100);
+                float type = Random.Range(0f, 100f);
 
-                if (type < 5)
+                if (type <= 5f)   //5%
                 {
-                    Instantiate(bullet2ItemPrefab, new Vector3(0, BlockGap * y, 0), Quaternion.identity)
+                    Instantiate(GameManager.Instance.itemPrefabList[0], new Vector3(0, BlockGap * y, 0), Quaternion.identity)
                         .GetComponent<BulletItemBase>()
-                        .Init(currentDepth);
+                        .Init(currentDepth.transform);
                 }
-                else if (type < 60)
+                else if (type <= Mathf.Max(100 - totalDepth / 1.5f, 50)) //45% 빈공간
+                {
+
+                }
+                else if (type <= Mathf.Max(100 - totalDepth / 10f, 83)) //33% 흰색
                 {
                     Instantiate(block1Prefab, new Vector3(0, BlockGap * y, 0), Quaternion.identity)
                        .GetComponent<BlockBase>()
-                       .Init(currentDepth, Random.Range(1, totalDepth / 2));
+                       .Init(currentDepth.transform, Random.Range(totalDepth/50 < 1 ? 1 : totalDepth/50, totalDepth/2));
                 }
-                else
+                else if (type <= Mathf.Max(100 - totalDepth / 60f, 91)) //8% 주황색
                 {
-
+                    Instantiate(block1Prefab, new Vector3(0, BlockGap * y, 0), Quaternion.identity)
+                        .GetComponent<BlockBase>()
+                        .Init(currentDepth.transform, Random.Range(totalDepth/3, totalDepth/2), 1);    
+                }
+                else if (type <= Mathf.Max(100 - totalDepth / 160f, 96)) //5% 보라색
+                {
+                    Instantiate(block1Prefab, new Vector3(0, BlockGap * y, 0), Quaternion.identity)
+                        .GetComponent<BlockBase>()
+                        .Init(currentDepth.transform, Random.Range(totalDepth/2, totalDepth/1.5f), 2);
+                }
+                else if (type <= Mathf.Max(100 - totalDepth / 310f, 99)) //3% 자주색
+                {
+                    Instantiate(block1Prefab, new Vector3(0, BlockGap * y, 0), Quaternion.identity)
+                        .GetComponent<BlockBase>()
+                        .Init(currentDepth.transform, Random.Range(totalDepth/1.5f, totalDepth), 3);
+                }
+                else if (type <= Mathf.Max(100 - totalDepth / 510f, 100)) //1% 빨간색
+                {
+                    Instantiate(block1Prefab, new Vector3(0, BlockGap * y, 0), Quaternion.identity)
+                        .GetComponent<BlockBase>()
+                        .Init(currentDepth.transform, Random.Range(totalDepth, totalDepth*1.5f), 4);
                 }
             }
 
             totalDepth++;
 
-            while(currentDepth.transform.position.x > 25f)
+            while (currentDepth.transform.position.x > spawnPositionX)
             {
                 yield return new WaitForSeconds(Time.fixedDeltaTime);
             }

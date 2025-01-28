@@ -1,3 +1,4 @@
+using System.Linq;
 using UnityEngine;
 
 public class BulletItemBase : MonoBehaviour
@@ -11,7 +12,7 @@ public class BulletItemBase : MonoBehaviour
             Character character = collision.GetComponent<Character>();
             if (character != null)
             {
-                character.TakeBulletItem(gunPrefabList);
+                character.TakeBulletItem(gunPrefabList.Select(gunPrefab => gunPrefab.GetComponent<GunBase>()).ToArray());
             }
 
             Destroy(gameObject);

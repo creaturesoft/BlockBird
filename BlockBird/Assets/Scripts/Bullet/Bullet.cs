@@ -59,6 +59,7 @@ public class Bullet : MonoBehaviour
             if (block != null)
             {
                 block.TakeDamage(Damage); // 1 데미지
+                SpecialEffect(block);
             }
 
             // 총알 제거
@@ -71,4 +72,8 @@ public class Bullet : MonoBehaviour
         }
     }
 
+    protected virtual void SpecialEffect(BlockBase block)
+    {
+        // 특수 효과
+    }
 }

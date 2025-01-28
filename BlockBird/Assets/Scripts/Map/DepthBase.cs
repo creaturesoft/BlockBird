@@ -16,10 +16,10 @@ public class DepthBase : MonoBehaviour
         {
             transform.position += Vector3.left * Time.fixedDeltaTime * GameManager.Instance.Character.Speed;
 
-            if(transform.position.x < -50)
-            {
-                Destroy(gameObject);
-            }
+            //if(transform.position.x < -30)
+            //{
+            //    Destroy(gameObject);
+            //}
         }
     }
 }

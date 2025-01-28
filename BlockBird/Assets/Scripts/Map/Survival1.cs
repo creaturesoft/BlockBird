@@ -1,5 +1,14 @@
+using NUnit.Framework.Interfaces;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
+
+public class RandomRate
+{
+    public float weight;
+    public float addWeight;
+    public float initWeight;
+}
 
 public class Survival1 : MapBase
 {
@@ -13,16 +22,35 @@ public class Survival1 : MapBase
         StartCoroutine(SpawnBlock());
     }
 
+
     IEnumerator SpawnBlock()
     {
-        int totalDepth = 10;
+        float lifeWeight = 10f;
         float spawnPositionX = 25f;
+
+        int totalBlock = 0;
 
         while (GameManager.Instance.Character == null)
         {
             yield return new WaitForSeconds(0.2f);
         }
 
+
+
+        RandomRate[] weightList = { 
+              new RandomRate { weight = 1000, addWeight = 0f } //빈칸
+            , new RandomRate { weight = 0, addWeight = 1f }  //흰색
+            , new RandomRate { weight = 0, addWeight = 1f / 10f }   //주황색
+            , new RandomRate { weight = 0, addWeight = 1f / 20f }    //보라색
+            , new RandomRate { weight = 0, addWeight = 1f / 40f }     //자주색
+            , new RandomRate { weight = 0, addWeight = 1f / 80f }       //빨간색
+        };
+
+        //초기화
+        for (int i = 0; i < weightList.Length; i++)
+        {
+            weightList[i].initWeight = weightList[i].weight;
+        }
 
         //테스트
         GameObject currentDepth = null;
@@ -43,56 +71,119 @@ public class Survival1 : MapBase
 
             for (int y = -Steps; y <= Steps; y++)
             {
-                float type = Random.Range(0f, 100f);
+                lifeWeight += 0.005f;
+                totalBlock++;
 
+                //가중치 증가
+                for (int i = 0; i < weightList.Length; i++)
+                {
+                    weightList[i].weight += weightList[i].addWeight;
+                }
+
+                //if (totalBlock > 500f)
+                if(weightList[weightList.Length - 6].weight * 1f < weightList[weightList.Length - 5].weight)
+                {
+                    lifeWeight *= 2f;
+                    //totalBlock = 0;
+                    Debug.Log("init @@@@@@@@@@@@@@@@@@@@@@@@");
+                    Debug.Log("init @@@@@@@@@@@@@@@@@@@@@@@@");
+                    Debug.Log("init @@@@@@@@@@@@@@@@@@@@@@@@");
+
+                    for (int i = 0; i < weightList.Length; i++)
+                    {
+                        weightList[i].weight = weightList[i].initWeight;
+                    }
+                }
+
+                if (totalBlock % 50 == 0)
+                {
+                    Debug.Log("totalBlock : " + totalBlock + " / lifeWeight : " + lifeWeight);
+
+                    string weight = "";
+                    for (int i = 0; i < weightList.Length; i++)
+                    {
+                        weight += weightList[i].weight + "/";
+                    }
+
+                    float remainWeight = weightList[weightList.Length - 6].weight * 1f - weightList[weightList.Length - 5].weight;
+                    Debug.Log("weight : " + weight + "("+ remainWeight.ToString() + ")");
+                }
+
+
+                while (currentDepth.transform.position.x > spawnPositionX)
+                {
+                    yield return new WaitForSeconds(Time.fixedDeltaTime);
+                }
+
+                //아이템 확률
+                float type = Random.Range(0f, 100f);
                 if (type <= 5f)   //5%
                 {
                     Instantiate(GameManager.Instance.itemPrefabList[0], new Vector3(0, BlockGap * y, 0), Quaternion.identity)
                         .GetComponent<BulletItemBase>()
                         .Init(currentDepth.transform);
-                }
-                else if (type <= Mathf.Max(100 - totalDepth / 1.5f, 50)) //45% 빈공간
-                {
 
+                    continue;
                 }
-                else if (type <= Mathf.Max(100 - totalDepth / 10f, 83)) //33% 흰색
+
+
+                //블럭 확률
+                float totalWeight = 0;
+                foreach (RandomRate randomRate in weightList)
                 {
-                    Instantiate(block1Prefab, new Vector3(0, BlockGap * y, 0), Quaternion.identity)
-                       .GetComponent<BlockBase>()
-                       .Init(currentDepth.transform, Random.Range(totalDepth/50 < 1 ? 1 : totalDepth/50, totalDepth/2));
+                    totalWeight += randomRate.weight;
                 }
-                else if (type <= Mathf.Max(100 - totalDepth / 60f, 91)) //8% 주황색
+
+                float randomValue = Random.Range(0, totalWeight);
+                float currentWeight = 0;
+
+
+                for(int i=0; i < weightList.Length; i++)
                 {
-                    Instantiate(block1Prefab, new Vector3(0, BlockGap * y, 0), Quaternion.identity)
-                        .GetComponent<BlockBase>()
-                        .Init(currentDepth.transform, Random.Range(totalDepth/3, totalDepth/2), 1);    
+                    currentWeight += weightList[i].weight;
+                    if (randomValue < currentWeight)
+                    {
+                        if (i == 1) //흰색
+                        {
+                            Instantiate(block1Prefab, new Vector3(0, BlockGap * y, 0), Quaternion.identity)
+                               .GetComponent<BlockBase>()
+                               .Init(currentDepth.transform, Random.Range(lifeWeight / 50 < 1 ? 1 : lifeWeight / 50f, lifeWeight / 4f));
+
+                        }
+                        else if(i == 2) //주황색
+                        {
+                            Instantiate(block1Prefab, new Vector3(0, BlockGap * y, 0), Quaternion.identity)
+                                .GetComponent<BlockBase>()
+                                .Init(currentDepth.transform, Random.Range(lifeWeight / 4f, lifeWeight / 3f), 1);
+                        }
+                        else if (i == 3) //보라색
+                        {
+                            Instantiate(block1Prefab, new Vector3(0, BlockGap * y, 0), Quaternion.identity)
+                                .GetComponent<BlockBase>()
+                                .Init(currentDepth.transform, Random.Range(lifeWeight / 3f, lifeWeight / 2f), 2);
+                        }
+                        else if (i == 4) //자주색
+                        {
+                            Instantiate(block1Prefab, new Vector3(0, BlockGap * y, 0), Quaternion.identity)
+                                .GetComponent<BlockBase>()
+                                .Init(currentDepth.transform, Random.Range(lifeWeight / 2f, lifeWeight / 1f), 3);
+                        }
+                        else if (i == 5) //빨간색
+                        {
+                            Instantiate(block1Prefab, new Vector3(0, BlockGap * y, 0), Quaternion.identity)
+                                .GetComponent<BlockBase>()
+                                .Init(currentDepth.transform, Random.Range(lifeWeight, lifeWeight * 1.5f), 4);
+                        }
+
+                        break;
+                    }
                 }
-                else if (type <= Mathf.Max(100 - totalDepth / 160f, 96)) //5% 보라색
-                {
-                    Instantiate(block1Prefab, new Vector3(0, BlockGap * y, 0), Quaternion.identity)
-                        .GetComponent<BlockBase>()
-                        .Init(currentDepth.transform, Random.Range(totalDepth/2, totalDepth/1.5f), 2);
-                }
-                else if (type <= Mathf.Max(100 - totalDepth / 310f, 99)) //3% 자주색
-                {
-                    Instantiate(block1Prefab, new Vector3(0, BlockGap * y, 0), Quaternion.identity)
-                        .GetComponent<BlockBase>()
-                        .Init(currentDepth.transform, Random.Range(totalDepth/1.5f, totalDepth), 3);
-                }
-                else if (type <= Mathf.Max(100 - totalDepth / 510f, 100)) //1% 빨간색
-                {
-                    Instantiate(block1Prefab, new Vector3(0, BlockGap * y, 0), Quaternion.identity)
-                        .GetComponent<BlockBase>()
-                        .Init(currentDepth.transform, Random.Range(totalDepth, totalDepth*1.5f), 4);
-                }
+
+
+
+
             }
 
-            totalDepth++;
-
-            while (currentDepth.transform.position.x > spawnPositionX)
-            {
-                yield return new WaitForSeconds(Time.fixedDeltaTime);
-            }
         }
 
 

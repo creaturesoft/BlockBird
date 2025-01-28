@@ -92,7 +92,7 @@ public class CharacterDraw : MonoBehaviour
 
         characterImages.transform.GetChild(currentImage-1).gameObject.SetActive(false);
 
-        int winCharacter = Random.Range(0, characterImages.transform.childCount);   //서버에서 받아온 캐릭터로 바꿈
+        int winCharacter = Random.Range(1, characterImages.transform.childCount);   //서버에서 받아온 캐릭터로 바꿈
         characterImages.transform.GetChild(winCharacter).gameObject.SetActive(true);
         characterImages.transform.GetChild(winCharacter).gameObject.GetComponent<Image>().color = new Color(1, 1, 1, 1);
 

@@ -1,20 +1,16 @@
 using GoogleMobileAds.Api;
 using GoogleMobileAds.Ump.Api;
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using System.Runtime.InteropServices;
-using System.Threading;
 using Unity.Services.Core;
 using UnityEngine;
-using UnityEngine.iOS;
-using UnityEngine.SceneManagement;
 
 public class PersistentObject : MonoBehaviour
 {
-
+#if UNITY_IOS
     [DllImport("__Internal")]
     private static extern void RequestTrackingAuthorization();
+#endif
 
     // 인스턴스를 저장하는 정적 변수
     private static PersistentObject _instance;
@@ -34,11 +30,15 @@ public class PersistentObject : MonoBehaviour
 
     public InterstitialAdManager interstitialAdManager;
     public RewardedAdManager rewardedAdManager;
-    
+
+    public AudioSource[] backgroundAudioSources;
+
+
     public GameObject spinningLoadingPrefab;
     private GameObject spinningLoading;
 
     public GameObject messagePopupPrefab;
+
 
     void Awake()
     {
@@ -58,11 +58,12 @@ public class PersistentObject : MonoBehaviour
     void Start()
     {
 
+#if UNITY_IOS
         if (Application.platform == RuntimePlatform.IPhonePlayer)
         {
             RequestTrackingAuthorization();
         }
-
+#endif
         ConsentRequestParameters requestParameters = new ConsentRequestParameters();
 
         // 동의 정보 업데이트
@@ -140,6 +141,9 @@ public class PersistentObject : MonoBehaviour
         {
             Debug.LogError($"Failed to initialize Unity Gaming Services: {e.Message}");
         }
+
+        //배경음악 재생
+        backgroundAudioSources[UnityEngine.Random.Range(0, backgroundAudioSources.Length)].Play();
     }
 
 

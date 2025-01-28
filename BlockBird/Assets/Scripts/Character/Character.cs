@@ -2,6 +2,7 @@ using UnityEngine;
 using System.Collections.Generic;
 using System.Collections;
 using TMPro;
+using System.Linq;
 
 public class Character : MonoBehaviour
 {
@@ -76,8 +77,8 @@ public class Character : MonoBehaviour
 
 
     public GameObject[] initGunPrefabList;
-    private List<GameObject> useGunPrefabList;
-    private List<GameObject> useGunList;
+    private List<GunBase> useGunPrefabList;
+    private List<GunBase> useGunList;
 
     private Rigidbody2D rb;
     private TextMeshPro hpText; // HP를 표시할 텍스트
@@ -85,8 +86,8 @@ public class Character : MonoBehaviour
 
     void Start()
     {
-        useGunPrefabList = new List<GameObject>();
-        useGunList = new List<GameObject>();
+        useGunPrefabList = new List<GunBase>();
+        useGunList = new List<GunBase>();
 
         rb = GetComponent<Rigidbody2D>();
         hpText = GetComponentInChildren<TextMeshPro>();
@@ -113,39 +114,45 @@ public class Character : MonoBehaviour
 
         foreach (GameObject gunPrefab in initGunPrefabList)
         {
-            useGunList.Add(Instantiate(gunPrefab, transform));
-            useGunPrefabList.Add(gunPrefab);
-            //Instantiate(gunPrefab, new Vector3(transform.position.x, transform.position.y, transform.position.z), Quaternion.identity, GameManager.Instance.bulletGameObject.transform);
+            GunBase gunBasePrefab = gunPrefab.GetComponent<GunBase>();
+
+            useGunList.Add(Instantiate(gunBasePrefab, transform).init());
+            useGunPrefabList.Add(gunBasePrefab);
         }
     }
 
 
-    public void TakeBulletItem(GameObject[] gunPrefabList)
+    public void TakeBulletItem(GunBase[] gunPrefabList)
     {
         if (gunPrefabList == null || gunPrefabList.Length == 0)
         {
-            gunPrefabList = initGunPrefabList;
+            System.Type[] useLastGuns = useGunList.FindAll(x => x.isLastGun).Select(x => x.prefabType).ToArray();
+            gunPrefabList = useGunPrefabList.FindAll(x => useLastGuns.Contains(x.GetType())).ToArray();
         }
 
-        foreach (GameObject gunPrefab in gunPrefabList)
+        foreach (GunBase gun in useGunList)
         {
-            GameObject addedGun = useGunPrefabList.Find(x => x.name == gunPrefab.name);
+            gun.isLastGun = false;
+        }
+
+        foreach (GunBase gunPrefab in gunPrefabList)
+        {
+            GunBase addedGun = useGunPrefabList.Find(x => x.name == gunPrefab.name);
+
             if (addedGun == null)
             {
                 //아이템 추가
-                useGunList.Add(Instantiate(gunPrefab, transform));
+                useGunList.Add(Instantiate(gunPrefab, transform).init());
                 useGunPrefabList.Add(gunPrefab);
             }
             else
             {
-                GunBase addedGunBase = addedGun.GetComponent<GunBase>();
-
-                foreach(GameObject checkGun in useGunList)
+                foreach (GunBase checkGun in useGunList)
                 {
-                    GunBase useGun = checkGun.GetComponent<GunBase>();
-                    if (useGun.GetType() == addedGunBase.GetType())
+                    if (checkGun.GetType() == addedGun.GetType())
                     {
-                        useGun.LevelUp();
+                        checkGun.isLastGun = true;
+                        checkGun.LevelUp();
                     }
                 }
 

@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3319212109299714174}
-  - component: {fileID: -9002288934657955918}
+  - component: {fileID: 3915418341305467494}
   m_Layer: 0
   m_Name: Bellet2Gun
   m_TagString: Untagged
@@ -32,7 +32,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &-9002288934657955918
+--- !u!114 &3915418341305467494
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -41,8 +41,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 758323759651656347}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3a0c5a4fe499fb84496cfc3cf8827a22, type: 3}
+  m_Script: {fileID: 11500000, guid: 5b559fa98205ee646933d7f4d218bfc3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   bulletListPrefab:
   - {fileID: 5116826413985697139, guid: 344260dc9b079c748af7be02e2e3e106, type: 3}
+  level: 0
+  isLastGun: 0

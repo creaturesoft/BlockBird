@@ -1,0 +1,44 @@
+using System.Collections;
+using UnityEngine;
+
+public class IceBirdGun : GunBase
+{
+    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    void Start()
+    {
+        delay = bulletListPrefab[0].GetComponent<Bullet>().Delay;
+        StartCoroutine(FireContinuously(bulletListPrefab[0]));
+    }
+
+    public override void LevelUp()
+    {
+        base.LevelUp();
+        //StartCoroutine(FireContinuously(bulletListPrefab[0]));
+        if (delay >= 0.5f)
+        {
+            delay = bulletListPrefab[0].GetComponent<Bullet>().Delay / Mathf.Pow(level, 0.7f);
+            //delay = bulletListPrefab[0].GetComponent<Bullet>().Delay / level;
+        }
+    }
+
+    IEnumerator FireContinuously(GameObject bulletPrefab)
+    {
+        while (!GameManager.Instance.Character.IsDie)
+        {
+            IceBirdGunBullet bullet = Instantiate(bulletPrefab, new Vector3(transform.position.x, transform.position.y, transform.position.z), Quaternion.identity, GameManager.Instance.bulletGameObject.transform)
+                .GetComponent<IceBirdGunBullet>();
+
+            bullet.Damage += (float)level / 20f;  //0.1f;
+            bullet.Life += (int)((float)level / 50f);
+            bullet.SlowRate = 0.2f + (float)level / 500f;
+            if(bullet.SlowRate >= 0.9f)
+            {
+                bullet.SlowRate = 0.9f;
+            }
+
+            yield return new WaitForSeconds(delay / GameManager.Instance.Character.AttackSpeed);
+        }
+    }
+
+
+}

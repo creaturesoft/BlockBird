@@ -26,8 +26,7 @@ public class BlockBase : MonoBehaviour
 
     public TextMeshPro lifeText;
 
-    public SpriteRenderer backgroundColor;
-
+    public GameObject iced;
 
 
     public Transform Init(Transform parent, float life, int type=0)
@@ -39,30 +38,30 @@ public class BlockBase : MonoBehaviour
         switch (type)
         {
             case 0:
-                itemDropRate = 5f;
+                itemDropRate = 0f;
                 break;
             case 1:
                 ColorUtility.TryParseHtmlString("#C57200", out newColor);
                 gameObject.GetComponent<SpriteRenderer>().color = newColor;
-                itemDropRate = 10f;
+                itemDropRate = 2f;
                 break;
             case 2:
                 ColorUtility.TryParseHtmlString("#6F00C5", out newColor);
                 gameObject.GetComponent<SpriteRenderer>().color = newColor;
-                itemDropRate = 20f;
+                itemDropRate = 4f;
                 break;
             case 3:
                 ColorUtility.TryParseHtmlString("#C5009A", out newColor);
                 gameObject.GetComponent<SpriteRenderer>().color = newColor;
-                itemDropRate = 40f;
+                itemDropRate = 8f;
                 break;
             case 4:
                 ColorUtility.TryParseHtmlString("#C60000", out newColor);
                 gameObject.GetComponent<SpriteRenderer>().color = newColor;
-                itemDropRate = 80f;
+                itemDropRate = 16f;
                 break;
         }
-
+        itemDropRate = 0;
 
         return transform;
     }
@@ -113,39 +112,40 @@ public class BlockBase : MonoBehaviour
 
     bool isFreeze;
     float currentFreezeCount;
-    float freezeTime;
 
-    public void Freeze(float freezeTime)
+    public void Freeze(float freezeTime, float freezeRate)
     {
-        this.freezeTime = freezeTime;
-
         if (isFreeze)
         {
             currentFreezeCount = 0;
             return;
         }
 
-        StartCoroutine(FreezeCoroutine());
+        StartCoroutine(FreezeCoroutine(freezeTime, freezeRate));
     }
 
 
-    IEnumerator FreezeCoroutine()
+    IEnumerator FreezeCoroutine(float freezeTime, float slowRate)
     {
         isFreeze = true;
         currentFreezeCount = 0;
 
-        backgroundColor.gameObject.SetActive(true);
-        backgroundColor.color = new Color32(7, 170, 255, 255);
+        iced.transform.eulerAngles = new Vector3(
+            transform.eulerAngles.x,
+            transform.eulerAngles.y,
+            Random.Range(0f, 360f)
+        );
+        iced.SetActive(true);
 
         while (currentFreezeCount < freezeTime)
         {
-            transform.position += Vector3.right * Time.fixedDeltaTime * GameManager.Instance.Character.Speed;
+            transform.position += Vector3.right * Time.fixedDeltaTime * GameManager.Instance.Character.Speed * slowRate;
             currentFreezeCount += Time.fixedDeltaTime;
             yield return new WaitForFixedUpdate();
         }
 
         isFreeze = false;
-        backgroundColor.gameObject.SetActive(false);
+        iced.SetActive(false);
 
     }
 

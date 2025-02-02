@@ -34,36 +34,60 @@ public class Bullet : MonoBehaviour
         set { lifeTime = value; }
     }
 
+    [SerializeField]
+    int life = 1;
+    public int Life
+    {
+        get { return life; }
+        set { life = value; }
+    }
 
-    private Rigidbody2D rb;
+    [SerializeField]
+    float size = 1f;
+    public float Size
+    {
+        get { return size; }
+        set { size = value; }
+    }
 
-    void Start()
+    protected Rigidbody2D rb;
+
+    protected virtual void Start()
     {
         rb = GetComponent<Rigidbody2D>();
 
         // 일정 시간이 지나면 총알을 제거
-        Destroy(gameObject, lifeTime);
+        //Destroy(gameObject, lifeTime);
     }
 
-    void FixedUpdate()
+    protected virtual void FixedUpdate()
     {
         // Kinematic Rigidbody를 이동
         rb.MovePosition(rb.position + (Vector2)(transform.right * Speed * Time.fixedDeltaTime));
     }
 
-    void OnTriggerEnter2D(Collider2D collision)
+    protected virtual void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("Block"))
         {
             BlockBase block = collision.GetComponent<BlockBase>();
             if (block != null)
             {
-                block.TakeDamage(Damage); // 1 데미지
-                SpecialEffect(block);
+                block.TakeDamage(
+                    SpecialEffect(block)
+                ); // 1 데미지
             }
 
             // 총알 제거
-            Destroy(gameObject);
+            if(Life > 0)
+            {
+                Life--;
+            }
+            
+            if(Life <= 0)
+            {
+                Destroy(gameObject);
+            }
         }
         else if (collision.CompareTag("Wall"))
         {
@@ -72,8 +96,10 @@ public class Bullet : MonoBehaviour
         }
     }
 
-    protected virtual void SpecialEffect(BlockBase block)
+    protected virtual float SpecialEffect(BlockBase block)
     {
         // 특수 효과
+
+        return Damage;
     }
 }

@@ -43,10 +43,10 @@ public class CharacterSelect : MonoBehaviour
         Character character = selectedPlayer.GetComponent<Character>();
         GameManager.Instance.Character = character;
 
-        hpSlider.value = (float)character.MaxHp / 5;
-        speedSlider.value = character.Speed / 5;
-        attckSpeedSlider.value = character.AttackSpeed / 10;
-        jumpSlider.value = character.JumpForce / selectedPlayer.GetComponent<Rigidbody2D>().mass / 10;
+        hpSlider.value = (float)character.MaxHp / 8.0f;
+        speedSlider.value = character.Speed / 10.0f;
+        attckSpeedSlider.value = character.AttackSpeed / 10.0f;
+        jumpSlider.value = character.JumpForce / selectedPlayer.GetComponent<Rigidbody2D>().mass / 10.0f;
 
     }
 

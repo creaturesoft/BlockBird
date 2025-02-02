@@ -83,11 +83,12 @@ public class Survival1 : MapBase
                 //if (totalBlock > 500f)
                 if(weightList[weightList.Length - 6].weight * 1f < weightList[weightList.Length - 5].weight)
                 {
-                    lifeWeight *= 2f;
+                    lifeWeight *= 2.0f;
+                    //GameManager.Instance.Character.Speed *= 1.1f;
                     //totalBlock = 0;
-                    Debug.Log("init @@@@@@@@@@@@@@@@@@@@@@@@");
-                    Debug.Log("init @@@@@@@@@@@@@@@@@@@@@@@@");
-                    Debug.Log("init @@@@@@@@@@@@@@@@@@@@@@@@");
+                    //Debug.Log("init @@@@@@@@@@@@@@@@@@@@@@@@");
+                    //Debug.Log("init @@@@@@@@@@@@@@@@@@@@@@@@");
+                    //Debug.Log("init @@@@@@@@@@@@@@@@@@@@@@@@");
 
                     for (int i = 0; i < weightList.Length; i++)
                     {
@@ -97,7 +98,7 @@ public class Survival1 : MapBase
 
                 if (totalBlock % 50 == 0)
                 {
-                    Debug.Log("totalBlock : " + totalBlock + " / lifeWeight : " + lifeWeight);
+                    //Debug.Log("totalBlock : " + totalBlock + " / lifeWeight : " + lifeWeight);
 
                     string weight = "";
                     for (int i = 0; i < weightList.Length; i++)
@@ -106,7 +107,7 @@ public class Survival1 : MapBase
                     }
 
                     float remainWeight = weightList[weightList.Length - 6].weight * 1f - weightList[weightList.Length - 5].weight;
-                    Debug.Log("weight : " + weight + "("+ remainWeight.ToString() + ")");
+                    //Debug.Log("weight : " + weight + "("+ remainWeight.ToString() + ")");
                 }
 
 

@@ -5,13 +5,17 @@ using UnityEngine;
 
 public class PenguinGun : GunBase
 {
+
     private int bulletCount = 0;
     public float bulletCountDebug = 0;
     public float freezeTimeDebug = 0;
+    public float lifeDebug = 0;
+    public float damageDebug = 0;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        delay = bulletListPrefab[0].GetComponent<Bullet>().Delay;
         StartCoroutine(FireContinuously(bulletListPrefab[0]));
     }
 
@@ -21,16 +25,10 @@ public class PenguinGun : GunBase
         //StartCoroutine(FireContinuously(bulletListPrefab[0]));
         bulletCountDebug = Mathf.Pow(level, 0.4f);
         bulletCount = (int)bulletCountDebug;
-
-        //freezeTimeDebug = 10 + Mathf.Pow(level, 0.4f);
-        freezeTimeDebug = 1f + level/10f;
-        bulletListPrefab[0].GetComponent<PenguinGunBullet>().freezeTime = freezeTimeDebug;
     }
 
     IEnumerator FireContinuously(GameObject bulletPrefab)
     {
-        Bullet bullet = bulletPrefab.GetComponent<Bullet>();
-
         float missileGap = 0.3f;
         while (!GameManager.Instance.Character.IsDie)
         {
@@ -41,10 +39,23 @@ public class PenguinGun : GunBase
             for (int j = 0; j < yPositions.Length; j++)
             {
                 Vector3 position = new Vector3(transform.position.x, transform.position.y + yPositions[j], transform.position.z);
-                Instantiate(bulletPrefab, position, Quaternion.identity, GameManager.Instance.bulletGameObject.transform);
+                PenguinGunBullet bullet = Instantiate(bulletPrefab, position, Quaternion.identity, GameManager.Instance.bulletGameObject.transform)
+                    .GetComponent<PenguinGunBullet>();
+
+                bullet.Speed -= (float)j / 1.8f;
+                bullet.Damage += (float)level / 100f;
+                bullet.Life += (int)((float)level / 100f);
+                bullet.Size += (float)level / 100f;   //0.01f;
+                bullet.FreezeTime = 1f + level / 50f;
+                bullet.SlowRate = 0.2f + (float)level / 500f;
+                if (bullet.SlowRate >= 9f)
+                {
+                    bullet.SlowRate = 0.9f;
+                }
             }
             
-            yield return new WaitForSeconds(bullet.Delay / GameManager.Instance.Character.AttackSpeed);
+
+            yield return new WaitForSeconds(delay / GameManager.Instance.Character.AttackSpeed);
         }
     }
 
@@ -61,10 +72,4 @@ public class PenguinGun : GunBase
         return yPositions;
     }
 
-
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
 }

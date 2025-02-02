@@ -11,6 +11,7 @@ public class Bullet2Gun : GunBase
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        delay = bulletListPrefab[0].GetComponent<Bullet>().Delay;
         StartCoroutine(FireContinuously(bulletListPrefab[0]));
     }
 
@@ -18,15 +19,13 @@ public class Bullet2Gun : GunBase
     {
         base.LevelUp();
         //StartCoroutine(FireContinuously(bulletListPrefab[0]));
-        bulletCountDebug = Mathf.Pow(level, 0.4f);
+        bulletCountDebug = Mathf.Pow(level, 0.5f);
         bulletCount = (int)bulletCountDebug;
     }
 
     IEnumerator FireContinuously(GameObject bulletPrefab)
     {
-        Bullet bullet = bulletPrefab.GetComponent<Bullet>();
-
-        float missileGap = 0.3f;
+        float missileGap = 0.25f;
         while (!GameManager.Instance.Character.IsDie)
         {
             //Instantiate(bulletPrefab, transform);
@@ -36,10 +35,13 @@ public class Bullet2Gun : GunBase
             for (int j = 0; j < yPositions.Length; j++)
             {
                 Vector3 position = new Vector3(transform.position.x, transform.position.y + yPositions[j], transform.position.z);
-                Instantiate(bulletPrefab, position, Quaternion.identity, GameManager.Instance.bulletGameObject.transform);
+                Bullet bullet = Instantiate(bulletPrefab, position, Quaternion.identity, GameManager.Instance.bulletGameObject.transform)
+                                    .GetComponent<Bullet>();
+                bullet.Damage += (float)level / 20f;
+                bullet.Life += (int)((float)level / 50f);
             }
             
-            yield return new WaitForSeconds(bullet.Delay / GameManager.Instance.Character.AttackSpeed);
+            yield return new WaitForSeconds(delay / GameManager.Instance.Character.AttackSpeed);
         }
     }
 

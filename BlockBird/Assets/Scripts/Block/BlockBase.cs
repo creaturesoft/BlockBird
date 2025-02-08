@@ -22,16 +22,32 @@ public class BlockBase : MonoBehaviour
         }
     }
 
+    private float maxLife = 1f;
+    public float MaxLife
+    {
+        get { return maxLife; }
+        set { maxLife = value; }
+    }
+
     private float itemDropRate;
 
     public TextMeshPro lifeText;
 
     public GameObject iced;
 
+    private bool isPoison = false;
+    public bool IsPoison
+    {
+        get { return isPoison; }
+        set { isPoison = value; }
+    }
+
 
     public Transform Init(Transform parent, float life, int type=0)
     {
         transform.SetParent(parent, false);
+
+        MaxLife = life;
         Life = life;
 
         Color newColor;

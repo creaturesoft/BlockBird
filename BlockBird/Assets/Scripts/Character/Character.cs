@@ -101,8 +101,15 @@ public class Character : MonoBehaviour
     public void DisableCharacter()
     {
         isActive = false;
-        rb.constraints = RigidbodyConstraints2D.FreezePosition;
-        hpText.text = string.Empty;
+        if (rb != null)
+        {
+            rb.constraints = RigidbodyConstraints2D.FreezePosition;
+        }
+
+        if (hpText != null)
+        {
+            hpText.text = string.Empty;
+        }
     }
 
     public void EnableCharacter()
@@ -160,7 +167,7 @@ public class Character : MonoBehaviour
         }
     }
 
-    void FixedUpdate()
+    protected virtual void FixedUpdate()
     {
         if (!isActive) return;
         if (GameManager.Instance.IsGameOver) return;

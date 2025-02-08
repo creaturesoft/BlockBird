@@ -8,7 +8,7 @@ public class GunBase : MonoBehaviour
     public bool isLastGun;
     public Type prefabType;
     protected float delay;
-    
+
 
     public GunBase init()
     {

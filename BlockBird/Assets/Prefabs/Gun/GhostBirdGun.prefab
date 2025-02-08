@@ -46,5 +46,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bulletListPrefab:
   - {fileID: 5116826413985697139, guid: b1ab212a3a3519e41aec632872655c4c, type: 3}
+  - {fileID: 5116826413985697139, guid: 7992cbea78f0dfa40a12d222b9cc6fb4, type: 3}
   level: 0
   isLastGun: 0
+  destroyRate: 0

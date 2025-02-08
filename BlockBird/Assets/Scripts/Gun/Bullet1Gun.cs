@@ -16,7 +16,7 @@ public class Bullet1Gun : GunBase
         //StartCoroutine(FireContinuously(bulletListPrefab[0]));
         if (delay >= 0.3f)
         {
-            delay = bulletListPrefab[0].GetComponent<Bullet>().Delay / Mathf.Pow(level, 0.7f);
+            delay = bulletListPrefab[0].GetComponent<Bullet>().Delay / Mathf.Pow(level+1, 0.7f);
             //delay = bulletListPrefab[0].GetComponent<Bullet>().Delay / level;
         }
     }
@@ -38,9 +38,4 @@ public class Bullet1Gun : GunBase
     }
 
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }

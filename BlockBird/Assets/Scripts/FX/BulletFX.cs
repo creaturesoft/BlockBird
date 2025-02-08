@@ -4,20 +4,26 @@ using UnityEngine;
 public class BulletFX : MonoBehaviour
 {
     protected float damage;
-    private CircleCollider2D damageCollider;
-    protected float effectDuration = 5.0f;  // 이펙트가 끝나는 예상 시간
+    protected Collider2D damageCollider;
 
-    virtual public void init(float damage, float size = 1f)
+    public float effectDuration = 5.0f;  // 이펙트가 끝나는 예상 시간
+
+    public virtual void init(float damage, float size = 1f)
     {
         this.damage = damage;
-        damageCollider = GetComponent<CircleCollider2D>();
+
+        damageCollider = GetComponent<Collider2D>();
+
         transform.localScale = new Vector3(size, size, 1);
 
         StartCoroutine(DestroyCollider());
-        Destroy(gameObject, effectDuration);
+        if (effectDuration > 0f)
+        {
+            Destroy(gameObject, effectDuration);
+        }
     }
 
-    IEnumerator DestroyCollider()
+    protected virtual IEnumerator DestroyCollider()
     {
         yield return new WaitForSeconds(0.1f);
         Destroy(damageCollider);

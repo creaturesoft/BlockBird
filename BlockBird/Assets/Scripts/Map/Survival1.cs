@@ -72,6 +72,7 @@ public class Survival1 : MapBase
             for (int y = -Steps; y <= Steps; y++)
             {
                 lifeWeight += 0.005f;
+                //lifeWeight += 1f;
                 totalBlock++;
 
                 //가중치 증가

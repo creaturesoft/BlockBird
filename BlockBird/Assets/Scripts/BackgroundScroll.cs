@@ -25,6 +25,11 @@ public class BackgroundScroll : MonoBehaviour
 
     void Update()
     {
+        if(GameManager.Instance.Character == null)
+        {
+            return;
+        }
+
         // 배경 이동
         transform.Translate(GameManager.Instance.Character.Speed / speedReduce * Vector3.left * Time.deltaTime);
 

@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.TextCore.Text;
 
 public class Egg : MonoBehaviour
 {
@@ -8,12 +9,14 @@ public class Egg : MonoBehaviour
     private float chickDamage;
     private float chickLife;
     private float delay;
+    private bool isFriend;
 
-    public void init(float hatchDelay, float chickDamage, float chickLife)
+    public void init(float hatchDelay, float chickDamage, float chickLife, bool isFriend = false)
     {
         this.hatchDelay = hatchDelay;
         this.chickDamage = chickDamage;
         this.chickLife = chickLife;
+        this.isFriend = isFriend;
         StartCoroutine(Hatch());
     }
 
@@ -33,9 +36,17 @@ public class Egg : MonoBehaviour
         }
 
 
-        Instantiate(chickPrefab, new Vector3(transform.position.x, transform.position.y, transform.position.z), Quaternion.identity, GameManager.Instance.bulletGameObject.transform)
-            .init(chickDamage, chickLife, 20f);
+        Instantiate(chickPrefab, new Vector3(transform.position.x, transform.position.y, transform.position.z), Quaternion.identity, GetBulletsTransform())
+            .init(chickDamage, chickLife, 25f, isFriend);
         Destroy(gameObject);
     }
 
+    public Transform GetBulletsTransform()
+    {
+        if (isFriend)
+        {
+            return GameManager.Instance.friendBulletGameObject.transform;
+        }
+        return GameManager.Instance.bulletGameObject.transform;
+    }
 }

@@ -13,6 +13,11 @@ public class Bullet2Gun : GunBase
     {
         delay = bulletListPrefab[0].GetComponent<Bullet>().Delay;
         StartCoroutine(FireContinuously(bulletListPrefab[0]));
+
+        for (int i = 1; i < characterLevel; i++)
+        {
+            LevelUp();
+        }
     }
 
     public override void LevelUp()
@@ -35,10 +40,10 @@ public class Bullet2Gun : GunBase
             for (int j = 0; j < yPositions.Length; j++)
             {
                 Vector3 position = new Vector3(transform.position.x, transform.position.y + yPositions[j], transform.position.z);
-                Bullet bullet = Instantiate(bulletPrefab, position, Quaternion.identity, GameManager.Instance.bulletGameObject.transform)
+                Bullet bullet = Instantiate(bulletPrefab, position, Quaternion.identity, GetBulletsTransform())
                                     .GetComponent<Bullet>();
-                bullet.Damage += (float)level / 20f;
-                bullet.Life += (int)((float)level / 50f);
+                bullet.Damage += (float)level / 6f;
+                bullet.Life += (int)((float)level / 40f);
             }
             
             yield return new WaitForSeconds(delay / GameManager.Instance.Character.AttackSpeed);

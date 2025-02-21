@@ -9,6 +9,12 @@ public class GhostBirdGun : GunBase
     {
         StartCoroutine(FireContinuously(bulletListPrefab[0]));
         StartCoroutine(FireContinuously2(bulletListPrefab[1]));
+
+
+        for (int i = 1; i < characterLevel; i++)
+        {
+            LevelUp();
+        }
     }
 
     public override void LevelUp()
@@ -20,7 +26,7 @@ public class GhostBirdGun : GunBase
     {
         while (!GameManager.Instance.Character.IsDie)
         {
-            float maxAttackSpeed = Calculate(GameManager.Instance.Character.Speed);
+            float maxAttackSpeed = Calculate(GameManager.Instance.Character.Speed) - 0.2f;
 
             float randomDirection = Random.Range(0f, 90f);
             Vector3 upDirection = Quaternion.Euler(0, 0, randomDirection) * Vector2.right;
@@ -28,7 +34,7 @@ public class GhostBirdGun : GunBase
 
 
             //À§
-            GhostBirdGunBullet bullet = Instantiate(bulletPrefab, new Vector3(transform.position.x, transform.position.y, transform.position.z), Quaternion.identity, GameManager.Instance.bulletGameObject.transform)
+            GhostBirdGunBullet bullet = Instantiate(bulletPrefab, new Vector3(transform.position.x, transform.position.y, transform.position.z), Quaternion.identity, GetBulletsTransform())
                 .GetComponent<GhostBirdGunBullet>();
 
             bullet.Delay -= (float)level/10f;
@@ -41,7 +47,7 @@ public class GhostBirdGun : GunBase
             bullet.SetDirection(upDirection);
 
             //¾Æ·¡
-            bullet = Instantiate(bulletPrefab, new Vector3(transform.position.x, transform.position.y, transform.position.z), Quaternion.identity, GameManager.Instance.bulletGameObject.transform)
+            bullet = Instantiate(bulletPrefab, new Vector3(transform.position.x, transform.position.y, transform.position.z), Quaternion.identity, GetBulletsTransform())
                 .GetComponent<GhostBirdGunBullet>();
 
             bullet.Delay -= (float)level / 10f;
@@ -63,17 +69,17 @@ public class GhostBirdGun : GunBase
         while (!GameManager.Instance.Character.IsDie)
         {
 
-            Bullet bullet = Instantiate(bulletPrefab, new Vector3(transform.position.x, transform.position.y, transform.position.z), Quaternion.identity, GameManager.Instance.bulletGameObject.transform)
+            Bullet bullet = Instantiate(bulletPrefab, new Vector3(transform.position.x, transform.position.y, transform.position.z), Quaternion.identity, GetBulletsTransform())
                 .GetComponent<Bullet>();
 
 
             bullet.Delay = originalDelay / Mathf.Pow(level+1, 0.5f);
-            if (bullet.Delay <= 0.35f)
+            if (bullet.Delay <= 0.33f)
             {
-                bullet.Delay = 0.35f;
+                bullet.Delay = 0.33f;
             }
 
-            bullet.Damage += (float)level / 10;  //0.1f;
+            bullet.Damage += (float)level / 5;  //0.1f;
 
 
             yield return new WaitForSeconds(bullet.Delay / GameManager.Instance.Character.AttackSpeed);

@@ -1,0 +1,8 @@
+lastUpgrade=20000
+proj.pluginVersion=2.0.0
+proj.AppId=862665761531
+and.BundleId=com.Creaturesoft.BlockBird
+proj.classDir=Assets
+proj.ConstantsClassName=GPGSIds
+and.ResourceData=%3c%3fxml+version%3d%221.0%22+encoding%3d%22utf-8%22%3f%3e%0d%0a%3c%21--Google+Play+game+services+IDs.+Save+this+file+as+res%2fvalues%2fgames-ids.xml+in+your+project.--%3e%0d%0a%3cresources%3e%0d%0a++%3c%21--app_id--%3e%0d%0a++%3cstring+name%3d%22app_id%22+translatable%3d%22false%22%3e862665761531%3c%2fstring%3e%0d%0a++%3c%21--package_name--%3e%0d%0a++%3cstring+name%3d%22package_name%22+translatable%3d%22false%22%3ecom.Creaturesoft.BlockBird%3c%2fstring%3e%0d%0a++%3c%21--leaderboard+Top+Flyers+%f0%9f%8f%86--%3e%0d%0a++%3cstring+name%3d%22leaderboard_top_flyers%22+translatable%3d%22false%22%3eCgkI-8WL140ZEAIQAQ%3c%2fstring%3e%0d%0a%3c%2fresources%3e
+and.ClientId=862665761531-ite28kea24u9slh2f7120h9ob3vhobi3.apps.googleusercontent.com

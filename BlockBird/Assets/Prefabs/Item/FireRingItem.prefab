@@ -29,10 +29,11 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.5, y: 0.5, z: 1}
+  m_LocalScale: {x: 0.7, y: 0.7, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 8180163184580642129}
+  - {fileID: 7572791348468633161}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!61 &-4279936165040727461
@@ -146,6 +147,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: CFXR Fire Ring
       objectReference: {fileID: 0}
+    - target: {fileID: 8197433914150080023, guid: e8d076d7ad0b5c24b8c975b896763ef3, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8282284801505660551, guid: e8d076d7ad0b5c24b8c975b896763ef3, type: 3}
       propertyPath: m_LocalScale.x
       value: 0.25
@@ -203,4 +208,82 @@ PrefabInstance:
 Transform:
   m_CorrespondingSourceObject: {fileID: 8282284801505660551, guid: e8d076d7ad0b5c24b8c975b896763ef3, type: 3}
   m_PrefabInstance: {fileID: 249194647697804246}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &7037255804158017229
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 194542698353251964}
+    m_Modifications:
+    - target: {fileID: 630133711382982788, guid: e8b206c0e4e547c41baaa6363da5b773, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 630133711382982788, guid: e8b206c0e4e547c41baaa6363da5b773, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 630133711382982788, guid: e8b206c0e4e547c41baaa6363da5b773, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 630133711382982788, guid: e8b206c0e4e547c41baaa6363da5b773, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 630133711382982788, guid: e8b206c0e4e547c41baaa6363da5b773, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 630133711382982788, guid: e8b206c0e4e547c41baaa6363da5b773, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 630133711382982788, guid: e8b206c0e4e547c41baaa6363da5b773, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 630133711382982788, guid: e8b206c0e4e547c41baaa6363da5b773, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 630133711382982788, guid: e8b206c0e4e547c41baaa6363da5b773, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 630133711382982788, guid: e8b206c0e4e547c41baaa6363da5b773, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 630133711382982788, guid: e8b206c0e4e547c41baaa6363da5b773, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 90
+      objectReference: {fileID: 0}
+    - target: {fileID: 630133711382982788, guid: e8b206c0e4e547c41baaa6363da5b773, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 630133711382982788, guid: e8b206c0e4e547c41baaa6363da5b773, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 832352113462898708, guid: e8b206c0e4e547c41baaa6363da5b773, type: 3}
+      propertyPath: m_Name
+      value: CFXR Fire Ring (Shield)
+      objectReference: {fileID: 0}
+    - target: {fileID: 4348979321167440543, guid: e8b206c0e4e547c41baaa6363da5b773, type: 3}
+      propertyPath: m_Intensity
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: e8b206c0e4e547c41baaa6363da5b773, type: 3}
+--- !u!4 &7572791348468633161 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 630133711382982788, guid: e8b206c0e4e547c41baaa6363da5b773, type: 3}
+  m_PrefabInstance: {fileID: 7037255804158017229}
   m_PrefabAsset: {fileID: 0}

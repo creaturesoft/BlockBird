@@ -8,6 +8,13 @@ public class FireRingGun : GunBase
     {
         delay = bulletListPrefab[0].GetComponent<Bullet>().Delay;
         StartCoroutine(FireContinuously(bulletListPrefab[0]));
+
+
+        for (int i = 1; i < characterLevel; i++)
+        {
+            LevelUp();
+        }
+
     }
 
     public override void LevelUp()
@@ -21,7 +28,7 @@ public class FireRingGun : GunBase
         {
             //bullet.Damage = level;
             
-            FireRingBullet bullet = Instantiate(bulletPrefab, new Vector3(transform.position.x, transform.position.y, transform.position.z), Quaternion.identity, GameManager.Instance.bulletGameObject.transform)
+            FireRingBullet bullet = Instantiate(bulletPrefab, new Vector3(transform.position.x, transform.position.y, transform.position.z), Quaternion.identity, GetBulletsTransform())
                 .GetComponent<FireRingBullet>();
 
             bullet.Damage += (float)level;  //0.1f;

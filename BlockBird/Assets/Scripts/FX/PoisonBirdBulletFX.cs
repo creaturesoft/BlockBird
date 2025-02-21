@@ -28,7 +28,14 @@ public class PoisonBirdBulletFX : NoColliderBulletFX
                 yield break;
             }
 
-            block.TakeDamage(block.Life / period);
+            if (block.IsBoss)
+            {
+                block.TakeDamage(block.Life / period / 2);
+            }
+            else
+            {
+                block.TakeDamage(block.Life / period);
+            }
 
             yield return new WaitForSeconds(Time.fixedDeltaTime);
         }

@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.TextCore.Text;
 
 public class ChickenGun : GunBase
 {
@@ -10,28 +11,34 @@ public class ChickenGun : GunBase
     void Start()
     {
         delay = 10f;
-        eggHatchDelay = 100f;
         StartCoroutine(FireContinuously());
+
+        for (int i = 1; i < characterLevel; i++)
+        {
+            LevelUp();
+        }
     }
 
     public override void LevelUp()
     {
         base.LevelUp();
-        //StartCoroutine(FireContinuously(bulletListPrefab[0]));
-        //if (delay >= 0.3f)
-        //{
-        //    delay = bulletListPrefab[0].GetComponent<Bullet>().Delay / Mathf.Pow(level, 0.7f);
-        //    //delay = bulletListPrefab[0].GetComponent<Bullet>().Delay / level;
-        //}
     }
 
     IEnumerator FireContinuously()
     {
+        bool isFriend = (character == null) ? false : character.isFriend;
+
         while (!GameManager.Instance.Character.IsDie)
         {
+            eggHatchDelay = 50f - level / 10f;
+            if (eggHatchDelay < 10)
+            {
+                eggHatchDelay = 10;
+            }
+
             //bullet.Damage = level;
-            Instantiate(eggPrefab, new Vector3(transform.position.x, transform.position.y, transform.position.z), Quaternion.identity, GameManager.Instance.bulletGameObject.transform)
-                .init(eggHatchDelay, (float)(level+1) / 12f, (float)level / 100f);
+            Instantiate(eggPrefab, new Vector3(transform.position.x, transform.position.y, transform.position.z), Quaternion.identity, GetBulletsTransform())
+                .init(eggHatchDelay, (float)(level+1) / 12f, (float)level / 100f, isFriend);
 
             //bullet.Damage += (float)level/10f;  //0.1f;
 

@@ -6,32 +6,101 @@ using UnityEngine.UI;
 public class StartButton : MonoBehaviour
 {
     public GameObject introButton;
+    public GameObject signInButton;
+    public GameObject homeButton;
+    public GameObject settingButton;
     public GameObject map;
     public CharacterSelect characterSelect;
 
+    float[] weightList = {
+            60f,      //아무것도 안함
+            30f,      //광고
+            5f,      //광고제거 추천
+            5f,      //리뷰
+    };
 
     public void OnStart()
     {
+        //새로운 캐릭터
+        if (CharacterSelect.SelectedCharacter == 0)
+        {
+            PageController.Instance.ShowCharacterDraw();
+            return;
+        }
+
         introButton.SetActive(false);
+        signInButton.SetActive(false);
+        settingButton.SetActive(false);
+        homeButton.SetActive(true);
         StartCoroutine(StartGame());
     }
+
 
     IEnumerator StartGame()
     {
         Time.timeScale = 0;
 
-        //광고 빈도
-        if (Random.Range(0, PersistentObject.InterstitialAdRate) == 0)
+        float totalWeight = 0;
+        foreach (float randomRate in weightList)
         {
-            PersistentObject.Instance.interstitialAdManager.ShowInterstitial();
-            while (PersistentObject.Instance.interstitialAdManager.IsPlaying)
+            totalWeight += randomRate;
+        }
+
+        float randomValue = UnityEngine.Random.Range(0, totalWeight);
+        float currentWeight = 0;
+
+        for (int i = 0; i < weightList.Length; i++)
+        {
+            currentWeight += weightList[i];
+            if (randomValue < currentWeight)
             {
-                yield return new WaitForSecondsRealtime(0.2f); // 실시간 대기
+                if (i == 0)         //아무것도 안함
+                {
+                    break;
+                }
+                if (i == 1)         //광고
+                {
+                    if (!PersistentObject.Instance.IsNoAd)
+                    {
+                        PersistentObject.Instance.interstitialAdManager.ShowInterstitial();
+                        while (PersistentObject.Instance.interstitialAdManager.IsPlaying)
+                        {
+                            yield return new WaitForSecondsRealtime(0.2f); // 실시간 대기
+                        }
+                    }
+                }
+                else if (i == 2)    //광고제거
+                {
+                    //광고제거
+                    if (!PersistentObject.Instance.IsNoAd && Application.internetReachability != NetworkReachability.NotReachable)
+                    {
+                        AdRemove adRemove = PageController.Instance.ShowAdRemove();
+                        while (adRemove.IsPlaying)
+                        {
+                            yield return new WaitForSecondsRealtime(0.2f); // 실시간 대기
+                        }
+                    }
+                }
+                else if (i == 3)  
+                {
+                    //리뷰
+                    if (!GameManager.Instance.UserData.isReviewed && Application.internetReachability != NetworkReachability.NotReachable)
+                    {
+                        ReviewManagerScript review = PageController.Instance.ShowReview();
+                        while (review.IsPlaying)
+                        {
+                            yield return new WaitForSecondsRealtime(0.2f); // 실시간 대기
+                        }
+                    }
+                }
+
+                break;
             }
         }
 
+
         //랜덤 캐릭터
-        if (CharacterSelect.SelectedCharacter == 0)
+        if (CharacterSelect.SelectedCharacter == 1)
         {
             characterSelect.SetRandomCharacter();
         }

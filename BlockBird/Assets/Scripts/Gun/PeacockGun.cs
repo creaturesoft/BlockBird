@@ -16,6 +16,12 @@ public class PeacockGun : GunBase
         delay = bulletListPrefab[0].GetComponent<Bullet>().Delay;
         StartCoroutine(FireContinuously(bulletListPrefab[0]));
         bulletCount = 1;
+
+
+        for (int i = 1; i < characterLevel; i++)
+        {
+            LevelUp();
+        }
     }
 
     public override void LevelUp()
@@ -30,23 +36,23 @@ public class PeacockGun : GunBase
     {
         while (!GameManager.Instance.Character.IsDie)
         {
-            Bullet bullet = Instantiate(bulletPrefab, transform.position, Quaternion.identity, GameManager.Instance.bulletGameObject.transform)
+            Bullet bullet = Instantiate(bulletPrefab, transform.position, Quaternion.identity, GetBulletsTransform())
                 .GetComponent<Bullet>();
 
-            bullet.Damage += (float)level / 25f;
-            bullet.Life += (int)((float)level / 100f);
+            bullet.Damage += (float)level;
+            bullet.Life += (int)((float)level / 50f);
 
             for (int i = 1; i <= bulletCount/2; i++)
             {
-                bullet = Instantiate(bulletPrefab, transform.position, Quaternion.Euler(0, 0, i * 3), GameManager.Instance.bulletGameObject.transform)
+                bullet = Instantiate(bulletPrefab, transform.position, Quaternion.Euler(0, 0, i * 3), GetBulletsTransform())
                     .GetComponent<Bullet>();
-                bullet.Damage += (float)level / 25f;
-                bullet.Life += (int)((float)level / 100f);
+                bullet.Damage += (float)level / 20f;
+                bullet.Life += (int)((float)level / 80f);
 
-                bullet = Instantiate(bulletPrefab, transform.position, Quaternion.Euler(0, 0, -i * 3), GameManager.Instance.bulletGameObject.transform)
+                bullet = Instantiate(bulletPrefab, transform.position, Quaternion.Euler(0, 0, -i * 3), GetBulletsTransform())
                     .GetComponent<Bullet>();
-                bullet.Damage += (float)level / 25f;
-                bullet.Life += (int)((float)level / 100f);
+                bullet.Damage += (float)level / 20f;
+                bullet.Life += (int)((float)level / 80f);
             }
 
             yield return new WaitForSeconds(delay / GameManager.Instance.Character.AttackSpeed);

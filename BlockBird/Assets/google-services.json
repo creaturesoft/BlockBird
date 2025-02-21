@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "821961379933",
+    "project_id": "blockbirds-f37b3",
+    "storage_bucket": "blockbirds-f37b3.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:821961379933:android:b5eed556a480b81f517db4",
+        "android_client_info": {
+          "package_name": "com.Creaturesoft.BlockBird"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "821961379933-in6mdo9gqiop9i0dd9p1o2qjs2botgju.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBsXfBo9M6DOSD73YatERDuyYLTqorFGFU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "821961379933-in6mdo9gqiop9i0dd9p1o2qjs2botgju.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

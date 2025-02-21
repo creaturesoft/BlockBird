@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class DragonBullet : Bullet
 {
-
+    public Transform gunTransform;
     public DragonBulletFX dragonBulletFXPrefab;
     private DragonBulletFX dragonBulletFX;
 
@@ -27,12 +27,17 @@ public class DragonBullet : Bullet
 
     protected override void FixedUpdate()
     {
+        if (gunTransform == null)
+        {
+            return;
+        }
+
         Life = 100;
         
         transform.position = new Vector3(
-            GameManager.Instance.Character.transform.position.x + 1f,
-            GameManager.Instance.Character.transform.position.y - 0.14f,
-            GameManager.Instance.Character.transform.position.z);
+            gunTransform.position.x + 1f,
+            gunTransform.position.y - 0.14f,
+            gunTransform.position.z);
 
         if (dragonBulletFX != null)
         {

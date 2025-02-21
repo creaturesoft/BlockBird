@@ -7,9 +7,8 @@ using Newtonsoft.Json.Linq;
 
 public class WebRequest 
 {
-    public static readonly string InitializeRRL = "https://qerbhygvpj6xnxwipfyonwzl6q0tqquk.lambda-url.ap-northeast-2.on.aws";
-    public static readonly string ChargingStarURL = "https://igeoutacgohey6dhb2xme3qbx40jwycb.lambda-url.ap-northeast-2.on.aws";
-    public static readonly string RegistRankURL = "https://bsmt3g3bfkoagx2tsls35voo2q0bfrqy.lambda-url.ap-northeast-2.on.aws";
+    public static readonly string GemTransactionURL = "https://eg6j2k2vgc4uhswkqa2tlwkzbe0tbkri.lambda-url.ap-northeast-2.on.aws";
+
 
     
     public static IEnumerator Post(string url, string jsonData, Action<JObject> callback, int timeout = 5)
@@ -38,8 +37,7 @@ public class WebRequest
 
         // 요청을 보내고 응답을 기다림
         yield return request.SendWebRequest();
-
-        response(request, callback);
+        yield return response(request, callback);
     }
 
 
@@ -56,11 +54,10 @@ public class WebRequest
 
         // 요청을 보내고 응답을 기다림
         yield return request.SendWebRequest();
-
-        response(request, callback);
+        yield return response(request, callback);
     }
 
-    private static void response(UnityWebRequest request, Action<JObject> callback)
+    private static IEnumerator response(UnityWebRequest request, Action<JObject> callback)
     {
         try
         {
@@ -81,7 +78,7 @@ public class WebRequest
                         if (verifyResult == false)
                         {
                             callback(null);
-                            return;
+                            yield break;
                         }
 
                         // RSA 복호화 수행(AES키)
@@ -91,13 +88,13 @@ public class WebRequest
                         string decryptedData = AESEncryption.DecryptWithKey(json["d"].ToString(), decryptedKey, json["i"].ToString());
 
                         callback(JObject.Parse(decryptedData));
-                        return;
+                        yield break;
                     }
                     //일반 응답
                     else
                     {
                         callback(JObject.Parse(request.downloadHandler.text));
-                        return;
+                        yield break;
                     }
                 }
                 else

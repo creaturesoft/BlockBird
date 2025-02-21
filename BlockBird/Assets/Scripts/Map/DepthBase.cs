@@ -10,6 +10,13 @@ public class DepthBase : MonoBehaviour
     {
     }
 
+    private void OnTriggerEnter2D(Collider2D collision)
+    {            
+        if (collision.CompareTag("Player") && !GameManager.Instance.Character.IsDie)
+        {
+            GameManager.Instance.Character.Die(true);
+        }
+    }
     void FixedUpdate()
     {
         if (GameManager.Instance.Character != null)

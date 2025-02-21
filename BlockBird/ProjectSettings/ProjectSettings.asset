@@ -140,7 +140,11 @@ PlayerSettings:
   loadStoreDebugModeEnabled: 0
   visionOSBundleVersion: 1.0
   tvOSBundleVersion: 1.0
+<<<<<<< HEAD
   bundleVersion: 1.0.41
+=======
+  bundleVersion: 1.0.39
+>>>>>>> 9c80978b (로그인 구현중)
   preloadedAssets:
   - {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
   - {fileID: -3766064202041142671, guid: d05d923a51a306248a86b40e67622128, type: 2}
@@ -178,7 +182,11 @@ PlayerSettings:
     iPhone: 5
     tvOS: 0
   overrideDefaultApplicationIdentifier: 1
+<<<<<<< HEAD
   AndroidBundleVersionCode: 35
+=======
+  AndroidBundleVersionCode: 33
+>>>>>>> 9c80978b (로그인 구현중)
   AndroidMinSdkVersion: 23
   AndroidTargetSdkVersion: 0
   AndroidPreferredInstallLocation: 1

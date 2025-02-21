@@ -1,27 +1,12 @@
 using System.Linq;
 using UnityEngine;
 
-public class BulletItemBase : MonoBehaviour
+public class BulletItemBase : ItemBase
 {
     public GameObject[] gunPrefabList;
 
-    void OnTriggerEnter2D(Collider2D collision)
+    public override void TakeItem(Character character)
     {
-        if (collision.CompareTag("Player"))
-        {
-            Character character = collision.GetComponent<Character>();
-            if (character != null)
-            {
-                character.TakeBulletItem(gunPrefabList.Select(gunPrefab => gunPrefab.GetComponent<GunBase>()).ToArray());
-            }
-
-            Destroy(gameObject);
-        }
-    }
-
-    public Transform Init(Transform parent)
-    {
-        transform.SetParent(parent, false);
-        return transform;
+        character.TakeBulletItem(gunPrefabList.Select(gunPrefab => gunPrefab.GetComponent<GunBase>()).ToArray());
     }
 }

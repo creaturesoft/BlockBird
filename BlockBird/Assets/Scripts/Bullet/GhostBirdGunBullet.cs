@@ -27,7 +27,15 @@ public class GhostBirdGunBullet : Bullet
     protected override float SpecialEffect(BlockBase block)
     {
         Instantiate(effectPrefab, transform.position, Quaternion.identity, transform.parent).init(Size);
-        return block.Life;
+
+        if(block.IsBoss)
+        {
+            return block.Life / 2;
+        }
+        else
+        {
+            return block.Life;
+        }
 
         //if (destroyRate < 2)
         //{

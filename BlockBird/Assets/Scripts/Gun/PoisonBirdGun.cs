@@ -8,6 +8,12 @@ public class PoisonBirdGun : GunBase
     {
         delay = bulletListPrefab[0].GetComponent<Bullet>().Delay;
         StartCoroutine(FireContinuously(bulletListPrefab[0]));
+
+
+        for (int i = 1; i < characterLevel; i++)
+        {
+            LevelUp();
+        }
     }
 
 
@@ -17,7 +23,7 @@ public class PoisonBirdGun : GunBase
         {
             //bullet.Damage = level;
 
-            PoisonBirdGunBullet bullet = Instantiate(bulletPrefab, new Vector3(transform.position.x, transform.position.y, transform.position.z), Quaternion.identity, GameManager.Instance.bulletGameObject.transform)
+            PoisonBirdGunBullet bullet = Instantiate(bulletPrefab, new Vector3(transform.position.x, transform.position.y, transform.position.z), Quaternion.identity, GetBulletsTransform())
                 .GetComponent<PoisonBirdGunBullet>();
 
             delay = bullet.Delay - (float)level/10f;

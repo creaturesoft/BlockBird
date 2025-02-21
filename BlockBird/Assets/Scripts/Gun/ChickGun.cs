@@ -6,9 +6,9 @@ public class ChickGun : GunBase
     float chickDamage;
     float chickLife;
 
-    public void init(float chickDamage, float chickLife)
+    public void init(float chickDamage, float chickLifel, Character character)
     {
-        base.init();
+        base.init(character);
         this.chickDamage = chickDamage;
         this.chickLife = chickLife;
     }
@@ -37,7 +37,7 @@ public class ChickGun : GunBase
         {
             //bullet.Damage = level;
             
-            Bullet bullet = Instantiate(bulletPrefab, new Vector3(transform.position.x, transform.position.y, transform.position.z), Quaternion.identity, GameManager.Instance.bulletGameObject.transform)
+            Bullet bullet = Instantiate(bulletPrefab, new Vector3(transform.position.x, transform.position.y, transform.position.z), Quaternion.identity, GetBulletsTransform())
                 .GetComponent<Bullet>();
 
             bullet.Damage = chickDamage;

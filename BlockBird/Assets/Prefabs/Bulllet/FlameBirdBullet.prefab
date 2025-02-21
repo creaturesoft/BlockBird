@@ -124,8 +124,9 @@ MonoBehaviour:
   speed: 0.5
   delay: 10
   lifeTime: 60
-  life: 20
+  life: 1
   size: 1
+  bulletFXPrefab: {fileID: 1805587628601652104, guid: 6537e3570f6879847873f8d7e184c481, type: 3}
 --- !u!1001 &1349277349593407747
 PrefabInstance:
   m_ObjectHideFlags: 0

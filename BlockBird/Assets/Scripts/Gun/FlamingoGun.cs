@@ -1,10 +1,10 @@
 using System.Collections;
-using TMPro;
-using Unity.Hierarchy;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class FlamingoGun : GunBase
 {
+    private List<GameObject> bulletList;
     private int bulletCount = 0;
     public float bulletCountDebug = 0;
 
@@ -15,9 +15,23 @@ public class FlamingoGun : GunBase
 
         //StartCoroutine(FireContinuously(bulletListPrefab[0]));
         bulletCount = 1;
-        Instantiate(bulletListPrefab[0], transform.position, Quaternion.identity, GameManager.Instance.bulletGameObject.transform);
+        bulletList = new List<GameObject>();
+
+        GameObject flamingoGunBullet = Instantiate(bulletListPrefab[0], transform.position, Quaternion.identity, GetBulletsTransform());
+        bulletList.Add(flamingoGunBullet);
+        float currentAngle = (2 * Mathf.PI / characterLevel) * bulletCount; // 각도 간격에 따라 초기화
+
+        FlamingoGunBullet bullet = flamingoGunBullet.GetComponent<FlamingoGunBullet>();
+        bullet.currentAngle = currentAngle;
+        bullet.centerObject = transform;
 
         bulletCountDebug = bulletCount;
+
+
+        for (int i = 1; i < characterLevel; i++)
+        {
+            LevelUp();
+        }
     }
 
     public override void LevelUp()
@@ -26,12 +40,30 @@ public class FlamingoGun : GunBase
 
         //bulletCountDebug = 1 + Mathf.Pow(level, 0.6f);
 
-        if (Random.Range(0, (int)(1+(float)level/10f)) == 0)
+        if (level < 20)
         {
             bulletCount++;
             bulletCountDebug = bulletCount;
-            Instantiate(bulletListPrefab[0], transform.position, Quaternion.identity, GameManager.Instance.bulletGameObject.transform)
-                .GetComponent<Bullet>().Damage += (float)level / 5f;
+
+            GameObject flamingoGunBullet = Instantiate(bulletListPrefab[0], transform.position, Quaternion.identity, GetBulletsTransform());
+            bulletList.Add(flamingoGunBullet);
+            float currentAngle = (2 * Mathf.PI / characterLevel) * bulletCount; // 각도 간격에 따라 초기화
+            
+            FlamingoGunBullet bullet = flamingoGunBullet.GetComponent<FlamingoGunBullet>();
+            bullet.currentAngle = currentAngle;
+            bullet.centerObject = transform;
+
+            foreach (GameObject oldBulllet in bulletList)
+            {
+                oldBulllet.GetComponent<Bullet>().Damage = (float)level / 10f;
+            }
+        }
+        else
+        {
+            foreach (GameObject bullet in bulletList)
+            {
+                bullet.GetComponent<Bullet>().Damage = (float)level / 10f;
+            }
         }
     }
 
@@ -39,7 +71,7 @@ public class FlamingoGun : GunBase
     {
         while (!GameManager.Instance.Character.IsDie)
         {
-            //Instantiate(bulletPrefab, transform.position, Quaternion.identity, GameManager.Instance.bulletGameObject.transform);
+            //Instantiate(bulletPrefab, transform.position, Quaternion.identity, GetBulletsTransform());
         
             yield return new WaitForSeconds(delay / GameManager.Instance.Character.AttackSpeed);
         }

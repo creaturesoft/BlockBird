@@ -8,6 +8,12 @@ public class IceBirdGun : GunBase
     {
         delay = bulletListPrefab[0].GetComponent<Bullet>().Delay;
         StartCoroutine(FireContinuously(bulletListPrefab[0]));
+
+
+        for (int i = 1; i < characterLevel; i++)
+        {
+            LevelUp();
+        }
     }
 
     public override void LevelUp()
@@ -25,12 +31,12 @@ public class IceBirdGun : GunBase
     {
         while (!GameManager.Instance.Character.IsDie)
         {
-            IceBirdGunBullet bullet = Instantiate(bulletPrefab, new Vector3(transform.position.x, transform.position.y, transform.position.z), Quaternion.identity, GameManager.Instance.bulletGameObject.transform)
+            IceBirdGunBullet bullet = Instantiate(bulletPrefab, new Vector3(transform.position.x, transform.position.y, transform.position.z), Quaternion.identity, GetBulletsTransform())
                 .GetComponent<IceBirdGunBullet>();
 
-            bullet.Damage += (float)level / 20f;  //0.1f;
-            bullet.Life += (int)((float)level / 50f);
-            bullet.SlowRate = 0.2f + (float)level / 500f;
+            bullet.Damage += (float)level / 10f;  //0.1f;
+            bullet.Life += (int)((float)level / 30f);
+            bullet.SlowRate = 0.2f + (float)level / 400f;
             if(bullet.SlowRate >= 0.9f)
             {
                 bullet.SlowRate = 0.9f;

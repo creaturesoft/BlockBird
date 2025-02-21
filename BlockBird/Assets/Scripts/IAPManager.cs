@@ -3,16 +3,28 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.Purchasing;
 using UnityEngine.Purchasing.Extension;
+using static UnityEngine.Rendering.GPUSort;
 
 
 public class IAPManager : MonoBehaviour, IStoreListener, IDetailedStoreListener
 {
-    public TextMeshProUGUI removeADPriceText;
+    public string RemoveADPriceText { get; set; }
+    public string Gem1000PriceText { get; set; }
+    public string Gem2050PriceText { get; set; }
+    public string Gem3300PriceText { get; set; }
+    public string Gem4600PriceText { get; set; }
+    public string Gem12500PriceText { get; set; }
+
 
     private static IStoreController storeController;
     private static IExtensionProvider storeExtensionProvider;
 
     public static string removeAdsProductId = "remove_ads"; // 실제 IAP ID로 설정
+    public static string gem1000ProductId = "gem1000"; // 실제 IAP ID로 설정
+    public static string gem2050ProductId = "gem2050"; // 실제 IAP ID로 설정
+    public static string gem3300ProductId = "gem3300"; // 실제 IAP ID로 설정
+    public static string gem4600ProductId = "gem4600"; // 실제 IAP ID로 설정
+    public static string gem12500ProductId = "gem12500"; // 실제 IAP ID로 설정
 
 
     void Start()
@@ -32,8 +44,11 @@ public class IAPManager : MonoBehaviour, IStoreListener, IDetailedStoreListener
 
         var builder = ConfigurationBuilder.Instance(StandardPurchasingModule.Instance());
         builder.AddProduct(removeAdsProductId, ProductType.NonConsumable);
-
-
+        builder.AddProduct(gem1000ProductId, ProductType.Consumable);
+        builder.AddProduct(gem2050ProductId, ProductType.Consumable);
+        builder.AddProduct(gem3300ProductId, ProductType.Consumable);
+        builder.AddProduct(gem4600ProductId, ProductType.Consumable);
+        builder.AddProduct(gem12500ProductId, ProductType.Consumable);
 
         UnityPurchasing.Initialize(this, builder);
     }
@@ -43,18 +58,18 @@ public class IAPManager : MonoBehaviour, IStoreListener, IDetailedStoreListener
         return storeController != null && storeExtensionProvider != null;
     }
 
-    // 광고 제거 버튼 클릭 시 호출할 메서드
-    public void BuyRemoveAdsOrRestore()
-    {
-        if (IsAdsRemoved()) // 이미 광고가 제거된 상태인지 확인
-        {
-            Debug.Log("이미 광고가 제거된 상태입니다.");
-            return;
-        }
+    //구매 복원
+    //public void BuyRemoveAdsOrRestore()
+    //{
+    //    if (IsAdsRemoved()) // 이미 광고가 제거된 상태인지 확인
+    //    {
+    //        Debug.Log("이미 광고가 제거된 상태입니다.");
+    //        return;
+    //    }
 
-        // iOS 또는 Android에서 복원 기능 실행
-        RestorePurchases();
-    }
+    //    // iOS 또는 Android에서 복원 기능 실행
+    //    RestorePurchases();
+    //}
 
     // 광고 제거 구매 시작
     public void BuyRemoveAds()
@@ -70,7 +85,7 @@ public class IAPManager : MonoBehaviour, IStoreListener, IDetailedStoreListener
 
     IEnumerator StopSpinningLoading(float second)
     {
-        yield return new WaitForSeconds(second);
+        yield return new WaitForSecondsRealtime(second);
         PersistentObject.Instance.StopSpinningLoading();
     }
 
@@ -78,7 +93,7 @@ public class IAPManager : MonoBehaviour, IStoreListener, IDetailedStoreListener
     void BuyProductID(string productId)
     {
         PersistentObject.Instance.StartSpinningLoading();
-        StartCoroutine(StopSpinningLoading(2.5f));
+        StartCoroutine(StopSpinningLoading(1f));
 
         if (IsInitialized())
         {
@@ -96,45 +111,6 @@ public class IAPManager : MonoBehaviour, IStoreListener, IDetailedStoreListener
         }
     }
 
-    // 구매 또는 복원 성공 시 광고 제거 상태 저장
-    public PurchaseProcessingResult ProcessPurchase(PurchaseEventArgs args)
-    {
-        //if(UIManager.Instance.levelName == "StartMenu")
-        //{
-        //    return PurchaseProcessingResult.Complete;
-        //}
-
-        if (args.purchasedProduct.definition.id == removeAdsProductId)
-        {
-            SaveLoadManager.DeleteNoADData();
-
-            // 영수증 검증
-            string receipt = args.purchasedProduct.receipt;
-            if (!string.IsNullOrEmpty(receipt))
-            {
-                Debug.LogWarning($"Receipt: {receipt}");
-                bool isRefunded = IsCancelOrRefundReceipt(receipt);
-                if (!isRefunded)
-                {
-                    Debug.Log("광고 제거 상품 구매 성공");
-                    //PlayerPrefs.SetInt("RemoveAds", 1); // 광고 제거 상태 저장
-                    SaveLoadManager.SaveNoADData();
-
-                    PersistentObject.Instance.ShowMessagePopup(0, () =>
-                    {
-                        //UIManager.Instance.adShopPopup.SetActive(false);
-                    });
-
-                    return PurchaseProcessingResult.Complete;
-                }
-                else
-                {
-                    Debug.Log("환불된 구매입니다.");
-                }
-            }
-        }
-        return PurchaseProcessingResult.Complete;
-    }
 
     private bool IsCancelOrRefundReceipt(string receipt)
     {
@@ -152,7 +128,7 @@ public class IAPManager : MonoBehaviour, IStoreListener, IDetailedStoreListener
     }
 
     // iOS 및 Android에서 광고 제거 복원 기능
-    void RestorePurchases()
+    public void RestorePurchases()
     {
         PersistentObject.Instance.StartSpinningLoading();
         StartCoroutine(StopSpinningLoading(1f));
@@ -190,13 +166,13 @@ public class IAPManager : MonoBehaviour, IStoreListener, IDetailedStoreListener
                     else
                     {
                         Debug.Log("복원할 구매 항목이 없습니다.");
-                        PersistentObject.Instance.ShowMessagePopup(1);
+                        //PersistentObject.Instance.ShowMessagePopup(1);
                     }
                 }
                 else
                 {
                     Debug.Log("복원할 구매 항목이 없습니다. / " + message);
-                    PersistentObject.Instance.ShowMessagePopup(1);
+                    //PersistentObject.Instance.ShowMessagePopup(1);
                 }
             });
         }
@@ -246,8 +222,54 @@ public class IAPManager : MonoBehaviour, IStoreListener, IDetailedStoreListener
             string localizedPrice = product.metadata.localizedPriceString; // 로컬화된 가격 (예: "₩5,500")
             string currencyCode = product.metadata.isoCurrencyCode; // 통화 코드 (예: "KRW")
 
-            // UI 업데이트 (예: 텍스트 필드에 가격 표시)
-            removeADPriceText.text = localizedPrice;
+            //광고제거 가격
+            RemoveADPriceText = localizedPrice;
+        }
+
+        product = storeController.products.WithID(gem1000ProductId);
+        if (product != null)
+        {
+            string localizedPrice = product.metadata.localizedPriceString; // 로컬화된 가격 (예: "₩5,500")
+            string currencyCode = product.metadata.isoCurrencyCode; // 통화 코드 (예: "KRW")
+
+            //1000gem 가격
+            Gem1000PriceText = localizedPrice;
+        }
+
+        product = storeController.products.WithID(gem2050ProductId);
+        if (product != null)
+        {
+            string localizedPrice = product.metadata.localizedPriceString; // 로컬화된 가격 (예: "₩5,500")
+            string currencyCode = product.metadata.isoCurrencyCode; // 통화 코드 (예: "KRW")
+
+            Gem2050PriceText = localizedPrice;
+        }
+
+        product = storeController.products.WithID(gem3300ProductId);
+        if (product != null)
+        {
+            string localizedPrice = product.metadata.localizedPriceString; // 로컬화된 가격 (예: "₩5,500")
+            string currencyCode = product.metadata.isoCurrencyCode; // 통화 코드 (예: "KRW")
+
+            Gem3300PriceText = localizedPrice;
+        }
+
+        product = storeController.products.WithID(gem4600ProductId);
+        if (product != null)
+        {
+            string localizedPrice = product.metadata.localizedPriceString; // 로컬화된 가격 (예: "₩5,500")
+            string currencyCode = product.metadata.isoCurrencyCode; // 통화 코드 (예: "KRW")
+
+            Gem4600PriceText = localizedPrice;
+        }
+
+        product = storeController.products.WithID(gem12500ProductId);
+        if (product != null)
+        {
+            string localizedPrice = product.metadata.localizedPriceString; // 로컬화된 가격 (예: "₩5,500")
+            string currencyCode = product.metadata.isoCurrencyCode; // 통화 코드 (예: "KRW")
+
+            Gem12500PriceText = localizedPrice;
         }
 
         storeController = controller;
@@ -274,4 +296,121 @@ public class IAPManager : MonoBehaviour, IStoreListener, IDetailedStoreListener
     {
         Debug.Log("구매 실패: " + failureDescription.message);
     }
+
+
+    // 구매 또는 복원 성공 시 광고 제거 상태 저장
+    public PurchaseProcessingResult ProcessPurchase(PurchaseEventArgs args)
+    {
+        PersistentObject.Instance.StartSpinningLoading();
+        StartCoroutine(StopSpinningLoading(5f));
+
+        if (args.purchasedProduct.definition.id == removeAdsProductId)
+        {
+            RemoveAdsProcessPurchase(args);
+            PersistentObject.Instance.StopSpinningLoading();
+        }
+        else if(args.purchasedProduct.definition.id == gem1000ProductId)
+        {
+            GemProcessPurchase(1000);
+        }
+        else if (args.purchasedProduct.definition.id == gem2050ProductId)
+        {
+            GemProcessPurchase(2050);
+        }
+        else if (args.purchasedProduct.definition.id == gem3300ProductId)
+        {
+            GemProcessPurchase(3300);
+        }
+        else if (args.purchasedProduct.definition.id == gem4600ProductId)
+        {
+            GemProcessPurchase(4600);
+        }        
+        else if (args.purchasedProduct.definition.id == gem12500ProductId)
+        {
+            GemProcessPurchase(12500);
+        }
+
+        return PurchaseProcessingResult.Complete;
+    }
+
+    //광고 제거
+    void RemoveAdsProcessPurchase(PurchaseEventArgs args)
+    {
+        SaveLoadManager.DeleteNoADData();
+
+        // 영수증 검증
+        string receipt = args.purchasedProduct.receipt;
+        if (!string.IsNullOrEmpty(receipt))
+        {
+            Debug.LogWarning($"Receipt: {receipt}");
+            bool isRefunded = IsCancelOrRefundReceipt(receipt);
+            if (!isRefunded)
+            {
+                Debug.Log("광고 제거 상품 구매 성공");
+                //PlayerPrefs.SetInt("RemoveAds", 1); // 광고 제거 상태 저장
+                SaveLoadManager.SaveNoADData();
+
+                if (PageController.Instance.Shop != null)
+                {
+                    PageController.Instance.Shop.removeADButton.SetActive(false);
+                    PersistentObject.Instance.ShowMessagePopup(1, () => { });
+                }
+            }
+            else
+            {
+                Debug.Log("환불된 구매입니다.");
+            }
+        }
+    }
+
+    public void BuyGem1000()
+    {
+        BuyProductID(gem1000ProductId);
+    }
+
+    public void BuyGem2050()
+    {
+        BuyProductID(gem2050ProductId);
+    }
+
+    public void BuyGem3300()
+    {
+        BuyProductID(gem3300ProductId);
+    }
+
+    public void BuyGem4600()
+    {
+        BuyProductID(gem4600ProductId);
+    }
+
+    public void BuyGem12500()
+    {
+        BuyProductID(gem12500ProductId);
+    }
+
+
+    public void GemProcessPurchase(int amount)
+    {
+        string data = "{\"userId\": \"" + GameManager.Instance.UserData.userId + "\", " +
+                "\"type\": \"PURCHASE\", " +
+                "\"amount\": " + amount + "}";
+
+        StartCoroutine(WebRequest.Post(WebRequest.GemTransactionURL, data, (result) =>
+        {
+            if (result == null)
+            {
+                //실패
+                PersistentObject.Instance.ShowMessagePopup(0, () => { });
+            }
+            else
+            {
+                //성공
+                GameManager.Instance.UserData.gem += (int)result.GetValue("amount");
+
+                SaveLoadManager.SaveUserData(GameManager.Instance.UserData);
+                PersistentObject.Instance.ShowMessagePopup(1, () => { });
+            }
+        }));
+    }
+
 }

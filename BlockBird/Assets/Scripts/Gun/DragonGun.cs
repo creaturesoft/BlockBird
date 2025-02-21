@@ -11,17 +11,26 @@ public class DragonGun : GunBase
     {
         dragonBullet = Instantiate(bulletListPrefab[0]
             , transform.position
-            , Quaternion.identity, GameManager.Instance.bulletGameObject.transform).GetComponent<DragonBullet>();
+            , Quaternion.identity, GetBulletsTransform()).GetComponent<DragonBullet>();
 
         dragonBullet.Life = 100;
+        dragonBullet.gunTransform = transform;
+
+        for (int i = 1; i < characterLevel; i++)
+        {
+            LevelUp();
+        }
     }
 
     public override void LevelUp()
     {
         base.LevelUp();
-
+        delay = dragonBullet.Delay - (float)level/50f;
+        if(delay <= 0.1f)
+        {
+            delay = 0.1f;
+        }
         dragonBullet.LevelUp(
-            (float)(level + 1) / 5f
-            , dragonBullet.Delay / Mathf.Pow(level, 0.2f));
+            (float)(level + 1) / 3f, delay);
     }
 }

@@ -22,10 +22,11 @@ public class DragonBulletFX : BulletFX
         while (true)
         {
             damageCollider.enabled = true;
-            yield return new WaitForSeconds(delay / GameManager.Instance.Character.AttackSpeed);
+            yield return new WaitForSeconds(0.1f);
             damageCollider.enabled = false;
+            yield return new WaitForSeconds(delay / GameManager.Instance.Character.AttackSpeed);
 
-            if(GameManager.Instance.Character.IsDie)
+            if (GameManager.Instance.Character.IsDie)
             {
                 Destroy(gameObject);
                 break;

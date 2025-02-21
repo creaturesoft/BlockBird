@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PageController : MonoBehaviour
 {
@@ -8,8 +9,15 @@ public class PageController : MonoBehaviour
     public GameObject resultPopupPrefab;
     public GameObject noInternetPopupPrefab;
     public GameObject characterDrawPrefab;
-    public GameObject shopPrefab;
+    public Shop shopPrefab;
+    public Shop Shop { get; set; }
+
+    public GameObject settingPrefab;
     public GameObject worldRankPrefab;
+
+    public ReviewManagerScript reviewManagerPrefab;
+    public AdRemove adRemovePrefab;
+
 
     void Awake()
     {
@@ -41,9 +49,9 @@ public class PageController : MonoBehaviour
     }
     
 
-    public void ShowResultPopup()
+    public void ShowResultPopup(bool isNextStage = false)
     {
-        Instantiate(resultPopupPrefab, ui.transform);
+        Instantiate(resultPopupPrefab, ui.transform).GetComponent<ResultPopup>().Init(isNextStage);
     }
 
     public void ShowCharacterDraw()
@@ -61,12 +69,13 @@ public class PageController : MonoBehaviour
         if (CheckInternetConnection())
         {
             Time.timeScale = 0;
-            Instantiate(shopPrefab, ui.transform);
+            Shop = Instantiate(shopPrefab, ui.transform);
         }
     }
 
     public void ShowSetting()
     {
+        Instantiate(settingPrefab, ui.transform);
     }
 
     public void ShowWorldRank()
@@ -76,4 +85,20 @@ public class PageController : MonoBehaviour
             Instantiate(worldRankPrefab, ui.transform);
         }
     }
+
+    public void OnHome()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+
+    public ReviewManagerScript ShowReview()
+    {
+        return Instantiate(reviewManagerPrefab, ui.transform);
+    }
+
+    public AdRemove ShowAdRemove()
+    {
+        return Instantiate(adRemovePrefab, ui.transform);
+    }
+
 }

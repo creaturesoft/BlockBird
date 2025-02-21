@@ -4,6 +4,7 @@ using System;
 using System.Runtime.InteropServices;
 using Unity.Services.Core;
 using UnityEngine;
+using System.Collections;
 
 public class PersistentObject : MonoBehaviour
 {
@@ -24,9 +25,11 @@ public class PersistentObject : MonoBehaviour
         }
     }
 
+    public IAPManager IAPManager;
+
     public bool IsNoAd { get; set; }
-    public static int InterstitialAdRate = 3;   //4;
-    public static int RewardedAdRate = 4;   //4;
+    public static int InterstitialAdRate = 3;   //3;
+    public static int RewardedAdRate = 3;   //3;
 
     public InterstitialAdManager interstitialAdManager;
     public RewardedAdManager rewardedAdManager;
@@ -37,7 +40,8 @@ public class PersistentObject : MonoBehaviour
     public GameObject spinningLoadingPrefab;
     private GameObject spinningLoading;
 
-    public GameObject messagePopupPrefab;
+    public MessagePopup messagePopupPrefab;
+    public WaitMessagePopup firstLoginMessagePopupPrefab;
 
 
     void Awake()
@@ -149,19 +153,31 @@ public class PersistentObject : MonoBehaviour
 
     public void StartSpinningLoading()
     {
-        spinningLoading = Instantiate(spinningLoadingPrefab);
+        if (spinningLoading == null)
+        {
+            spinningLoading = Instantiate(spinningLoadingPrefab);
+        }
     }
 
     public void StopSpinningLoading()
     {
-        Destroy(spinningLoading);
+        if (spinningLoading != null)
+        {
+            Destroy(spinningLoading);
+        }
     }
 
 
     public void ShowMessagePopup(int index, Action okCallback = null, Action closeCallback = null)
     {
-        MessagePopup messagePopup = Instantiate(messagePopupPrefab).GetComponent<MessagePopup>();
+        MessagePopup messagePopup = Instantiate(messagePopupPrefab);
         messagePopup.ShowMessage(index, okCallback, closeCallback);
+    }
+
+    public IEnumerator FirstLoginMessagePopup(Action action1, Action action2)
+    {
+        WaitMessagePopup messagePopup = Instantiate(firstLoginMessagePopupPrefab);
+        yield return messagePopup.ShowPopupAndWait(action1, action2);
     }
 
 }

@@ -9,6 +9,11 @@ public class BlastBirdGun : GunBase
     {
         delay = bulletListPrefab[0].GetComponent<Bullet>().Delay;
         StartCoroutine(FireContinuously(bulletListPrefab[0]));
+
+        for (int i = 1; i < characterLevel; i++)
+        {
+            LevelUp();
+        }
     }
 
     public override void LevelUp()
@@ -26,10 +31,10 @@ public class BlastBirdGun : GunBase
         {
             //bullet.Damage = level;
 
-            BlastBirdGunBullet blastBirdGunBullet = Instantiate(bulletPrefab, new Vector3(transform.position.x, transform.position.y, transform.position.z), Quaternion.identity, GameManager.Instance.bulletGameObject.transform)
+            BlastBirdGunBullet blastBirdGunBullet = Instantiate(bulletPrefab, new Vector3(transform.position.x, transform.position.y, transform.position.z), Quaternion.identity, GetBulletsTransform())
                 .GetComponent<BlastBirdGunBullet>();
 
-            blastBirdGunBullet.Damage += (float)level/4f;  //0.1f;
+            blastBirdGunBullet.Damage += (float)level/3f;  //0.1f;
             blastBirdGunBullet.Size += (float)level/100f;   //0.01f;
             blastBirdGunBullet.Life += (int)(level/30f);
 

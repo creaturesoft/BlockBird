@@ -8,6 +8,12 @@ public class FlameBirdGun : GunBase
     {
         delay = bulletListPrefab[0].GetComponent<Bullet>().Delay;
         StartCoroutine(FireContinuously(bulletListPrefab[0]));
+
+
+        for (int i = 1; i < characterLevel; i++)
+        {
+            LevelUp();
+        }
     }
 
     public override void LevelUp()
@@ -27,12 +33,22 @@ public class FlameBirdGun : GunBase
         {
             //bullet.Damage = level;
 
-            FlameBirdBullet bullet = Instantiate(bulletPrefab, new Vector3(transform.position.x, transform.position.y, transform.position.z), Quaternion.identity, GameManager.Instance.bulletGameObject.transform)
+            FlameBirdBullet bullet = Instantiate(bulletPrefab, new Vector3(transform.position.x, transform.position.y, transform.position.z), Quaternion.identity, GetBulletsTransform())
                 .GetComponent<FlameBirdBullet>();
 
             bullet.Damage += (float)level / 5f;  //0.1f;
             bullet.Size += (float)level / 80f;  //0.1f;
-            bullet.DestroyTime = 30f + (float)level / 50f;  //0.5f;
+            if(bullet.Size > 3)
+            {
+                bullet.Size = 3;
+            }
+
+            bullet.DestroyTime = 10f + (float)level / 50f;  //0.5f;
+            if(bullet.DestroyTime > 20f)
+            {
+                bullet.DestroyTime = 20f;
+            }
+
             bullet.Delay -= (float)level / 30f;  //0.5f;
             if(bullet.Delay < 2f)
             {

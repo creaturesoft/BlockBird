@@ -15,6 +15,11 @@ public class CameraFollow : MonoBehaviour
 
     void Update()
     {
+        if(GameManager.Instance.Character == null)
+        {
+            return;
+        }
+
         float targetX = GameManager.Instance.Character.transform.position.x;
         float targetY = GameManager.Instance.Character.transform.position.y;
 

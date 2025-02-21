@@ -38,6 +38,7 @@ public class PlayerInputController : MonoBehaviour
         {
             jumpSound.Play();
         }
+
     }
 
     void OnExit()

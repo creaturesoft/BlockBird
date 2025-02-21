@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using UnityEngine;
 
 public class MessagePopup : MonoBehaviour
@@ -8,12 +9,14 @@ public class MessagePopup : MonoBehaviour
     Action okAction;
     Action closeAction;
 
+
     public void ShowMessage(int index, Action okCallback, Action closeCallback)
     {
         messages.GetChild(index).gameObject.SetActive(true);
         okAction = okCallback;
         closeAction = closeCallback;
     }
+
 
     public void Ok()
     {

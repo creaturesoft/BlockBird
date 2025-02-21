@@ -1,9 +1,14 @@
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class CharacterSelect : MonoBehaviour
 {
-    public GameObject[] CharactersPrefabs;
+    public List<Character> CharactersPrefabs { get; set; }
+
+    public GameObject[] AllCharactersPrefabs;
+
     public static int SelectedCharacter;
     GameObject selectedPlayer;
     public StartButton startbutton;
@@ -13,9 +18,26 @@ public class CharacterSelect : MonoBehaviour
     public Slider attckSpeedSlider;
     public Slider jumpSlider;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    public void Init()
     {
+        CharactersPrefabs = new List<Character>();
+        CharactersPrefabs.Add(AllCharactersPrefabs[0].GetComponent<Character>());
+        CharactersPrefabs.Add(AllCharactersPrefabs[1].GetComponent<Character>());
+
+        foreach (BirdData bird in GameManager.Instance.UserData.birdList)
+        {
+            AllCharactersPrefabs.Where(x => x.name == bird.name).ToList().ForEach(x => {
+
+                Character character = x.GetComponent<Character>();
+                character.CharacterName = bird.name;
+                character.Level = bird.pullLevel + bird.expLevel;
+                character.PullLevel = bird.pullLevel;
+                character.ExpLevel = bird.expLevel;
+                character.Exp = bird.exp;
+                CharactersPrefabs.Add(character);
+            });
+        }
+
         if (GameManager.IsRestart)
         {
             SetCurrentCharacter(SelectedCharacter);
@@ -24,10 +46,11 @@ public class CharacterSelect : MonoBehaviour
         }
         else
         {
-            SelectedCharacter = 1;
+            SelectedCharacter = 2;
             SetCurrentCharacter(SelectedCharacter);
         }
     }
+
 
     void SetCurrentCharacter(int select)
     {
@@ -36,11 +59,24 @@ public class CharacterSelect : MonoBehaviour
             Destroy(selectedPlayer);
         }
 
-        selectedPlayer = Instantiate(CharactersPrefabs[select], new Vector3(0, 0, 0), Quaternion.identity);
-        selectedPlayer.transform.localScale *= 2;
-        selectedPlayer.transform.position = new Vector3(0, 0.5f, 0);
+        Character character = Instantiate(CharactersPrefabs[select], new Vector3(0, 0, 0), Quaternion.identity).Init(CharactersPrefabs[select]);
+        selectedPlayer = character.gameObject;
 
-        Character character = selectedPlayer.GetComponent<Character>();
+        if (select == 0 || select == 1)
+        {
+            GameManager.Instance.levelText.text = "";
+            GameManager.Instance.expText.text = "";
+        }
+        else
+        {
+            string expPercent = (character.Exp / character.GetExpForLevel() * 100).ToString("F2");
+            GameManager.Instance.levelText.text = "Lv " + character.Level;
+            GameManager.Instance.expText.text = expPercent + "%";
+        }
+
+        character.transform.localScale *= 2;
+        character.transform.position = new Vector3(0, 0.8f, 0);
+
         GameManager.Instance.Character = character;
 
         hpSlider.value = (float)character.MaxHp / 8.0f;
@@ -52,14 +88,14 @@ public class CharacterSelect : MonoBehaviour
 
     public void SetRandomCharacter()
     {
-        SetCurrentCharacter(Random.Range(1, CharactersPrefabs.Length));
+        SetCurrentCharacter(Random.Range(2, CharactersPrefabs.Count));
     }
 
     public void NextCharacter()
     {
 
         SelectedCharacter++;
-        if(CharactersPrefabs.Length <= SelectedCharacter)
+        if(CharactersPrefabs.Count <= SelectedCharacter)
         {
             SelectedCharacter = 0;
         }
@@ -71,7 +107,7 @@ public class CharacterSelect : MonoBehaviour
         SelectedCharacter--;
         if (SelectedCharacter < 0)
         {
-            SelectedCharacter = CharactersPrefabs.Length - 1;
+            SelectedCharacter = CharactersPrefabs.Count - 1;
         }
         SetCurrentCharacter(SelectedCharacter);
     }

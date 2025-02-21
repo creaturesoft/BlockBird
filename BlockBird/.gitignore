@@ -71,5 +71,7 @@ crashlytics-build.properties
 /[Aa]ssets/[Ss]treamingAssets/aa.meta
 /[Aa]ssets/[Ss]treamingAssets/aa/*
 
-#FirebaseCppApp-12_6_0.bundle
-#FirebaseCppApp-12_6_0.so
+FirebaseCppApp-12_6_0.bundle
+FirebaseCppApp-12_6_0.so
+
+#git-filter-repo --force --path BlockBird/Assets/Firebase/Plugins/x86_64/FirebaseCppApp-12_6_0.bundle --invert-paths

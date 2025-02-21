@@ -160,7 +160,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      Phoneix_0: 2865615923424529659
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

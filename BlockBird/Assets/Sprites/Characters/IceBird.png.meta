@@ -160,7 +160,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      IceBird_0: 2676385163092492283
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

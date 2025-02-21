@@ -160,7 +160,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      PoisonBird_0: 2642638578026161035
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

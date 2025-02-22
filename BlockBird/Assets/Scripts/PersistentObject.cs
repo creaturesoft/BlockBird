@@ -35,6 +35,7 @@ public class PersistentObject : MonoBehaviour
     public RewardedAdManager rewardedAdManager;
 
     public AudioSource[] backgroundAudioSources;
+    private int currentSound;
 
 
     public GameObject spinningLoadingPrefab;
@@ -146,8 +147,24 @@ public class PersistentObject : MonoBehaviour
             Debug.LogError($"Failed to initialize Unity Gaming Services: {e.Message}");
         }
 
-        //배경음악 재생
-        backgroundAudioSources[UnityEngine.Random.Range(0, backgroundAudioSources.Length)].Play();
+
+
+
+        StartCoroutine(PlayBackgroundSound());
+    }
+
+    IEnumerator PlayBackgroundSound()
+    {
+        while (true)
+        {
+            if (!backgroundAudioSources[currentSound].isPlaying)
+            {
+                currentSound = UnityEngine.Random.Range(0, backgroundAudioSources.Length);
+                backgroundAudioSources[currentSound].Play();
+            }
+
+            yield return new WaitForSeconds(1f);
+        }
     }
 
 

@@ -1,12 +1,23 @@
 # ninja log v5
+626	3402	7600118025255725	C:/Users/water/Projects/BlockBird/BlockBird/Library/Bee/Android/Prj/IL2CPP/Gradle/unityLibrary/build/intermediates/cxx/Debug/226p2s1b/obj/x86_64/libswappywrapper.so	9a9119284655a843
+0	4651	7600118039662690	GameActivity/CMakeFiles/game.dir/UGAApplication.cpp.o	475332f049ca9fa0
 44	564	7600117998414677	FramePacing/CMakeFiles/swappywrapper.dir/UnitySwappyWrapper.cpp.o	18ada31f74aaa7ca
 32	3133	7600118023616118	GameActivity/CMakeFiles/game.dir/UGAInputKeyEvent.cpp.o	58a6963cb37261d7
+36	3873	7600118031630982	GameActivity/CMakeFiles/game.dir/UGASoftKeyboard.cpp.o	906e44755b8361d3
 8	3280	7600118025429380	GameActivity/CMakeFiles/game.dir/UGAConfiguration.cpp.o	86de16e264371cfc
+40	3395	7600118025990632	GameActivity/CMakeFiles/game.dir/UGAInputMotionEvent.cpp.o	53222cc95e575c5a
 19	3301	7600118025549628	GameActivity/CMakeFiles/game.dir/UGADebug.cpp.o	67f2f716f22e303e
 28	3347	7600118025170637	GameActivity/CMakeFiles/game.dir/UGAEntry.cpp.o	14691464b7588ccd
-40	3395	7600118025990632	GameActivity/CMakeFiles/game.dir/UGAInputMotionEvent.cpp.o	53222cc95e575c5a
-626	3402	7600118025255725	C:/Users/water/Projects/BlockBird/BlockBird/Library/Bee/Android/Prj/IL2CPP/Gradle/unityLibrary/build/intermediates/cxx/Debug/226p2s1b/obj/x86_64/libswappywrapper.so	9a9119284655a843
-36	3873	7600118031630982	GameActivity/CMakeFiles/game.dir/UGASoftKeyboard.cpp.o	906e44755b8361d3
 24	4086	7600118034286240	GameActivity/CMakeFiles/game.dir/UGAInput.cpp.o	472a2af0005f00ab
-0	4651	7600118039662690	GameActivity/CMakeFiles/game.dir/UGAApplication.cpp.o	475332f049ca9fa0
 4651	4996	7600118043179099	C:/Users/water/Projects/BlockBird/BlockBird/Library/Bee/Android/Prj/IL2CPP/Gradle/unityLibrary/build/intermediates/cxx/Debug/226p2s1b/obj/x86_64/libgame.so	74b7154a9a4b271a
+62	428	7618867633985633	FramePacing/CMakeFiles/swappywrapper.dir/UnitySwappyWrapper.cpp.o	18ada31f74aaa7ca
+429	1180	7618867640202647	C:/Users/water/Projects/BlockBird/BlockBird/Library/Bee/Android/Prj/IL2CPP/Gradle/unityLibrary/build/intermediates/cxx/Debug/226p2s1b/obj/x86_64/libswappywrapper.so	9a9119284655a843
+39	1362	7618867643319586	GameActivity/CMakeFiles/game.dir/UGAInputKeyEvent.cpp.o	58a6963cb37261d7
+11	1452	7618867644205761	GameActivity/CMakeFiles/game.dir/UGAEntry.cpp.o	14691464b7588ccd
+29	1504	7618867644809413	GameActivity/CMakeFiles/game.dir/UGAConfiguration.cpp.o	86de16e264371cfc
+56	1513	7618867644979916	GameActivity/CMakeFiles/game.dir/UGASoftKeyboard.cpp.o	906e44755b8361d3
+50	1583	7618867645700835	GameActivity/CMakeFiles/game.dir/UGAInputMotionEvent.cpp.o	53222cc95e575c5a
+3	1792	7618867647618405	GameActivity/CMakeFiles/game.dir/UGADebug.cpp.o	67f2f716f22e303e
+45	2060	7618867650351061	GameActivity/CMakeFiles/game.dir/UGAInput.cpp.o	472a2af0005f00ab
+34	2574	7618867655626655	GameActivity/CMakeFiles/game.dir/UGAApplication.cpp.o	475332f049ca9fa0
+2574	2760	7618867657431794	C:/Users/water/Projects/BlockBird/BlockBird/Library/Bee/Android/Prj/IL2CPP/Gradle/unityLibrary/build/intermediates/cxx/Debug/226p2s1b/obj/x86_64/libgame.so	74b7154a9a4b271a

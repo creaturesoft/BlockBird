@@ -60,11 +60,11 @@ public class InAppUpdateManager : MonoBehaviour
 
         if (startUpdateRequest.Status == AppUpdateStatus.Downloaded)
         {
-            Debug.Log("업데이트 다운로드 완료. 설치를 완료합니다.");
-            PersistentObject.Instance.ShowMessagePopup(2, () =>
-            {
-                _appUpdateManager.CompleteUpdate();
-            }, null);
+            Debug.Log("업데이트 다운로드 완료. 앱 재실행 시 설치를 진행합니다.");
+            //PersistentObject.Instance.ShowMessagePopup(2, () =>
+            //{
+            //    _appUpdateManager.CompleteUpdate();
+            //}, null);
 
         }
         else

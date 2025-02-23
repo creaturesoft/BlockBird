@@ -164,9 +164,13 @@ public class GameManager : MonoBehaviour
                     yield return PersistentObject.Instance.FirstLoginMessagePopup(() => {
                         //서버 유저 데이터 사용
                         UserData = serverUser;
+
+                        
                     }, () => {
                         //게스트 데이터 사용
                         saveToServer = true;
+
+                        //익명 계정 연결
                     });
 
                 }

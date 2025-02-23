@@ -47,6 +47,7 @@ android {
         versionName '**VERSIONNAME**'
         consumerProguardFiles 'proguard-unity.txt'**USER_PROGUARD**
 **DEFAULT_CONFIG_SETUP**
+		multiDexEnabled true
     }
 
     lint {

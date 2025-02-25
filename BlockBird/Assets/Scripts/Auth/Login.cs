@@ -10,17 +10,13 @@ using GooglePlayGames.BasicApi.SavedGame;
 public class Login : MonoBehaviour
 {
 
-    // Start is called before the first frame update
-    public string TryLogin()
-    {
-        //SignIn();
-
-        return string.Empty;
-    }
-
     public void Start()
     {
+#if UNITY_ANDROID
         PlayGamesPlatform.Instance.Authenticate(ProcessAuthentication);
+#elif UNITY_IOS
+        GameCenterLogin()
+#endif
 
     }
 

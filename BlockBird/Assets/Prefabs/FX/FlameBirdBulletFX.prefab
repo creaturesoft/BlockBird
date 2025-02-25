@@ -104,11 +104,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2189119227439276376, guid: d0613dddc9788f544867305b4d7378ac, type: 3}
       propertyPath: m_Range
-      value: 7.6079435
+      value: 8.604642
       objectReference: {fileID: 0}
     - target: {fileID: 2189119227439276376, guid: d0613dddc9788f544867305b4d7378ac, type: 3}
       propertyPath: m_Intensity
-      value: 2.6637733
+      value: 0.9906963
       objectReference: {fileID: 0}
     - target: {fileID: 2421574060090945584, guid: d0613dddc9788f544867305b4d7378ac, type: 3}
       propertyPath: m_Materials.Array.size

@@ -11,6 +11,7 @@ public abstract class ItemBase : MonoBehaviour
             if (character != null)
             {
                 TakeItem(character);
+                SoundManager.Instance.PlayGetItemAudio();
             }
 
             Destroy(gameObject);

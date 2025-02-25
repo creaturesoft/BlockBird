@@ -1,3 +1,4 @@
+using I2.Loc;
 using Newtonsoft.Json.Linq;
 using System.Collections;
 using System.Collections.Generic;
@@ -26,6 +27,9 @@ public class CharacterDraw : MonoBehaviour
     public bool isIntro;
 
     private static readonly int gemPrice = 100;
+
+    public AudioSource audio1;
+    public AudioSource audio2;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -63,6 +67,8 @@ public class CharacterDraw : MonoBehaviour
         {
             return;
         }
+
+        audio1.Play();
 
         newCharacterText.SetActive(false);
         levelUpText.SetActive(false);
@@ -105,7 +111,7 @@ public class CharacterDraw : MonoBehaviour
         int previousImage = characterImages.transform.childCount - 1;
 
         int currentCount = 0;
-        int maxCount = Random.Range(15,25);
+        int maxCount = Random.Range(20,30);
 
         while (currentCount < maxCount)
         {
@@ -182,6 +188,9 @@ public class CharacterDraw : MonoBehaviour
             yield break;
         }
 
+
+        audio2.Play();
+
         BirdData winBirdData = GameManager.Instance.UserData.birdList.Where(x => x.name == winCharacter.name).FirstOrDefault();
         if(winBirdData == null)
         {
@@ -217,6 +226,7 @@ public class CharacterDraw : MonoBehaviour
         {
             button.enabled = true;
         }
+
     }
 
     int WinCharacter()

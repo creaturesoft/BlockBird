@@ -124,16 +124,8 @@ public class PersistentObject : MonoBehaviour
         {
             Debug.Log("[AdMob initialized]");
 
-            if (SaveLoadManager.LoadNoADData() == "true")
-            {
-                IsNoAd = true;
-            }
-            else
-            {
-                interstitialAdManager.LoadInterstitialAd();
-            }
 
-            rewardedAdManager.LoadRewardedAd();
+            StartCoroutine(LoadInterstitialAd());
         });
 
         //유니티 게임 서비스 초기화
@@ -151,6 +143,23 @@ public class PersistentObject : MonoBehaviour
 
 
         StartCoroutine(PlayBackgroundSound());
+    }
+
+    IEnumerator LoadInterstitialAd()
+    {
+
+        if (SaveLoadManager.LoadNoADData() == "true")
+        {
+            IsNoAd = true;
+        }
+        else
+        {
+            interstitialAdManager.LoadInterstitialAd();
+        }
+
+        rewardedAdManager.LoadRewardedAd();
+
+        yield break;
     }
 
     IEnumerator PlayBackgroundSound()

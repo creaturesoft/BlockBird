@@ -11,8 +11,11 @@ public class DragonBullet : Bullet
     {
         base.Start();
 
-        dragonBulletFX = Instantiate(dragonBulletFXPrefab, transform.position, Quaternion.identity, transform.parent);
-        dragonBulletFX.init(Damage, Size, Delay);
+        if (dragonBulletFX == null)
+        {
+            dragonBulletFX = Instantiate(dragonBulletFXPrefab, transform.position, Quaternion.identity, transform.parent);
+            dragonBulletFX.init(Damage, Size, Delay);
+        }
     }
 
     protected override void OnTriggerEnter2D(Collider2D collision)
@@ -22,6 +25,12 @@ public class DragonBullet : Bullet
 
     public void LevelUp(float damage, float delay)
     {
+        if (dragonBulletFX == null)
+        {
+            dragonBulletFX = Instantiate(dragonBulletFXPrefab, transform.position, Quaternion.identity, transform.parent);
+            dragonBulletFX.init(Damage, Size, Delay);
+        }
+
         dragonBulletFX.LevelUp(damage, delay);
     }
 

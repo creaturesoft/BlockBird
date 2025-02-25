@@ -3,6 +3,7 @@ using TMPro;
 using System.Collections;
 using System;
 using Newtonsoft.Json.Linq;
+using System.Collections.Generic;
 
 public class GameManager : MonoBehaviour
 {
@@ -21,6 +22,7 @@ public class GameManager : MonoBehaviour
 
     public GameObject bulletGameObject;
     public GameObject friendBulletGameObject;
+    public List<Rigidbody2D> friendRbList;
     public GameObject[] resultHideList;
 
     
@@ -283,4 +285,6 @@ public class GameManager : MonoBehaviour
 
         pageController.ShowResultPopup(isClear);
     }
+
+
 }

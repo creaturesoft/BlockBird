@@ -39,6 +39,11 @@ public class PlayerInputController : MonoBehaviour
             jumpSound.Play();
         }
 
+        foreach (Rigidbody2D friendRb in GameManager.Instance.friendRbList)
+        {
+            friendRb.linearVelocity = Vector2.zero;
+            friendRb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
+        }
     }
 
     void OnExit()

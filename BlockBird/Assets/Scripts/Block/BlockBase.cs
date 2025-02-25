@@ -1,3 +1,4 @@
+using I2.Loc;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -89,6 +90,8 @@ public class BlockBase : MonoBehaviour
     //        0.5f,      //친구들
     //        0.02f    //레벨업
     //};
+
+
 
 
     void CalculateDropRate(float dropRate)
@@ -184,6 +187,7 @@ public class BlockBase : MonoBehaviour
             return;
         }
 
+
         string currentDisplayLife = lifeText.text;
         Life -= damage;
         string afterDisplayLife = lifeText.text;
@@ -202,12 +206,20 @@ public class BlockBase : MonoBehaviour
 
     void Die()
     {
+
+        //소리재생
+        SoundManager.Instance.PlayBreakBlockAudio(IsBoss);
+
         //통로 생기면 캐릭터 속도 복구
         if (IsBoss)
         {
-            if(BossBlockCheckList.All(x => x == null))
+
+            if (BossBlockCheckList.All(x => x == null))
             {
                 GameManager.Instance.Character.Speed = GameManager.Instance.Character.OriginalSpeed;
+
+                //성공 소리재생
+                SoundManager.Instance.PlaySuccessAudio();
             }
         }
 

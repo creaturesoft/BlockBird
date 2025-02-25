@@ -354,9 +354,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 6
   attackSpeed: 7
-  jumpForce: 7
-  hp: 10
-  maxHp: 10
+  jumpForce: 6
+  hp: 12
+  maxHp: 12
   hpText: {fileID: 9095349281864999413}
   initGunPrefabList:
   - {fileID: 758323759651656347, guid: 33aa3a63538eb7a44a38bf61b4f63764, type: 3}

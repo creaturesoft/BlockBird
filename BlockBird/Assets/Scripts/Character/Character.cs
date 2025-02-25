@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections;
 using TMPro;
 using System.Linq;
+using static UnityEngine.Rendering.DebugUI;
 
 public class Character : MonoBehaviour
 {
@@ -397,6 +398,9 @@ public class Character : MonoBehaviour
             return;
         }
 
+
+        SoundManager.Instance.PlaySpeedUpItemAudio();
+
         isSpeedUp = true;
         StartCoroutine(FinishSpeedUp());
 
@@ -455,6 +459,8 @@ public class Character : MonoBehaviour
 
         for (int i = 0; i < 20; i++)
         {
+            SoundManager.Instance.PlayFriendsItemAudio();
+
             Character friend = Instantiate(
                 GameManager.Instance.characterSelect.CharactersPrefabs[Random.Range(2, GameManager.Instance.characterSelect.CharactersPrefabs.Count)]
                 //, new Vector3(Random.Range(-2f, 12f), Random.Range(-4f, 4f), 0)
@@ -476,7 +482,8 @@ public class Character : MonoBehaviour
 
             friend.Init(friend, true);
 
-          
+            GameManager.Instance.friendRbList.Add(friend.GetComponent<Rigidbody2D>());
+
             yield return new WaitForSeconds(0.3f);
         }
 
@@ -487,6 +494,7 @@ public class Character : MonoBehaviour
             yield return new WaitForSeconds(Time.deltaTime);
         }
 
+        GameManager.Instance.friendRbList.Clear();
         Destroy(GameManager.Instance.friendBulletGameObject);
 
         isFriendsItem = false;

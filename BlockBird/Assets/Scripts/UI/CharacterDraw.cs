@@ -68,7 +68,6 @@ public class CharacterDraw : MonoBehaviour
             return;
         }
 
-        audio1.Play();
 
         newCharacterText.SetActive(false);
         levelUpText.SetActive(false);
@@ -78,6 +77,9 @@ public class CharacterDraw : MonoBehaviour
             PageController.Instance.ShowShop();
             return;
         }
+
+
+        audio1.Play();
 
         //뽑기는 서버에서. 최대 캐릭터 개수만 서버로 보냄
         //characterImages.transform.childCount

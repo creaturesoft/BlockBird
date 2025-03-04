@@ -16,7 +16,7 @@ public class PoisonBirdGunBullet : Bullet
 
     protected override float SpecialEffect(BlockBase block)
     {
-        if (!block.IsPoison)
+        //if (!block.IsPoison)
         {
             block.IsPoison = true;
             Instantiate(effectPrefab, block.gameObject.transform).init(Size, block, Period);

@@ -4,9 +4,11 @@ using UnityEngine;
 public class FlamingoGunBullet : Bullet
 {
     public Transform centerObject;  // 회전 중심이 되는 오브젝트
-    private float radius = 1.3f;       // 원형 궤도의 반지름
+    //public float radius = 1.3f;       // 원형 궤도의 반지름
+    public float radius = 0f;       // 원형 궤도의 반지름
 
     public float currentAngle = 0f; // 현재 각도 (라디안 값으로 관리)
+
 
     protected override void Start()
     {
@@ -23,7 +25,8 @@ public class FlamingoGunBullet : Bullet
             return;
         }
 
-        Life = 100;
+        Life = 1000;
+        
 
         // 각도 업데이트 (초당 angularSpeed만큼 각도 증가)
         currentAngle += Speed * Time.fixedDeltaTime;
@@ -40,5 +43,17 @@ public class FlamingoGunBullet : Bullet
 
         // 새로운 위치로 이동
         rb.MovePosition(new Vector3(x, y, transform.position.z));
+    }
+
+    protected override float SpecialEffect(BlockBase block)
+    {
+        if (block.IsBoss)
+        {
+            return Damage * 2;
+        }
+        else
+        {
+            return Damage;
+        }
     }
 }

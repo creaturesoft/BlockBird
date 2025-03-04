@@ -140,12 +140,9 @@ PlayerSettings:
   loadStoreDebugModeEnabled: 0
   visionOSBundleVersion: 1.0
   tvOSBundleVersion: 1.0
-  bundleVersion: 1.0.75
+  bundleVersion: 1.0.102
   preloadedAssets:
   - {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
-  - {fileID: -3766064202041142671, guid: d05d923a51a306248a86b40e67622128, type: 2}
-  - {fileID: 11400000, guid: fbf7666b7c932f241ab36e63f9b61088, type: 2}
-  - {fileID: 11400000, guid: c391f35d01382a847991043e10021e1e, type: 2}
   metroInputSource: 0
   wsaTransparentSwapchain: 0
   m_HolographicPauseOnTrackingLoss: 1
@@ -178,9 +175,9 @@ PlayerSettings:
     iPhone: 5
     tvOS: 0
   overrideDefaultApplicationIdentifier: 1
-  AndroidBundleVersionCode: 69
-  AndroidMinSdkVersion: 23
-  AndroidTargetSdkVersion: 34
+  AndroidBundleVersionCode: 96
+  AndroidMinSdkVersion: 24
+  AndroidTargetSdkVersion: 0
   AndroidPreferredInstallLocation: 1
   aotOptions: 
   stripEngineCode: 1
@@ -261,7 +258,7 @@ PlayerSettings:
   clonedFromGUID: f918f204a65eb664ba9e5b39d533ff8e
   templatePackageId: com.unity.template.mobile2d@6.0.0
   templateDefaultScene: Assets/Scenes/SampleScene.unity
-  useCustomMainManifest: 0
+  useCustomMainManifest: 1
   useCustomLauncherManifest: 0
   useCustomMainGradleTemplate: 1
   useCustomLauncherGradleManifest: 0
@@ -289,7 +286,7 @@ PlayerSettings:
     banner: {fileID: 0}
   androidGamepadSupportLevel: 0
   AndroidMinifyRelease: 1
-  AndroidMinifyDebug: 0
+  AndroidMinifyDebug: 1
   AndroidValidateAppBundleSize: 1
   AndroidAppBundleSizeToValidate: 150
   AndroidReportGooglePlayAppDependencies: 1

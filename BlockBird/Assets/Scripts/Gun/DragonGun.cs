@@ -6,6 +6,11 @@ using UnityEngine;
 public class DragonGun : GunBase
 {
     DragonBullet dragonBullet;
+
+    private void OnDestroy()
+    {
+        Destroy(dragonBullet.gameObject);
+    }
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -31,6 +36,6 @@ public class DragonGun : GunBase
             delay = 0.1f;
         }
         dragonBullet.LevelUp(
-            (float)(level + 1) / 3f, delay);
+            (float)(level + 1) * 1.5f, delay);
     }
 }

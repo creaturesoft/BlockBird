@@ -10,4 +10,5 @@ public class MapBase : MonoBehaviour
     {
     }
 
+    public static int CurrentLifeWeight { get; set; }
 }

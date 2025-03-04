@@ -267,6 +267,16 @@ MonoBehaviour:
       - "\u53D6\u6D88\u5173\u8054"
       Flags: 00000000
       Languages_Touch: []
+    - Term: Review
+      TermType: 0
+      Description: 
+      Languages:
+      - Leave a review
+      - "\uB9AC\uBDF0 \uB0A8\uAE30\uAE30"
+      - "\u30EC\u30D3\u30E5\u30FC\u3092\u6B8B\u3059"
+      - "\u7559\u4E0B\u8BC4\u4EF7"
+      Flags: 00000000
+      Languages_Touch: []
     CaseInsensitiveTerms: 0
     OnMissingTranslation: 1
     mTerm_AppName: 

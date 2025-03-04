@@ -2,7 +2,7 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.TextCore.Text;
 
-public class Egg : MonoBehaviour
+public class Egg : Bullet
 {
     public Chick chickPrefab;
     private float hatchDelay;
@@ -10,6 +10,18 @@ public class Egg : MonoBehaviour
     private float chickLife;
     private float delay;
     private bool isFriend;
+
+    public BulletFX bulletFXPrefab;
+
+    protected override float SpecialEffect(BlockBase block)
+    {
+        if (block.IsBoss)
+        {
+            Damage *= 1.8f;
+        }
+        Instantiate(bulletFXPrefab, transform.position, Quaternion.identity, transform.parent).init(Damage, Size);
+        return 0;
+    }
 
     public void init(float hatchDelay, float chickDamage, float chickLife, bool isFriend = false)
     {

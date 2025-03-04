@@ -10,8 +10,16 @@ using GooglePlayGames.BasicApi.SavedGame;
 public class Login : MonoBehaviour
 {
 
-    public void Start()
+    public void StartLogin()
     {
+        if (Application.internetReachability == NetworkReachability.NotReachable)
+        {
+            PersistentObject.Instance.LoadGuestUserData();
+            return;
+        }
+
+
+        PlayGamesPlatform.DebugLogEnabled = true;
 #if UNITY_ANDROID
         PlayGamesPlatform.Instance.Authenticate(ProcessAuthentication);
 #elif UNITY_IOS
@@ -27,11 +35,16 @@ public class Login : MonoBehaviour
         {
             Debug.Log("±»");
             Debug.Log(PlayGamesPlatform.Instance.GetUserId());
+
+
+            StartCoroutine(PersistentObject.Instance.LoadLoginUserData(PlayGamesPlatform.Instance.GetUserId()));
         }
         else
         {
 
             Debug.Log("½ÇÆÐ");
+
+            PersistentObject.Instance.LoadGuestUserData();
         }
     }
 
@@ -43,6 +56,7 @@ public class Login : MonoBehaviour
         if (Social.localUser.authenticated == true)
         {
             Debug.Log("Success to true");
+            StartCoroutine(PersistentObject.Instance.LoadLoginUserData(Social.localUser.id));
         }
         else
         {
@@ -51,10 +65,12 @@ public class Login : MonoBehaviour
                 if (success)
                 {
                     Debug.Log("Success to authenticate");
+                    StartCoroutine(PersistentObject.Instance.LoadLoginUserData(Social.localUser.id));
                 }
                 else
                 {
                     Debug.Log("Faile to login");
+                    PersistentObject.Instance.LoadGuestUserData();
                 }
             });
         }

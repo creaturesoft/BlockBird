@@ -29,7 +29,7 @@ public class BlockBase : MonoBehaviour
             }
             else if (life <= 99999)
             {
-                lifeText.fontSize = 6.8f;
+                lifeText.fontSize = 6.5f;
             }
             else if (life <= 999999)
             {
@@ -78,8 +78,8 @@ public class BlockBase : MonoBehaviour
     float[] weightList = {
             0f,      //empty
             2f,      //무기
-            2f,      //스피드업
-            0.5f,      //친구들
+            200f,      //스피드업
+            1f,      //친구들
             //0.02f    //레벨업
     };
 
@@ -172,6 +172,10 @@ public class BlockBase : MonoBehaviour
                 break;
         }
 
+        if (isBoss)
+        {
+            CalculateDropRate(0f);
+        }
 
         return this;
     }
@@ -214,12 +218,10 @@ public class BlockBase : MonoBehaviour
         if (IsBoss)
         {
 
-            if (BossBlockCheckList.All(x => x == null))
+            if (BossBlockCheckList.Count() > 0 && BossBlockCheckList.All(x => x == null))
             {
                 GameManager.Instance.Character.Speed = GameManager.Instance.Character.OriginalSpeed;
 
-                //성공 소리재생
-                SoundManager.Instance.PlaySuccessAudio();
             }
         }
 
@@ -279,11 +281,6 @@ public class BlockBase : MonoBehaviour
 
     public void Freeze(float freezeTime, float freezeRate)
     {   
-        if(IsBoss)
-        {
-            return;
-        }
-
         if (isFreeze)
         {
             currentFreezeCount = 0;
@@ -308,7 +305,14 @@ public class BlockBase : MonoBehaviour
 
         while (currentFreezeCount < freezeTime)
         {
-            transform.position += Vector3.right * Time.fixedDeltaTime * GameManager.Instance.Character.Speed * slowRate;
+            if (IsBoss)
+            {
+                transform.position += Vector3.right * Time.fixedDeltaTime * GameManager.Instance.Character.Speed * (slowRate/7f);
+            }
+            else
+            {
+                transform.position += Vector3.right * Time.fixedDeltaTime * GameManager.Instance.Character.Speed * slowRate;
+            }
             currentFreezeCount += Time.fixedDeltaTime;
             yield return new WaitForFixedUpdate();
         }

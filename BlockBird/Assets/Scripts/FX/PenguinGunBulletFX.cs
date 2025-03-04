@@ -16,7 +16,15 @@ public class PenguinGunBulletFX : BulletFX
     protected override float SpecialEffect(BlockBase block)
     {
         block.Freeze(freezeTime, slowRate);
-        return damage;
+
+        if (block.IsBoss)
+        {
+            return damage * 5f;
+        }
+        else
+        {
+            return damage;
+        }
     }
 
 

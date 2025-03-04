@@ -4,6 +4,9 @@ using UnityEngine;
 public class GunBase : MonoBehaviour
 {
     public GameObject[] bulletListPrefab;
+    
+    public AudioSource defaultAudio;
+
     public int level;
     public int characterLevel;
     public bool isLastGun;

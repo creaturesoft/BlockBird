@@ -21,7 +21,14 @@ public class IceBirdGunBullet : Bullet
     {
         block.Freeze(FreezeTime, SlowRate);
 
-        return Damage;
+        if (block.IsBoss)
+        {
+            return Damage * 3f;
+        }
+        else
+        {
+            return Damage;
+        }
     }
 
 }

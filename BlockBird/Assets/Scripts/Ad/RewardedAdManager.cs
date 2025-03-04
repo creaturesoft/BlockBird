@@ -66,7 +66,7 @@ public class RewardedAdManager : MonoBehaviour
 
     public void GetRewardGem(int amount)
     {
-        string data = "{\"userId\": \"" + GameManager.Instance.UserData.userId + "\", " +
+        string data = "{\"userId\": \"" + PersistentObject.Instance.UserData.userId + "\", " +
                 "\"type\": \"REWARD\", " +
                 "\"amount\": " + amount + "}";
 
@@ -80,8 +80,8 @@ public class RewardedAdManager : MonoBehaviour
             else
             {
                 //¼º°ø
-                GameManager.Instance.UserData.gem += (int)result.GetValue("amount");
-                SaveLoadManager.SaveUserData(GameManager.Instance.UserData);
+                PersistentObject.Instance.UserData.gem += (int)result.GetValue("amount");
+                SaveLoadManager.SaveUserData(PersistentObject.Instance.UserData);
             }
         }));
     }

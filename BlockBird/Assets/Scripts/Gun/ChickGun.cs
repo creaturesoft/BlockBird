@@ -1,12 +1,16 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.Audio;
 
 public class ChickGun : GunBase
 {
     float chickDamage;
     float chickLife;
 
-    public void init(float chickDamage, float chickLifel, Character character)
+    static float attackSoundLastPlayTime = 0f;
+    static float attackSoundPlayCooldown = 0.1f; // 0.1초 쿨타임 (필요에 따라 조절)
+
+    public void init(float chickDamage, float chickLife, Character character)
     {
         base.init(character);
         this.chickDamage = chickDamage;
@@ -44,6 +48,16 @@ public class ChickGun : GunBase
             bullet.Life = (int)chickLife;
 
             //delay = bullet.Delay / (level/2) / GameManager.Instance.Character.AttackSpeed;
+
+
+            //defaultAudio?.PlayOneShot(defaultAudio.clip);
+
+            if (Time.time - attackSoundLastPlayTime >= attackSoundPlayCooldown)
+            {
+                defaultAudio?.PlayOneShot(defaultAudio.clip);
+                attackSoundLastPlayTime = Time.time;
+            }
+
             yield return new WaitForSeconds(delay / GameManager.Instance.Character.AttackSpeed);
         }
     }

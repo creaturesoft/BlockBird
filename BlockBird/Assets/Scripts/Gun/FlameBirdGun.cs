@@ -36,17 +36,17 @@ public class FlameBirdGun : GunBase
             FlameBirdBullet bullet = Instantiate(bulletPrefab, new Vector3(transform.position.x, transform.position.y, transform.position.z), Quaternion.identity, GetBulletsTransform())
                 .GetComponent<FlameBirdBullet>();
 
-            bullet.Damage += (float)level / 5f;  //0.1f;
+            bullet.Damage += (float)level / 6f;  //0.1f;
             bullet.Size += (float)level / 80f;  //0.1f;
-            if(bullet.Size > 3)
+            if(bullet.Size > 2)
             {
-                bullet.Size = 3;
+                bullet.Size = 2;
             }
 
             bullet.DestroyTime = 10f + (float)level / 50f;  //0.5f;
-            if(bullet.DestroyTime > 20f)
+            if(bullet.DestroyTime > 50f)
             {
-                bullet.DestroyTime = 20f;
+                bullet.DestroyTime = 50f;
             }
 
             bullet.Delay -= (float)level / 30f;  //0.5f;
@@ -56,7 +56,7 @@ public class FlameBirdGun : GunBase
             }
 
             //delay = bullet.Delay / (level/2) / GameManager.Instance.Character.AttackSpeed;
-            yield return new WaitForSeconds(delay / GameManager.Instance.Character.AttackSpeed);
+            yield return new WaitForSeconds(bullet.Delay / GameManager.Instance.Character.AttackSpeed);
         }
     }
 

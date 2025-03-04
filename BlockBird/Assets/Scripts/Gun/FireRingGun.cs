@@ -31,12 +31,21 @@ public class FireRingGun : GunBase
             FireRingBullet bullet = Instantiate(bulletPrefab, new Vector3(transform.position.x, transform.position.y, transform.position.z), Quaternion.identity, GetBulletsTransform())
                 .GetComponent<FireRingBullet>();
 
-            bullet.Damage += (float)level;  //0.1f;
+            bullet.Damage += (float)level / 1f;  //0.1f;
             //bullet.Period -= (float)level / 100f;
-            //bullet.Delay -= (float)level / 100f;
+
+            //bullet.Delay -= (float)level / 10f;
+
+            //if (bullet.Delay <= 10f)
+            //{
+            //    bullet.Delay = 10f;
+            //}
+
+            //bullet.Delay = 50f;
+
 
             //delay = bullet.Delay / (level/2) / GameManager.Instance.Character.AttackSpeed;
-            yield return new WaitForSeconds(delay / GameManager.Instance.Character.AttackSpeed);
+            yield return new WaitForSeconds(bullet.Delay / GameManager.Instance.Character.AttackSpeed);
         }
     }
 

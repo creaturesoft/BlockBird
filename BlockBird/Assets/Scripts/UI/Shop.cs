@@ -45,18 +45,18 @@ public class Shop : MonoBehaviour
 #endif
 
 
-        GameManager.Instance.UserDataChanged += SetGemText;
-        GameManager.Instance.LoadGuestGem();
+        PersistentObject.Instance.UserDataChanged += SetGemText;
+        PersistentObject.Instance.LoadGuestGem();
     }
 
     private void OnDestroy()
     {
-        GameManager.Instance.UserDataChanged -= SetGemText;
+        PersistentObject.Instance.UserDataChanged -= SetGemText;
     }
 
     void SetGemText()
     {
-        gemText.text = GameManager.Instance.UserData.gem.ToString();
+        gemText.text = PersistentObject.Instance.UserData.gem.ToString();
     }
 
     public void RestorePurchases()

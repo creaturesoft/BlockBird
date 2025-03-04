@@ -24,7 +24,7 @@ public class CharacterSelect : MonoBehaviour
         CharactersPrefabs.Add(AllCharactersPrefabs[0].GetComponent<Character>());
         CharactersPrefabs.Add(AllCharactersPrefabs[1].GetComponent<Character>());
 
-        foreach (BirdData bird in GameManager.Instance.UserData.birdList)
+        foreach (BirdData bird in PersistentObject.Instance.UserData.birdList)
         {
             AllCharactersPrefabs.Where(x => x.name == bird.name).ToList().ForEach(x => {
 

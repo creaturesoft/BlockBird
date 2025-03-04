@@ -39,26 +39,26 @@ public class CharacterDraw : MonoBehaviour
         SetCharacterText();
         SetGemText();
 
-        GameManager.Instance.UserDataChanged += SetGemText;
-        GameManager.Instance.LoadGuestGem();
+        PersistentObject.Instance.UserDataChanged += SetGemText;
+        PersistentObject.Instance.LoadGuestGem();
     }
 
 
     private void OnDestroy()
     {
-        GameManager.Instance.UserDataChanged -= SetGemText;
+        PersistentObject.Instance.UserDataChanged -= SetGemText;
     }
 
 
     void SetCharacterText()
     {
-        characterText.text = GameManager.Instance.UserData.birdList.Count() + " / ??";
-        //characterText.text = GameManager.Instance.UserData.birdList.Count() + " / " + (GameManager.Instance.characterSelect.AllCharactersPrefabs.Length - 2);
+        characterText.text = PersistentObject.Instance.UserData.birdList.Count() + " / ??";
+        //characterText.text = PersistentObject.Instance.UserData.birdList.Count() + " / " + (GameManager.Instance.characterSelect.AllCharactersPrefabs.Length - 2);
     }
 
     void SetGemText()
     {
-        gemText.text = "X " + GameManager.Instance.UserData.gem.ToString();
+        gemText.text = "X " + PersistentObject.Instance.UserData.gem.ToString();
     }
 
     public void OnCharacterDraw(int buttonIndex)
@@ -72,7 +72,7 @@ public class CharacterDraw : MonoBehaviour
         newCharacterText.SetActive(false);
         levelUpText.SetActive(false);
 
-        if (GameManager.Instance.UserData.gem < gemPrice)
+        if (PersistentObject.Instance.UserData.gem < gemPrice)
         {
             PageController.Instance.ShowShop();
             return;
@@ -158,7 +158,7 @@ public class CharacterDraw : MonoBehaviour
 
         //서버에서 userData 가져옴
         User serverUser = null;
-        yield return SaveLoadManager.LoadUserDataFromServer(GameManager.Instance.UserData.userId, (result) => {
+        yield return SaveLoadManager.LoadUserDataFromServer(PersistentObject.Instance.UserData.userId, (result) => {
             serverUser = result;
         });
             
@@ -169,17 +169,17 @@ public class CharacterDraw : MonoBehaviour
         }
         else
         {
-            if (GameManager.Instance.UserData.isGuest)
+            if (PersistentObject.Instance.UserData.isGuest)
             {
-                GameManager.Instance.UserData.gem = serverUser.gem;
+                PersistentObject.Instance.UserData.gem = serverUser.gem;
             }
             else
             {
-                GameManager.Instance.UserData = serverUser;
+                PersistentObject.Instance.UserData = serverUser;
             }
         }
 
-        if (GameManager.Instance.UserData.gem < gemPrice)
+        if (PersistentObject.Instance.UserData.gem < gemPrice)
         {
             PageController.Instance.ShowShop();
 
@@ -193,14 +193,14 @@ public class CharacterDraw : MonoBehaviour
 
         audio2.Play();
 
-        BirdData winBirdData = GameManager.Instance.UserData.birdList.Where(x => x.name == winCharacter.name).FirstOrDefault();
+        BirdData winBirdData = PersistentObject.Instance.UserData.birdList.Where(x => x.name == winCharacter.name).FirstOrDefault();
         if(winBirdData == null)
         {
             //새로운 캐릭터
             winBirdData = new BirdData();
             winBirdData.name = winCharacter.name;
             winBirdData.expLevel = 1;
-            GameManager.Instance.UserData.birdList.Add(winBirdData);
+            PersistentObject.Instance.UserData.birdList.Add(winBirdData);
 
             newCharacterText.SetActive(true);
         }
@@ -213,8 +213,8 @@ public class CharacterDraw : MonoBehaviour
         }
 
         SpendGem(gemPrice);
-        SaveLoadManager.SaveUserData(GameManager.Instance.UserData);    //캐릭터 저장
-        StartCoroutine(SaveLoadManager.SendUserDataToServer(GameManager.Instance.UserData));
+        SaveLoadManager.SaveUserData(PersistentObject.Instance.UserData);    //캐릭터 저장
+        StartCoroutine(SaveLoadManager.SendUserDataToServer(PersistentObject.Instance.UserData));
 
         if (isIntro)
         {
@@ -237,8 +237,9 @@ public class CharacterDraw : MonoBehaviour
 
 
         int rate = 2;
+        //int rate = 2000000;
 
-        //if((float)GameManager.Instance.UserData.birdList.Count() / (float)(characterImages.transform.childCount-1) < 0.8f)
+        //if((float)PersistentObject.Instance.UserData.birdList.Count() / (float)(characterImages.transform.childCount-1) < 0.8f)
         //{
         //    remainCharacter = 2;
         //}
@@ -254,16 +255,18 @@ public class CharacterDraw : MonoBehaviour
         {
             win = Random.Range(1, characterImages.transform.childCount);
             GameObject winCharacter = characterImages.transform.GetChild(win).gameObject;
-            BirdData winBirdData = GameManager.Instance.UserData.birdList.Where(x => x.name == winCharacter.name).FirstOrDefault();
+            BirdData winBirdData = PersistentObject.Instance.UserData.birdList.Where(x => x.name == winCharacter.name).FirstOrDefault();
             if (winBirdData == null)
             {
                 //새로운 캐릭터
                 continue;
+                //break;
             }
             else
             {
                 //레벨업
                 break;
+                //continue;
             }
         }
 
@@ -275,7 +278,7 @@ public class CharacterDraw : MonoBehaviour
         //    {
         //        win = Random.Range(1, characterImages.transform.childCount);
         //        GameObject winCharacter = characterImages.transform.GetChild(win).gameObject;
-        //        BirdData winBirdData = GameManager.Instance.UserData.birdList.Where(x => x.name == winCharacter.name).FirstOrDefault();
+        //        BirdData winBirdData = PersistentObject.Instance.UserData.birdList.Where(x => x.name == winCharacter.name).FirstOrDefault();
         //        if (winBirdData == null)
         //        {
         //            //새로운 캐릭터
@@ -289,7 +292,7 @@ public class CharacterDraw : MonoBehaviour
         //    }
 
         //    GameObject winCharacter2 = characterImages.transform.GetChild(win).gameObject;
-        //    BirdData winBirdData2 = GameManager.Instance.UserData.birdList.Where(x => x.name == winCharacter2.name).FirstOrDefault();
+        //    BirdData winBirdData2 = PersistentObject.Instance.UserData.birdList.Where(x => x.name == winCharacter2.name).FirstOrDefault();
         //    if (winBirdData2 == null)
         //    {
         //        test += 1;
@@ -303,7 +306,7 @@ public class CharacterDraw : MonoBehaviour
 
     void SpendGem(int amount)
     {
-        string data = "{\"userId\": \"" + GameManager.Instance.UserData.userId + "\", " +
+        string data = "{\"userId\": \"" + PersistentObject.Instance.UserData.userId + "\", " +
         "\"type\": \"SPEND\", " +
         "\"amount\": " + amount + "}";
 
@@ -317,8 +320,8 @@ public class CharacterDraw : MonoBehaviour
             else
             {
                 //성공
-                GameManager.Instance.UserData.gem -= (int)result.GetValue("amount");
-                GameManager.Instance.UpdateUserData();
+                PersistentObject.Instance.UserData.gem -= (int)result.GetValue("amount");
+                PersistentObject.Instance.UpdateUserData();
             }
         }));
     }

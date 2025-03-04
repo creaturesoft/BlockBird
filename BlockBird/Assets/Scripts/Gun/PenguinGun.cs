@@ -53,14 +53,20 @@ public class PenguinGun : GunBase
                 bullet.Life += (int)((float)level / 100f);
                 bullet.Size += (float)level / 200f;   //0.01f;
                 bullet.FreezeTime = 1f + level / 50f;
-                bullet.SlowRate = 0.2f + (float)level / 600f;
-                if (bullet.SlowRate >= 9f)
-                {
-                    bullet.SlowRate = 0.9f;
-                }
+                //bullet.SlowRate = 0.2f + (float)level / 600f;
+                //if (bullet.SlowRate >= 9f)
+                //{
+                //    bullet.SlowRate = 0.9f;
+                //}
+                bullet.SlowRate = 0.3f;
             }
-            
 
+
+            if (Time.time - GameManager.attackSoundLastPlayTime >= GameManager.attackSoundPlayCooldown && defaultAudio != null && SoundManager.Instance.isSFXOn)
+            {
+                defaultAudio?.PlayOneShot(defaultAudio.clip);
+                GameManager.attackSoundLastPlayTime = Time.time;
+            }
             yield return new WaitForSeconds(delay / GameManager.Instance.Character.AttackSpeed);
         }
     }

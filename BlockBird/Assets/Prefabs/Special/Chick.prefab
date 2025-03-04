@@ -259,7 +259,7 @@ SpriteRenderer:
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1.05, y: 0.92}
+  m_Size: {x: 0.6, y: 0.55}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -282,6 +282,13 @@ MonoBehaviour:
   jumpForce: 7
   hp: 5
   maxHp: 5
+  isMeleeAttack: 0
+  hpText: {fileID: 0}
   initGunPrefabList:
   - {fileID: 758323759651656347, guid: cacbe7666ff13ac479b5544edfe5ef43, type: 3}
+  useGunList: []
   isActive: 0
+  clearEmoji: {fileID: 0}
+  isFriend: 0
+  isSpeedUp: 0
+  isFriendsItem: 0

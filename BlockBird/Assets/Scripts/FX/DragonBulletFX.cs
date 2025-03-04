@@ -34,5 +34,16 @@ public class DragonBulletFX : BulletFX
         }
     }
 
+    protected override float SpecialEffect(BlockBase block)
+    {
+        if (block.IsBoss)
+        {
+            return damage * 2;
+        }
+        else
+        {
+            return damage;
+        }
 
+    }
 }

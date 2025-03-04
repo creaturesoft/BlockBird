@@ -83,6 +83,19 @@ public class Character : MonoBehaviour
         }
     }
 
+
+    [SerializeField]
+    bool isMeleeAttack = false;
+    public bool IsMeleeAttack
+    {
+        get { return isMeleeAttack; }
+        set
+        {
+            isMeleeAttack = value;
+        }
+    }
+
+
     private bool isDie = false;
     public bool IsDie
     {
@@ -145,7 +158,6 @@ public class Character : MonoBehaviour
     }
 
 
-
     public TextMeshPro hpText; // HP를 표시할 텍스트
 
     int damagePerSecond = 1;   // 1초마다 감소할 HP
@@ -154,7 +166,7 @@ public class Character : MonoBehaviour
 
     public GameObject[] initGunPrefabList;
     private List<GunBase> useGunPrefabList;
-    private List<GunBase> useGunList;
+    public List<GunBase> useGunList;
 
     private Rigidbody2D rb;
     public bool isActive = false;
@@ -258,13 +270,15 @@ public class Character : MonoBehaviour
             }
             else
             {
+                //레벨업
                 foreach (GunBase checkGun in useGunList)
                 {
-                    if (checkGun.GetType() == addedGun.GetType())
-                    {
+                    //가지고 있는 무기 전부 레벨업으로 변경
+                    //if (checkGun.GetType() == addedGun.GetType())
+                    //{
                         checkGun.isLastGun = true;
                         checkGun.LevelUp();
-                    }
+                    //}
                 }
 
             }
@@ -340,15 +354,28 @@ public class Character : MonoBehaviour
             }
 
             //경험치, 레벨 저장
-            BirdData birdData = GameManager.Instance.UserData.birdList.Where(x => x.name == characterName).FirstOrDefault();
+            BirdData birdData = PersistentObject.Instance.UserData.birdList.Where(x => x.name == characterName).FirstOrDefault();
 
             birdData.expLevel = ExpLevel;
             birdData.exp = Exp;
-            GameManager.Instance.UserData.stage++;
+            PersistentObject.Instance.UserData.stage++;
 
-            SaveLoadManager.SaveUserData(GameManager.Instance.UserData);
-            StartCoroutine(SaveLoadManager.SendUserDataToServer(GameManager.Instance.UserData));
-            //GameManager.Instance.UserData = SaveLoadManager.LoadUserData();
+            if ( PersistentObject.Instance.UserData.maxStage < PersistentObject.Instance.UserData.stage)
+            {
+                PersistentObject.Instance.UserData.maxStage = PersistentObject.Instance.UserData.stage;
+                PersistentObject.Instance.UserData.currentBossMapIndex = MapManager.Instance.GetBossMapIndex();
+            }
+
+            //lifeWeight
+            if (MapBase.CurrentLifeWeight > PersistentObject.Instance.UserData.currentLifeWeight)
+            {
+                PersistentObject.Instance.UserData.currentLifeWeight = MapBase.CurrentLifeWeight;
+            }
+
+
+            SaveLoadManager.SaveUserData(PersistentObject.Instance.UserData);
+            StartCoroutine(SaveLoadManager.SendUserDataToServer(PersistentObject.Instance.UserData));
+            //PersistentObject.Instance.UserData = SaveLoadManager.LoadUserData();
 
 
             rb.constraints = RigidbodyConstraints2D.FreezeAll;
@@ -392,14 +419,15 @@ public class Character : MonoBehaviour
     List<GameObject> speedUpGuns = new List<GameObject>();
     public void TakeSpeedUpItem()
     {
+        SoundManager.Instance.PlaySpeedUpItemAudio();
+
+        speedUpElapseTime = 0;
         if (isSpeedUp)
         {
-            speedUpElapseTime = 0;
             return;
         }
 
 
-        SoundManager.Instance.PlaySpeedUpItemAudio();
 
         isSpeedUp = true;
         StartCoroutine(FinishSpeedUp());
@@ -430,9 +458,12 @@ public class Character : MonoBehaviour
         Speed = originalSpeed;
         foreach (GameObject gun in speedUpGuns)
         {
+            useGunList.Remove(gun.GetComponent<GunBase>());
             Destroy(gun);
         }
 
+
+        speedUpGuns.Clear();
         isSpeedUp = false;
     }
 

@@ -8,8 +8,18 @@ public class BulletFX : MonoBehaviour
 
     public float effectDuration = 5.0f;  // 이펙트가 끝나는 예상 시간
 
+    public AudioSource defaultAudio;
+
+
     public virtual void init(float damage, float size = 1f)
     {
+        if (Time.time - GameManager.effectSoundLastPlayTime >= GameManager.effectSoundPlayCooldown && defaultAudio != null && SoundManager.Instance.isSFXOn)
+        {
+            defaultAudio?.PlayOneShot(defaultAudio.clip);
+            GameManager.effectSoundLastPlayTime = Time.time;
+        }
+
+
         this.damage = damage;
 
         damageCollider = GetComponent<Collider2D>();

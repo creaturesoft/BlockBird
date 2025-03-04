@@ -67,7 +67,7 @@ public class SaveLoadManager : MonoBehaviour
         SaveData(PlayerPrefsManager.GetUserDataPath(), jsonData);
 
         //데이터 업데이트
-        GameManager.Instance.UpdateUserData();
+        PersistentObject.Instance.UpdateUserData();
 
     }
 
@@ -83,6 +83,11 @@ public class SaveLoadManager : MonoBehaviour
             User data = JsonUtility.FromJson<User>(jsonData);
             //Debug.Log("Game data loaded and decrypted from " + userDataPath);
 
+            //foreach(BirdData birdData in data.birdList)
+            //{
+            //        birdData.pullLevel = 20;
+            //}
+
             return data;
         }
 
@@ -97,6 +102,7 @@ public class SaveLoadManager : MonoBehaviour
         //데이터 없을 경우
         List<BirdData> birdList = new List<BirdData>();
         birdList.Add(new BirdData() { name = "BirdyGun", expLevel = 1 });
+        birdList.Add(new BirdData() { name = "Eagle", expLevel = 1 });
 
         string userId = System.Guid.NewGuid().ToString();
 
@@ -104,6 +110,7 @@ public class SaveLoadManager : MonoBehaviour
         {
             userId = userId,
             stage = 1,
+            maxStage = 1,
             gem = 0,
             isGuest = true,
             birdList = birdList
@@ -168,9 +175,12 @@ public class SaveLoadManager : MonoBehaviour
         string data = "{\"userId\": \"" + user.userId + "\", " +
                 "\"type\": \"UPDATE_USER\", " +
                 "\"stage\": " + user.stage + ", " +
+                "\"maxStage\": " + user.maxStage + ", " +
                 "\"isReviewed\": " + user.isReviewed.ToString().ToLower() + ", " +
                  "\"highScore\": " + PlayerPrefsManager.LoadScore().Last() + ", " +
                  "\"birdCount\": " + user.birdList.Count() + ", " +
+                 "\"currentLifeWeight\": " + user.currentLifeWeight + ", " +
+                 "\"currentBossMapIndex\": " + user.currentBossMapIndex + ", " +
                 "\"birdList\": " + JsonConvert.SerializeObject(user.birdList, Formatting.None) + "}";
 
 
@@ -199,9 +209,12 @@ public class User
     public string userId;
     public string lastUserId;
     public int stage;
+    public int maxStage;
     public bool isGuest;
     public bool isReviewed;
     public int gem;
+    public int currentLifeWeight;
+    public int currentBossMapIndex;
     public List<BirdData> birdList;
 }
 

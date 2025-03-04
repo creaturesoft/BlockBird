@@ -55,6 +55,18 @@ public class PeacockGun : GunBase
                 bullet.Life += (int)((float)level / 80f);
             }
 
+            if (GameManager.Instance.Character.useGunList[0] == this)
+            {
+                defaultAudio?.PlayOneShot(defaultAudio.clip);
+            }
+
+            if (Time.time - GameManager.attackSoundLastPlayTime >= GameManager.attackSoundPlayCooldown && defaultAudio != null && SoundManager.Instance.isSFXOn)
+            {
+                defaultAudio?.PlayOneShot(defaultAudio.clip);
+                GameManager.attackSoundLastPlayTime = Time.time;
+            }
+
+
             yield return new WaitForSeconds(delay / GameManager.Instance.Character.AttackSpeed);
         }
     }

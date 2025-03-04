@@ -16,9 +16,9 @@ public class FlameBirdBulletFX : BulletFX
 
     public void init(float damage, float size, float destroyTime)
     {
-        base.init(damage, size);
         this.DestroyTime = destroyTime;
         this.effectDuration = destroyTime;
+        base.init(damage, size);
         StartCoroutine(Explosion());
     }
 
@@ -40,4 +40,34 @@ public class FlameBirdBulletFX : BulletFX
         Destroy(gameObject);
     }
 
+
+    void FixedUpdate()
+    {
+        if (GameManager.Instance.Character != null)
+        {
+            if (GameManager.Instance.Character.transform.position.x + 1f < transform.position.x)
+            {
+                transform.position += Vector3.left * Time.fixedDeltaTime * GameManager.Instance.Character.Speed;
+            }
+
+            if (GameManager.Instance.Character.transform.position.x > transform.position.x)
+            {
+                transform.position += Vector3.right * Time.fixedDeltaTime * GameManager.Instance.Character.Speed;
+            }
+        }
+    }
+
+
+    protected override float SpecialEffect(BlockBase block)
+    {
+        if (block.IsBoss)
+        {
+            return damage * 2;
+        }
+        else
+        {
+            return damage;
+        }
+
+    }
 }

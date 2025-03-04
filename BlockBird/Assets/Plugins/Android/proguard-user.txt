@@ -43,3 +43,6 @@
 -dontwarn com.google.firebase.**
 
 -keep class androidx.multidex.** { *; }
+
+-keep class com.SmileSoft.unityplugin.Share.** { *; }
+-dontwarn com.SmileSoft.unityplugin.Share.**

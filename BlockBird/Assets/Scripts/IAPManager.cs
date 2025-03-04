@@ -391,7 +391,7 @@ public class IAPManager : MonoBehaviour, IStoreListener, IDetailedStoreListener
 
     public void GemProcessPurchase(int amount)
     {
-        string data = "{\"userId\": \"" + GameManager.Instance.UserData.userId + "\", " +
+        string data = "{\"userId\": \"" + PersistentObject.Instance.UserData.userId + "\", " +
                 "\"type\": \"PURCHASE\", " +
                 "\"amount\": " + amount + "}";
 
@@ -405,9 +405,9 @@ public class IAPManager : MonoBehaviour, IStoreListener, IDetailedStoreListener
             else
             {
                 //성공
-                GameManager.Instance.UserData.gem += (int)result.GetValue("amount");
+                PersistentObject.Instance.UserData.gem += (int)result.GetValue("amount");
 
-                SaveLoadManager.SaveUserData(GameManager.Instance.UserData);
+                SaveLoadManager.SaveUserData(PersistentObject.Instance.UserData);
                 PersistentObject.Instance.ShowMessagePopup(1, () => { });
             }
         }));

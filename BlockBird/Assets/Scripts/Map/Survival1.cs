@@ -25,10 +25,15 @@ public class Survival1 : MapBase
     IEnumerator SpawnBlock()
     {
         //GameManager.Instance.stage = 100;
+        //float hard = Random.Range(1f, 3.5f);
+        //float hard = Random.Range(10f, 10f);
+        float hard = Random.Range(1f, 50f - GameManager.Instance.Stage < 10f ? 10f : 50 - GameManager.Instance.Stage);
 
-        GameManager.Instance.GoalScore = 100 * GameManager.Instance.stage * 1;
-        float lifeWeight = 10f + GameManager.Instance.stage / 20f;
-        float addLifeWeight = 0.01f + GameManager.Instance.stage / 20000f;
+        GameManager.Instance.GoalScore = 100 * GameManager.Instance.Stage * 1;
+        //float lifeWeight = 10f + GameManager.Instance.stage / 10f;
+        float lifeWeight = 10f + (float)GameManager.Instance.Stage / 5f * hard;
+        //float addLifeWeight = 0.01f + (float)GameManager.Instance.stage / 20000f;
+        float addLifeWeight = 0.01f + (float)GameManager.Instance.Stage / 10000f * hard;
 
         float spawnPositionX = 25f;
         int totalBlock = 0;
@@ -197,6 +202,9 @@ public class Survival1 : MapBase
         }
 
 
+        CurrentLifeWeight = (int)(lifeWeight / hard);
+
+
         for (int i = 0; i < 15; i++)
         {
             newDepthX = currentDepth.transform.position.x + BlockGap;
@@ -227,21 +235,21 @@ public class Survival1 : MapBase
                 {
                     bossBlock[i][y+Steps] =
                     Instantiate(block1Prefab, new Vector3(0, BlockGap * y, 0), Quaternion.identity)
-                        .Init(currentDepth.transform, Random.Range(lifeWeight * 4f, lifeWeight * 9f), 5, true);
+                        .Init(currentDepth.transform, Random.Range(lifeWeight * 4f, lifeWeight * 7f), 5, true);
                 }
                 else if (y == Steps)         //¸ÇÀ§
                 {
 
                     bossBlock[i][y+Steps] =
                     Instantiate(block1Prefab, new Vector3(0, BlockGap * y, 0), Quaternion.identity)
-                        .Init(currentDepth.transform, Random.Range(lifeWeight * 3f, lifeWeight * 8f), 5, true);
+                        .Init(currentDepth.transform, Random.Range(lifeWeight * 3f, lifeWeight * 6f), 5, true);
                 }
                 else
                 {
 
                     bossBlock[i][y+Steps] =
                     Instantiate(block1Prefab, new Vector3(0, BlockGap * y, 0), Quaternion.identity)
-                        .Init(currentDepth.transform, Random.Range(lifeWeight * 1f, lifeWeight * 6f), 5, true);
+                        .Init(currentDepth.transform, Random.Range(lifeWeight * 1f, lifeWeight * 4f), 5, true);
                 }
 
             }
@@ -271,7 +279,7 @@ public class Survival1 : MapBase
         currentDepth.transform.localScale = new Vector3(5, 20, 1);
         //currentDepth.AddComponent<SpriteRenderer>().color = new Color(100,100,100);
 
-        GameManager.Instance.Character.Speed = 2.5f;
+        GameManager.Instance.Character.Speed = GameManager.Instance.Character.IsMeleeAttack ? 2.0f : 2.5f;
 
         for (int i = 0; i < bossBlock[0].Length; i++)
         {

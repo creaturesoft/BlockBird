@@ -46,5 +46,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bulletListPrefab:
   - {fileID: 5116826413985697139, guid: 1967cae75ac00a6408aa27db57cdb464, type: 3}
+  defaultAudio: {fileID: 0}
   level: 0
+  characterLevel: 0
   isLastGun: 0
+  character: {fileID: 0}

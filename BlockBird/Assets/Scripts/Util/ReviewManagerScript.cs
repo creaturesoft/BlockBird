@@ -65,10 +65,11 @@ public class ReviewManagerScript : MonoBehaviour
             OpenAppStore();
         }
 
-        GameManager.Instance.UserData.isReviewed = true;
-        SaveLoadManager.SaveUserData(GameManager.Instance.UserData);
-        StartCoroutine(SaveLoadManager.SendUserDataToServer(GameManager.Instance.UserData, Close));
+        PersistentObject.Instance.UserData.isReviewed = true;
+        SaveLoadManager.SaveUserData(PersistentObject.Instance.UserData);
+        StartCoroutine(SaveLoadManager.SendUserDataToServer(PersistentObject.Instance.UserData, Close));
 
+        Close();
     }
 
     private IEnumerator RequestReviewFlow()

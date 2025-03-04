@@ -11,7 +11,7 @@ dependencies {
     implementation 'com.google.android.play:core-common:2.0.4' // Packages/com.google.play.core/Editor/Dependencies.xml:3
     implementation 'com.google.android.play:review:2.0.2' // Packages/com.google.play.review/Editor/Dependencies.xml:3
     implementation 'com.google.android.ump:user-messaging-platform:3.1.0' // Packages/com.google.ads.mobile/GoogleMobileAds/Editor/GoogleUmpDependencies.xml:7
-    implementation 'com.google.games:gpgs-plugin-support:0.11.01' // Packages/com.google.play.games/Editor/GooglePlayGamesPluginDependencies.xml:11
+    implementation 'com.google.games:gpgs-plugin-support:2.0.0' // Assets/GooglePlayGames/com.google.play.games/Editor/GooglePlayGamesPluginDependencies.xml:11
 // Android Resolver Dependencies End
 **DEPS**}
 

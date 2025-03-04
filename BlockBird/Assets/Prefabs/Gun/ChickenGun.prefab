@@ -44,7 +44,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d22c609685c63e94b8ae4dc61d58d254, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bulletListPrefab: []
+  bulletListPrefab:
+  - {fileID: 5116826413985697139, guid: e80fe106cc2e73c438142e7ea431c961, type: 3}
   level: 0
+  characterLevel: 0
   isLastGun: 0
-  eggPrefab: {fileID: 5072361722678347248, guid: 7cac9a3291fcba74b8eac451b8293649, type: 3}
+  character: {fileID: 0}
+  eggPrefab: {fileID: -3710320522168741376, guid: e80fe106cc2e73c438142e7ea431c961, type: 3}
+  bulletFXPrefab: {fileID: 0}

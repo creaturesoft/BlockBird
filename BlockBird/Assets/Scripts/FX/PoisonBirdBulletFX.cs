@@ -11,7 +11,7 @@ public class PoisonBirdBulletFX : NoColliderBulletFX
     public void init(float size, BlockBase block, float period)
     {
         base.init(size);
-        effectDuration = 20f;
+        effectDuration = 200f;
         this.block = block;
         this.period = period;
         StartCoroutine(Poison());
@@ -30,7 +30,7 @@ public class PoisonBirdBulletFX : NoColliderBulletFX
 
             if (block.IsBoss)
             {
-                block.TakeDamage(block.Life / period / 2);
+                block.TakeDamage(block.Life / period / 1.5f);
             }
             else
             {

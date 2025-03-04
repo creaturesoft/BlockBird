@@ -26,4 +26,5 @@ public class FlameBirdBullet : Bullet
         Instantiate(bulletFXPrefab, transform.position, Quaternion.identity, transform.parent).init(Damage, Size, DestroyTime);
         return 0;
     }
+
 }

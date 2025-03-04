@@ -31,6 +31,7 @@ public class Bullet2Gun : GunBase
     IEnumerator FireContinuously(GameObject bulletPrefab)
     {
         float missileGap = 0.25f;
+        Bullet bullet = null;
         while (!GameManager.Instance.Character.IsDie)
         {
             //Instantiate(bulletPrefab, transform);
@@ -40,13 +41,23 @@ public class Bullet2Gun : GunBase
             for (int j = 0; j < yPositions.Length; j++)
             {
                 Vector3 position = new Vector3(transform.position.x, transform.position.y + yPositions[j], transform.position.z);
-                Bullet bullet = Instantiate(bulletPrefab, position, Quaternion.identity, GetBulletsTransform())
+                bullet = Instantiate(bulletPrefab, position, Quaternion.identity, GetBulletsTransform())
                                     .GetComponent<Bullet>();
-                bullet.Damage += (float)level / 6f;
+                bullet.Damage += (float)level / 7f;
                 bullet.Life += (int)((float)level / 40f);
             }
-            
+
+
+            if (Time.time - GameManager.attackSoundLastPlayTime >= GameManager.attackSoundPlayCooldown && defaultAudio != null && SoundManager.Instance.isSFXOn)
+            {
+                defaultAudio?.PlayOneShot(defaultAudio.clip);
+                GameManager.attackSoundLastPlayTime = Time.time;
+            }
             yield return new WaitForSeconds(delay / GameManager.Instance.Character.AttackSpeed);
+
+#if UNITY_EDITOR
+            //Debug.Log("level: " + level + " / dps: " + yPositions.Length * bullet.Damage * 1 / (delay / GameManager.Instance.Character.AttackSpeed));
+#endif
         }
     }
 

@@ -75,4 +75,16 @@ public class FireRingBullet : Bullet
             + (Vector2)(transform.parent.right * Speed * Time.fixedDeltaTime)
             + new Vector2(0f, wave));
     }
+
+    protected override float SpecialEffect(BlockBase block)
+    {
+        if (block.IsBoss)
+        {
+            return Damage * 4.0f;
+        }
+        else
+        {
+            return Damage;
+        }
+    }
 }

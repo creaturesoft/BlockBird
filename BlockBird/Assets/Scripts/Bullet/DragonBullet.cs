@@ -28,10 +28,12 @@ public class DragonBullet : Bullet
         if (dragonBulletFX == null)
         {
             dragonBulletFX = Instantiate(dragonBulletFXPrefab, transform.position, Quaternion.identity, transform.parent);
-            dragonBulletFX.init(Damage, Size, Delay);
+            dragonBulletFX.init(damage, Size, delay);
         }
-
-        dragonBulletFX.LevelUp(damage, delay);
+        else
+        {
+            dragonBulletFX.LevelUp(damage, delay);
+        }
     }
 
     protected override void FixedUpdate()
@@ -44,13 +46,21 @@ public class DragonBullet : Bullet
         Life = 100;
         
         transform.position = new Vector3(
-            gunTransform.position.x + 1f,
-            gunTransform.position.y - 0.14f,
-            gunTransform.position.z);
+            gunTransform.transform.position.x + 1f,
+            gunTransform.transform.position.y - 0.14f,
+            gunTransform.transform.position.z);
 
         if (dragonBulletFX != null)
         {
             dragonBulletFX.transform.position = transform.position;
+        }
+    }
+
+    private void OnDestroy()
+    {
+        if (dragonBulletFX != null)
+        {
+            Destroy(dragonBulletFX.gameObject);
         }
     }
 }

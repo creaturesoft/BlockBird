@@ -27,6 +27,10 @@ public class GhostBirdGun : GunBase
         while (!GameManager.Instance.Character.IsDie)
         {
             float maxAttackSpeed = Calculate(GameManager.Instance.Character.Speed) - 0.2f;
+            if(maxAttackSpeed < 12)
+            {
+                maxAttackSpeed = 12;
+            }
 
             float randomDirection = Random.Range(0f, 90f);
             Vector3 upDirection = Quaternion.Euler(0, 0, randomDirection) * Vector2.right;
@@ -37,7 +41,7 @@ public class GhostBirdGun : GunBase
             GhostBirdGunBullet bullet = Instantiate(bulletPrefab, new Vector3(transform.position.x, transform.position.y, transform.position.z), Quaternion.identity, GetBulletsTransform())
                 .GetComponent<GhostBirdGunBullet>();
 
-            bullet.Delay -= (float)level/10f;
+            bullet.Delay -= (float)level/5f;
 
             if(bullet.Delay <= maxAttackSpeed)
             {
@@ -45,18 +49,24 @@ public class GhostBirdGun : GunBase
             }
 
             bullet.SetDirection(upDirection);
+            bullet.Life = 100;
+            bullet.Damage += (float)level;
 
             //¾Æ·¡
             bullet = Instantiate(bulletPrefab, new Vector3(transform.position.x, transform.position.y, transform.position.z), Quaternion.identity, GetBulletsTransform())
                 .GetComponent<GhostBirdGunBullet>();
 
-            bullet.Delay -= (float)level / 10f;
+            bullet.Delay -= (float)level / 5f;
             if (bullet.Delay <= maxAttackSpeed)
             {
                 bullet.Delay = maxAttackSpeed;
             }
 
             bullet.SetDirection(downDirection);
+            bullet.Life = 100;
+            bullet.Damage += (float)level;
+
+
 
             yield return new WaitForSeconds(bullet.Delay / GameManager.Instance.Character.AttackSpeed);
         }
@@ -81,6 +91,13 @@ public class GhostBirdGun : GunBase
 
             bullet.Damage += (float)level / 5;  //0.1f;
 
+
+
+            if (Time.time - GameManager.attackSoundLastPlayTime >= GameManager.attackSoundPlayCooldown && defaultAudio != null && SoundManager.Instance.isSFXOn)
+            {
+                defaultAudio?.PlayOneShot(defaultAudio.clip);
+                GameManager.attackSoundLastPlayTime = Time.time;
+            }
 
             yield return new WaitForSeconds(bullet.Delay / GameManager.Instance.Character.AttackSpeed);
         }

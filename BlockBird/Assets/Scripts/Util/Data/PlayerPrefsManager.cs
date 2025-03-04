@@ -11,6 +11,14 @@ public class ScoreData
     public List<int> scoreList;
 }
 
+
+[System.Serializable]
+public class SettingData
+{
+    public float SFXVolume;
+    public float BGMVolume;
+}
+
 public class PlayerPrefsManager : MonoBehaviour
 {
     public static int InsertScoreAndGetRank(int newScore)
@@ -93,5 +101,29 @@ public class PlayerPrefsManager : MonoBehaviour
             PlayerPrefs.Save();
             return path;
         }
+    }
+
+    // 설정 저장
+    static public void SaveSetting(SettingData data)
+    {
+        string json = JsonUtility.ToJson(data);
+        PlayerPrefs.SetString("SettingData", json);
+        PlayerPrefs.Save();
+    }
+
+    // 설정 불러오기
+    static public SettingData LoadSetting()
+    {
+        if (PlayerPrefs.HasKey("SettingData"))
+        {
+            string json = PlayerPrefs.GetString("SettingData");
+            SettingData data = JsonUtility.FromJson<SettingData>(json);
+            return data;
+        }
+
+        SettingData defaultData = new SettingData() { SFXVolume = 0.8f, BGMVolume = 0.14f };
+        SaveSetting(defaultData);
+
+        return defaultData;// 기본값 반환
     }
 }

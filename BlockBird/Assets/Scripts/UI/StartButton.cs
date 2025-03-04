@@ -9,7 +9,6 @@ public class StartButton : MonoBehaviour
     public GameObject signInButton;
     public GameObject homeButton;
     public GameObject settingButton;
-    public GameObject map;
     public CharacterSelect characterSelect;
 
     float[] weightList = {
@@ -84,7 +83,7 @@ public class StartButton : MonoBehaviour
                 else if (i == 3)  
                 {
                     //리뷰
-                    if (!GameManager.Instance.UserData.isReviewed && Application.internetReachability != NetworkReachability.NotReachable)
+                    if (!PersistentObject.Instance.UserData.isReviewed && Application.internetReachability != NetworkReachability.NotReachable)
                     {
                         ReviewManagerScript review = PageController.Instance.ShowReview();
                         while (review.IsPlaying)
@@ -139,7 +138,8 @@ public class StartButton : MonoBehaviour
         // 최종적으로 목표 크기로 설정
         GameManager.Instance.Character.transform.localScale = targetScale;
         GameManager.Instance.Character.EnableCharacter();
-        map.SetActive(true);
+
+        MapManager.Instance.StartMap();
     }
 
 }

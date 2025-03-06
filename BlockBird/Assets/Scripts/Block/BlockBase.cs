@@ -78,7 +78,7 @@ public class BlockBase : MonoBehaviour
     float[] weightList = {
             0f,      //empty
             2f,      //무기
-            200f,      //스피드업
+            2f,      //스피드업
             1f,      //친구들
             //0.02f    //레벨업
     };

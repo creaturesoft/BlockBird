@@ -31,6 +31,9 @@ public class Setting : MonoBehaviour
         {
             reviewButton.SetActive(true);
         }
+
+
+        reviewButton.SetActive(true);
     }
 
 
@@ -40,6 +43,11 @@ public class Setting : MonoBehaviour
         {
             isFirst = false;
             StageSlider.maxValue = PersistentObject.Instance.UserData.maxStage;
+            if(StageSlider.maxValue < StageSlider.value)
+            {
+                StageSlider.maxValue = StageSlider.value;
+            }
+
             StageSlider.value = PersistentObject.Instance.UserData.stage;
         }
 

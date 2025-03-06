@@ -31,11 +31,7 @@ public class ChickenGun : GunBase
 
         while (!GameManager.Instance.Character.IsDie)
         {
-            eggHatchDelay = 40f - (float)level / 10f;
-            if (eggHatchDelay < 20)
-            {
-                eggHatchDelay = 20;
-            }
+            eggHatchDelay = Random.Range(1f, 5f);
 
             //bullet.Damage = level;
             Egg egg = Instantiate(eggPrefab, new Vector3(transform.position.x, transform.position.y, transform.position.z), Quaternion.identity, GetBulletsTransform());

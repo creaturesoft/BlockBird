@@ -22,15 +22,15 @@
             <meta-data android:name="unityplayer.UnityActivity" android:value="true" />
             <meta-data android:name="android.app.lib_name" android:value="game" />
         </activity>
-		
-		      <provider
-          android:name="androidx.core.content.FileProvider"
-          android:authorities="com.Creaturesoft.BlockBird"
-          android:exported="false"
-          android:grantUriPermissions="true">
-        <meta-data
-            android:name="android.support.FILE_PROVIDER_PATHS"
-            android:resource="@xml/file_provider_paths" />
-      </provider>
+
+		<provider
+	android:name="androidx.core.content.FileProvider"
+	android:authorities="com.Creaturesoft.BlockBird"
+	android:exported="false"
+	android:grantUriPermissions="true">
+			<meta-data
+				android:name="android.support.FILE_PROVIDER_PATHS"
+				android:resource="@xml/file_provider_paths" />
+		</provider>
     </application>
 </manifest>

@@ -19,12 +19,12 @@ public class IAPManager : MonoBehaviour, IStoreListener, IDetailedStoreListener
     private static IStoreController storeController;
     private static IExtensionProvider storeExtensionProvider;
 
-    public static string removeAdsProductId = "remove_ads"; // 실제 IAP ID로 설정
-    public static string gem1000ProductId = "gem1000"; // 실제 IAP ID로 설정
-    public static string gem2050ProductId = "gem2050"; // 실제 IAP ID로 설정
-    public static string gem3300ProductId = "gem3300"; // 실제 IAP ID로 설정
-    public static string gem4600ProductId = "gem4600"; // 실제 IAP ID로 설정
-    public static string gem12500ProductId = "gem12500"; // 실제 IAP ID로 설정
+    public static string removeAdsProductId = "remove_ads";
+    public static string gem1000ProductId = "gem1000";
+    public static string gem2050ProductId = "gem2050";
+    public static string gem3300ProductId = "gem3300";
+    public static string gem4600ProductId = "gem4600";
+    public static string gem12500ProductId = "gem12500";
 
 
     void Start()

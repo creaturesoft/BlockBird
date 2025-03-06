@@ -19,7 +19,9 @@ public class Login : MonoBehaviour
         }
 
 
-        PlayGamesPlatform.DebugLogEnabled = true;
+        PlayGamesPlatform.Activate();
+
+        //PlayGamesPlatform.DebugLogEnabled = true;
 #if UNITY_ANDROID
         PlayGamesPlatform.Instance.Authenticate(ProcessAuthentication);
 #elif UNITY_IOS
@@ -28,22 +30,14 @@ public class Login : MonoBehaviour
 
     }
 
-    // 구글 로그인!
     internal void ProcessAuthentication(SignInStatus status)
     {
         if (status == SignInStatus.Success)
         {
-            Debug.Log("굳");
-            Debug.Log(PlayGamesPlatform.Instance.GetUserId());
-
-
             StartCoroutine(PersistentObject.Instance.LoadLoginUserData(PlayGamesPlatform.Instance.GetUserId()));
         }
         else
         {
-
-            Debug.Log("실패");
-
             PersistentObject.Instance.LoadGuestUserData();
         }
     }

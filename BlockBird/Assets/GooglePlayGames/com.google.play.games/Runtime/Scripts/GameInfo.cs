@@ -38,7 +38,7 @@ namespace GooglePlayGames {
 
         public const string ApplicationId = "862665761531"; // Filled in automatically
         public const string IosClientId = "__IOS_CLIENTID__"; // Filled in automatically
-        public const string WebClientId = "862665761531-riqi5ll4mh0bu6hlakskpl5vpdleiehm.apps.googleusercontent.com"; // Filled in automatically
+        public const string WebClientId = "862665761531-a28vhnebcotd0v8ee7h45o091lql0b42.apps.googleusercontent.com"; // Filled in automatically
         public const string NearbyConnectionServiceId = "com.Creaturesoft.BlockBird";
 
         public static bool ApplicationIdInitialized() {

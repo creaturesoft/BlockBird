@@ -8,7 +8,7 @@ public class Egg : Bullet
     private float hatchDelay;
     private float chickDamage;
     private float chickLife;
-    private float delay;
+    //private float delay;
     private bool isFriend;
 
     public BulletFX bulletFXPrefab;

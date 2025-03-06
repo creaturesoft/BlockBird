@@ -54,7 +54,11 @@ public class PlayerInputController : MonoBehaviour
         {
             // 두 번째로 눌렸을 때 게임 종료
             Debug.Log("게임 종료");
-            Application.Quit();
+
+//#if UNITY_ANDROID
+//            Application.Quit();
+//            System.Diagnostics.Process.GetCurrentProcess().Kill(); // 강제 종료 (Android에서 사용 가능)
+//#endif
         }
         else
         {

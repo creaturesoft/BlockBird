@@ -1,21 +1,26 @@
 using GooglePlayGames;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.SocialPlatforms.Impl;
 
 public class Leaderboard : MonoBehaviour
 {
 
+    static string LeaderboardID = "CgkI-8WL140ZEAIQAQ";
+
+    void Start()
+    {
 #if UNITY_ANDROID
-    static readonly string LeaderboardID = "CgkI-8WL140ZEAIQAQ";
+        LeaderboardID = GPGSIds.leaderboard_top_flyers;
 #else
-    static readonly string LeaderboardID = "CgkI-8WL140ZEAIQAQ";
+        LeaderboardID = "top_flyers";
 #endif
 
+    }
 
     public void SubmitScore()
     {
         bool isAuthenticated;
-
         if (Application.platform == RuntimePlatform.Android)
         {
             isAuthenticated = PlayGamesPlatform.Instance.localUser.authenticated;
@@ -27,40 +32,58 @@ public class Leaderboard : MonoBehaviour
 
         if (isAuthenticated)
         {
-            Social.ReportScore(PersistentObject.Instance.UserData.stage, LeaderboardID, success =>
+            Social.ReportScore(GameManager.Instance.Score, LeaderboardID, success =>
             {
-                Debug.Log(success ? "점수 업로드 성공" : "점수 업로드 실패");
                 ShowLeaderboard();
             });
         }
         else
         {
-            Debug.Log("로그인 필요");
         }
     }
-    public void ShowLeaderboard()
+
+    IEnumerator LeaderboardCoroutine()
     {
         if (Application.platform == RuntimePlatform.Android)
         {
             if (PlayGamesPlatform.Instance.localUser.authenticated)
             {
+                ScreenOrientation orgOrientation = Screen.orientation;
+                Screen.orientation = ScreenOrientation.Portrait;
+                yield return null;
+
                 PlayGamesPlatform.Instance.ShowLeaderboardUI(LeaderboardID);
+
+                yield return new WaitForSeconds(1f);
+                Screen.orientation = orgOrientation;
             }
             else
             {
-                Debug.Log("Google Play Games 로그인 필요");
+                Debug.Log("Google Play Games");
             }
         }
         else
         {
             if (Social.localUser.authenticated)
             {
+                ScreenOrientation orgOrientation = Screen.orientation;
+                Screen.orientation = ScreenOrientation.Portrait;
+                yield return null;
+
                 Social.ShowLeaderboardUI();
+
+                yield return new WaitForSeconds(1f);
+                Screen.orientation = orgOrientation;
             }
             else
             {
-                Debug.Log("Game Center 로그인 필요");
+                Debug.Log("Game Center");
             }
         }
+    }
+
+    public void ShowLeaderboard()
+    {
+        StartCoroutine(LeaderboardCoroutine());
     }
 }

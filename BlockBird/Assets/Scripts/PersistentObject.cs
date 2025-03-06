@@ -136,7 +136,6 @@ public class PersistentObject : MonoBehaviour
 
 
 
-        GetComponent<Login>().StartLogin();
 
         SaveLoadManager.LoadNoADData();
 
@@ -168,6 +167,9 @@ public class PersistentObject : MonoBehaviour
             Debug.LogError($"Failed to initialize Unity Gaming Services: {e.Message}");
         }
 
+
+
+        GetComponent<Login>().StartLogin();
     }
 
 

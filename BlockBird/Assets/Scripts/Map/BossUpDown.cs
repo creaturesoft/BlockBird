@@ -51,7 +51,7 @@ public class BossUpDown : MapBase
 
     IEnumerator SpawnBlock()
     {
-        float lifeWeight = PersistentObject.Instance.UserData.currentLifeWeight * Random.Range(1f, 30f - GameManager.Instance.Stage < 2.5f ? 2.5f : 30f - GameManager.Instance.Stage);
+        float lifeWeight = GameManager.Instance.Stage * Random.Range(1f, 20f - GameManager.Instance.Stage < 2.5f ? 2.5f : 20f - GameManager.Instance.Stage);
         if (lifeWeight < 1)
         {
             lifeWeight = 1;

@@ -69,7 +69,6 @@ public class ReviewManagerScript : MonoBehaviour
         SaveLoadManager.SaveUserData(PersistentObject.Instance.UserData);
         StartCoroutine(SaveLoadManager.SendUserDataToServer(PersistentObject.Instance.UserData, Close));
 
-        Close();
     }
 
     private IEnumerator RequestReviewFlow()

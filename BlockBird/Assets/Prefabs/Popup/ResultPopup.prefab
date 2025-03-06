@@ -1253,7 +1253,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 4243011113480653683}
         m_TargetAssemblyTypeName: ResultPopup, Assembly-CSharp
-        m_MethodName: OnShare
+        m_MethodName: OnScreenShotShare
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1772,6 +1772,7 @@ GameObject:
   - component: {fileID: 6383688031796359106}
   - component: {fileID: 3347695806109742138}
   - component: {fileID: 2926033325099351392}
+  - component: {fileID: 1245070398256185024}
   m_Layer: 5
   m_Name: Button_WorldRank
   m_TagString: Untagged
@@ -1882,7 +1883,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 9098177749836115826}
+      - m_Target: {fileID: 1245070398256185024}
         m_TargetAssemblyTypeName: Leaderboard, Assembly-CSharp
         m_MethodName: SubmitScore
         m_Mode: 1
@@ -1894,6 +1895,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &1245070398256185024
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5760317347386955654}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2fe10bae557572c4180036852028b822, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &6083724758715817961
 GameObject:
   m_ObjectHideFlags: 0
@@ -2768,7 +2781,6 @@ GameObject:
   m_Component:
   - component: {fileID: 9183700486348797211}
   - component: {fileID: 4243011113480653683}
-  - component: {fileID: 9098177749836115826}
   m_Layer: 5
   m_Name: ResultPopup
   m_TagString: Untagged
@@ -2815,18 +2827,6 @@ MonoBehaviour:
   rankText: {fileID: 4618005877103400265}
   restartImage: {fileID: 188973528322304632}
   nextStageImage: {fileID: 5593967085385055995}
---- !u!114 &9098177749836115826
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8422382349308287334}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2fe10bae557572c4180036852028b822, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &8487431219425577305
 GameObject:
   m_ObjectHideFlags: 0

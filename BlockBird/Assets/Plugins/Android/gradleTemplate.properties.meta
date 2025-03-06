@@ -1,7 +1,14 @@
 fileFormatVersion: 2
-guid: 37f35fc86eb674597822f059d7a81de7
+guid: 81619b9c2da7cfb4db807f9c7d434ab8
 DefaultImporter:
   externalObjects: {}
   userData: 
   assetBundleName: 
   assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 127249
+  packageName: Native Share For Android And iOS
+  packageVersion: 
+  assetPath: Assets/Plugins/Android/gradleTemplate.properties
+  uploadId: 0

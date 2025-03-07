@@ -1,12 +1,20 @@
 using System.Collections;
 using UnityEngine;
+
+#if UNITY_ANDROID
 using Google.Play.Review;
+#endif
+
 using System.Runtime.InteropServices;
+
 
 public class ReviewManagerScript : MonoBehaviour
 {
+
+#if UNITY_ANDROID
     private ReviewManager _reviewManager;
     private PlayReviewInfo _playReviewInfo;
+#endif
 
 #if UNITY_IOS
     [DllImport("__Internal")]
@@ -16,7 +24,9 @@ public class ReviewManagerScript : MonoBehaviour
     private void Start()
     {
         // ReviewManager 인스턴스 생성
+#if UNITY_ANDROID
         _reviewManager = new ReviewManager();
+#endif
 
     }
 
@@ -71,6 +81,7 @@ public class ReviewManagerScript : MonoBehaviour
 
     }
 
+#if UNITY_ANDROID
     private IEnumerator RequestReviewFlow()
     {
         // 리뷰 플로우 요청
@@ -105,6 +116,7 @@ public class ReviewManagerScript : MonoBehaviour
         // 리뷰 플로우 완료
         Debug.Log("리뷰 플로우 완료");
     }
+#endif
 
     private void OpenAppStore()
     {

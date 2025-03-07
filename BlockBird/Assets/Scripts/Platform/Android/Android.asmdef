@@ -1,0 +1,21 @@
+{
+    "name": "Android",
+    "rootNamespace": "BlockBirds.Platform.Android",
+    "references": [
+        "GUID:155bdc118ac5a6744ba38f5292f519b7",
+        "GUID:1ed07ff861e5f468287b0baef844706d",
+        "GUID:4139e191aa32f459e9eb2e331225ad7e"
+    ],
+    "includePlatforms": [
+        "Android",
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

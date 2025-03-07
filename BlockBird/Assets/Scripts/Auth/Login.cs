@@ -2,10 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+
+#if UNITY_ANDROID
 using GooglePlayGames;
 using GooglePlayGames.BasicApi;
 using GooglePlayGames.BasicApi.SavedGame;
-
+#endif
 
 public class Login : MonoBehaviour
 {
@@ -18,28 +20,23 @@ public class Login : MonoBehaviour
             return;
         }
 
-
-        PlayGamesPlatform.Activate();
-
         //PlayGamesPlatform.DebugLogEnabled = true;
 #if UNITY_ANDROID
-        PlayGamesPlatform.Instance.Authenticate(ProcessAuthentication);
+        PlayGamesPlatform.Activate();
+        PlayGamesPlatform.Instance.Authenticate((status) => {
+            if (status == SignInStatus.Success)
+            {
+                StartCoroutine(PersistentObject.Instance.LoadLoginUserData(PlayGamesPlatform.Instance.GetUserId()));
+            }
+            else
+            {
+                PersistentObject.Instance.LoadGuestUserData();
+            }
+        });
 #elif UNITY_IOS
-        GameCenterLogin()
+        GameCenterLogin();
 #endif
 
-    }
-
-    internal void ProcessAuthentication(SignInStatus status)
-    {
-        if (status == SignInStatus.Success)
-        {
-            StartCoroutine(PersistentObject.Instance.LoadLoginUserData(PlayGamesPlatform.Instance.GetUserId()));
-        }
-        else
-        {
-            PersistentObject.Instance.LoadGuestUserData();
-        }
     }
 
     /// <summary>

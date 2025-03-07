@@ -1,3 +1,5 @@
+#if UNITY_ANDROID
+
 using Google.Play.AppUpdate;
 using Google.Play.Common;
 using UnityEngine;
@@ -9,13 +11,13 @@ public class InAppUpdateManager : MonoBehaviour
 
     void Start()
     {
-#if UNITY_ANDROID
+
         _appUpdateManager = new AppUpdateManager();
-        StartCoroutine(CheckForUpdate());
-#endif
+        StartCoroutine(CheckForAndroidUpdate());
+
     }
 
-    private IEnumerator CheckForUpdate()
+    private IEnumerator CheckForAndroidUpdate()
     {
         var appUpdateInfoOperation = _appUpdateManager.GetAppUpdateInfo();
         yield return appUpdateInfoOperation;
@@ -73,3 +75,5 @@ public class InAppUpdateManager : MonoBehaviour
         }
     }
 }
+
+#endif

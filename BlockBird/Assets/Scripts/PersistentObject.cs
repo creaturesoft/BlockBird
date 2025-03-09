@@ -401,11 +401,10 @@ public class PersistentObject : MonoBehaviour
 
     public string GetStoreURL()
     {
-        // TODO! : 앱스토어 링크로 변경
 #if UNITY_ANDROID
-        return "https://play.google.com/store/apps/details?id=com.unity3d.korea";
+        return "https://play.google.com/store/apps/details?id=com.Creaturesoft.BlockBird";
 #elif UNITY_IOS
-        return "https://apps.apple.com/app/id1530006619";
+        return "https://apps.apple.com/app/id6741071606";
 #else   
         return "";
 #endif

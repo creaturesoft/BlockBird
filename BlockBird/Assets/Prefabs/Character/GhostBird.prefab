@@ -353,11 +353,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 733b7b0f060b72c45847bce54b27be40, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 6
+  speed: 5
   attackSpeed: 6
   jumpForce: 7
-  hp: 5
-  maxHp: 5
+  hp: 8
+  maxHp: 8
   isMeleeAttack: 0
   hpText: {fileID: 9095349281864999413}
   initGunPrefabList:

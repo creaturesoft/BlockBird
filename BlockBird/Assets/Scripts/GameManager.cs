@@ -88,9 +88,9 @@ public class GameManager : MonoBehaviour
         // 다른 씬으로 전환해도 파괴되지 않도록 설정
         //DontDestroyOnLoad(gameObject);
 
-#if UNITY_EDITOR
-        GetComponent<FPSDisplay>().enabled = true;
-#endif
+//#if UNITY_EDITOR
+//        GetComponent<FPSDisplay>().enabled = true;
+//#endif
 
         StartCoroutine(Init());
 

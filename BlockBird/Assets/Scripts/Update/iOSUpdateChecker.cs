@@ -7,8 +7,8 @@ public class iOSUpdateChecker : MonoBehaviour
 {
     // iTunes Lookup API URL
     // TODO! : YOUR_BUNDLE_ID, YOUR_APP_ID ¼öÁ¤
-    private string appStoreURL = "https://itunes.apple.com/lookup?bundleId=YOUR_BUNDLE_ID";
-    private string appStoreOpenURL = "https://apps.apple.com/app/idYOUR_APP_ID";
+    private string appStoreURL = "https://itunes.apple.com/lookup?bundleId=com.Creaturesoft.BlockBird";
+    private string appStoreOpenURL = "https://apps.apple.com/app/id6741071606";
 
     void Start()
     {

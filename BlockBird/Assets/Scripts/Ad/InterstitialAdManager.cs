@@ -20,11 +20,11 @@ public class InterstitialAdManager : MonoBehaviour
         }
 
 #if UNITY_ANDROID
-        //string adUnitId = "ca-app-pub-9125545321048807/4926614968";
-        string adUnitId = "ca-app-pub-3940256099942544/1033173712"; // 테스트용 전면 광고 ID
+        string adUnitId = "ca-app-pub-9125545321048807/4926614968";
+        //string adUnitId = "ca-app-pub-3940256099942544/1033173712"; // 테스트용 전면 광고 ID
 #elif UNITY_IPHONE
-        //string adUnitId = "ca-app-pub-9125545321048807/8807247707";
-        string adUnitId = "ca-app-pub-3940256099942544/4411468910"; // 테스트용 전면 광고 ID
+        string adUnitId = "ca-app-pub-9125545321048807/8807247707";
+        //string adUnitId = "ca-app-pub-3940256099942544/4411468910"; // 테스트용 전면 광고 ID
 #else
         string adUnitId = "unexpected_platform";
 #endif

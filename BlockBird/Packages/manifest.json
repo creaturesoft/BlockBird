@@ -1,6 +1,5 @@
 {
   "dependencies": {
-    "com.google.ads.mobile": "9.6.0",
     "com.google.external-dependency-manager": "1.2.185",
     "com.google.play.appupdate": "1.8.5",
     "com.google.play.review": "1.8.4",

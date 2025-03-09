@@ -120,13 +120,12 @@ public class ReviewManagerScript : MonoBehaviour
 
     private void OpenAppStore()
     {
-        // TODO! : 앱스토어 링크로 변경
 #if UNITY_ANDROID
-            string packageName = "com.yourcompany.yourapp"; // 앱 패키지명 변경
+            string packageName = "com.Creaturesoft.BlockBird"; // 앱 패키지명 변경
             string reviewUrl = "https://play.google.com/store/apps/details?id=" + packageName + "&reviewId=0";
             Application.OpenURL(reviewUrl);
 #elif UNITY_IOS
-            string appId = "YOUR_APP_ID"; // iOS 앱스토어 ID 입력
+            string appId = "6741071606"; // iOS 앱스토어 ID 입력
             string reviewUrl = "itms-apps://itunes.apple.com/app/id" + appId + "?action=write-review";
             Application.OpenURL(reviewUrl);
 #endif

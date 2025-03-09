@@ -12,11 +12,11 @@ public class RewardedAdManager : MonoBehaviour
     {
 
 #if UNITY_ANDROID
-        //string adUnitId = "ca-app-pub-9125545321048807/3746492714";
-        string adUnitId = "ca-app-pub-3940256099942544/1033173712"; // 테스트용 전면 광고 ID
+        string adUnitId = "ca-app-pub-9125545321048807/3746492714";
+        //string adUnitId = "ca-app-pub-3940256099942544/1033173712"; // 테스트용 전면 광고 ID
 #elif UNITY_IPHONE
-        //string adUnitId = "ca-app-pub-9125545321048807/9464625771";
-        string adUnitId = "ca-app-pub-3940256099942544/4411468910"; // 테스트용 전면 광고 ID
+        string adUnitId = "ca-app-pub-9125545321048807/9464625771";
+        //string adUnitId = "ca-app-pub-3940256099942544/4411468910"; // 테스트용 전면 광고 ID
 #else
         string adUnitId = "unexpected_platform";
 #endif

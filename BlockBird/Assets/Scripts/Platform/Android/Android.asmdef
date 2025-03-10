@@ -4,7 +4,9 @@
     "references": [
         "GUID:155bdc118ac5a6744ba38f5292f519b7",
         "GUID:1ed07ff861e5f468287b0baef844706d",
-        "GUID:4139e191aa32f459e9eb2e331225ad7e"
+        "GUID:4139e191aa32f459e9eb2e331225ad7e",
+        "GUID:b649415412a3d4e8a83df256b07478bb",
+        "GUID:b4318b6f3695442c4983c360248781db"
     ],
     "includePlatforms": [
         "Android",

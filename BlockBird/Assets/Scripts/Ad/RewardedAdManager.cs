@@ -49,12 +49,12 @@ public class RewardedAdManager : MonoBehaviour
         {
             IsPlaying = true;
             rewardedAd.Show((Reward reward) => {
-                Debug.Log("ad rewarded with: " + reward.Type + " " + reward.Amount);
+                //Debug.Log("ad rewarded with: " + reward.Type + " " + reward.Amount);
                 //int rewardAmount = int.Parse(reward.Amount.ToString());
-                int amount = UnityEngine.Random.Range(1, 6);
+                int amount = UnityEngine.Random.Range(5, 11);
                 GetRewardGem(amount);
 
-                ToastNotification.Show("+" + amount);
+                //ToastNotification.Show("+" + amount);
 
             });
         }

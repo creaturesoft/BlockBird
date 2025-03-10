@@ -10,11 +10,9 @@ public class iOSUpdateChecker : MonoBehaviour
     private string appStoreURL = "https://itunes.apple.com/lookup?bundleId=com.Creaturesoft.BlockBird";
     private string appStoreOpenURL = "https://apps.apple.com/app/id6741071606";
 
-    void Start()
+    public void CheckAppUpdate()
     {
-#if UNITY_IOS
         StartCoroutine(CheckForiOSUpdate());
-#endif
     }
 
     IEnumerator CheckForiOSUpdate()

@@ -19,13 +19,21 @@ public class IAPManager : MonoBehaviour, IStoreListener, IDetailedStoreListener
     private static IStoreController storeController;
     private static IExtensionProvider storeExtensionProvider;
 
+#if UNITY_ANDROID
     public static string removeAdsProductId = "remove_ads";
     public static string gem1000ProductId = "gem1000";
     public static string gem2050ProductId = "gem2050";
     public static string gem3300ProductId = "gem3300";
     public static string gem4600ProductId = "gem4600";
     public static string gem12500ProductId = "gem12500";
-
+#else
+    public static string removeAdsProductId = "blockbirds_remove_ads";
+    public static string gem1000ProductId = "blockbirds_gem1000";
+    public static string gem2050ProductId = "blockbirds_gem2050";
+    public static string gem3300ProductId = "blockbirds_gem3300";
+    public static string gem4600ProductId = "blockbirds_gem4600";
+    public static string gem12500ProductId = "blockbirds_gem12500";
+#endif
 
     void Start()
     {

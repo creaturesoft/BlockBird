@@ -94,7 +94,7 @@ public class ResultPopup : MonoBehaviour
 
         int amount = UnityEngine.Random.Range(1, 6);
         PersistentObject.Instance.rewardedAdManager.GetRewardGem(amount);
-        ToastNotification.Show("+" + amount);
+        //ToastNotification.Show("+" + amount);
     }
 
 

@@ -168,8 +168,17 @@ public class PersistentObject : MonoBehaviour
         }
 
 
-
+        //로그인
         GetComponent<Login>().StartLogin();
+
+        //앱업데이트 체크
+#if UNITY_ANDROID
+        InAppUpdateManager inAppUpdateManager = GetComponent<InAppUpdateManager>();
+        inAppUpdateManager.CheckAppUpdate();
+#elif UNITY_IOS
+        iOSUpdateChecker iOSUpdateChecker = GetComponent<iOSUpdateChecker>();
+        iOSUpdateChecker.CheckAppUpdate();
+#endif
     }
 
 
@@ -405,7 +414,7 @@ public class PersistentObject : MonoBehaviour
         return "https://play.google.com/store/apps/details?id=com.Creaturesoft.BlockBird";
 #elif UNITY_IOS
         return "https://apps.apple.com/app/id6741071606";
-#else   
+#else
         return "";
 #endif
 

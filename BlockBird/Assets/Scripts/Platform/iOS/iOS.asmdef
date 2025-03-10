@@ -5,6 +5,7 @@
         "GUID:155bdc118ac5a6744ba38f5292f519b7"
     ],
     "includePlatforms": [
+        "Editor",
         "iOS"
     ],
     "excludePlatforms": [],

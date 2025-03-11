@@ -77,12 +77,13 @@ public class PlayerPrefsManager : MonoBehaviour
     {
         if (PlayerPrefs.HasKey("UserDataPath"))
         {
-            return AESEncryption.Decrypt(PlayerPrefs.GetString("UserDataPath"));
+            return Path.Combine(Application.persistentDataPath, PlayerPrefs.GetString("UserDataPath"));
         }
         else
         {
-            string path = Path.Combine(Application.persistentDataPath, Guid.NewGuid().ToString());
-            PlayerPrefs.SetString("UserDataPath", AESEncryption.Encrypt(path));
+            string fileName = Guid.NewGuid().ToString();
+            string path = Path.Combine(Application.persistentDataPath, fileName);
+            PlayerPrefs.SetString("UserDataPath", fileName);
             PlayerPrefs.Save();
             return path;
         }

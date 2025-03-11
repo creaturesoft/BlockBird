@@ -14,9 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   adMobAndroidAppId: ca-app-pub-9125545321048807~4289418190
   adMobIOSAppId: ca-app-pub-9125545321048807~7824241045
-  enableKotlinXCoroutinesPackagingOption: 1
+  enableKotlinXCoroutinesPackagingOption: 0
   optimizeInitialization: 0
   optimizeAdLoading: 0
-  userTrackingUsageDescription: 
+  userTrackingUsageDescription: This app uses tracking to provide personalized ads.
   validateGradleDependencies: 0
   userLanguage: en

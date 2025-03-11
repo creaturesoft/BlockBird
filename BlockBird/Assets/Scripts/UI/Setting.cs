@@ -19,7 +19,6 @@ public class Setting : MonoBehaviour
 
     void Start()
     {
-
         SFXSlider.value = SoundManager.Instance.SFXVolume;
         BGMSlider.value = SoundManager.Instance.BGMVolume;
 

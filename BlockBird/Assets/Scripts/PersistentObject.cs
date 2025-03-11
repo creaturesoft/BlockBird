@@ -75,15 +75,14 @@ public class PersistentObject : MonoBehaviour
         SceneManager.sceneLoaded -= OnSceneLoaded;
     }
 
-    void Start()
+    public IEnumerator Init()
     {
 
 #if UNITY_IOS
-        if (Application.platform == RuntimePlatform.IPhonePlayer)
-        {
-            RequestTrackingAuthorization();
-        }
+        yield return new WaitForSeconds(1f);
+        StopSpinningLoading();
 #endif
+
         ConsentRequestParameters requestParameters = new ConsentRequestParameters();
 
         // 동의 정보 업데이트
@@ -168,9 +167,6 @@ public class PersistentObject : MonoBehaviour
         }
 
 
-        //로그인
-        GetComponent<Login>().StartLogin();
-
         //앱업데이트 체크
 #if UNITY_ANDROID
         InAppUpdateManager inAppUpdateManager = GetComponent<InAppUpdateManager>();
@@ -179,6 +175,26 @@ public class PersistentObject : MonoBehaviour
         iOSUpdateChecker iOSUpdateChecker = GetComponent<iOSUpdateChecker>();
         iOSUpdateChecker.CheckAppUpdate();
 #endif
+
+
+
+        //로그인
+        GetComponent<Login>().StartLogin();
+
+        yield return null;
+    }
+
+    void Start()
+    {
+#if UNITY_IOS
+        if (Application.platform == RuntimePlatform.IPhonePlayer)
+        {
+            RequestTrackingAuthorization();
+            StartSpinningLoading();
+        }
+#endif
+
+        StartCoroutine(Init());
     }
 
 
@@ -274,28 +290,33 @@ public class PersistentObject : MonoBehaviour
 
     public IEnumerator LoadLoginUserData(string userId)
     {
+        Debug.Log("LoadLoginUserData 1");
         userData = SaveLoadManager.LoadUserData();
-
+        Debug.Log("LoadLoginUserData 2");
         userData.isGuest = false;
-
+        Debug.Log("LoadLoginUserData 3");
         bool saveToServer = false;
         User serverUser = null;
 
         //처음 로그인
         if (string.IsNullOrEmpty(userData.lastUserId))
         {
+            Debug.Log("LoadLoginUserData 4");
             yield return SaveLoadManager.LoadUserDataFromServer(userId, (result) => {
                 serverUser = result;
+                Debug.Log("LoadLoginUserData 5");
             });
 
             if (serverUser == null)
             {
+                Debug.Log("LoadLoginUserData 6");
                 //서버에 유저 데이터 없음
                 //게스트 데이터 사용
                 saveToServer = true;
             }
             else
             {
+                Debug.Log("LoadLoginUserData 7");
                 //서버에 유저 데이터 있음(앱 재설치 등)
 
                 //게스트로 어느정도 플레이 했으면 게스트 데이터 사용, 기존 유저 데이터 사용 선택 팝업
@@ -303,6 +324,8 @@ public class PersistentObject : MonoBehaviour
                 {
                     //서버 서버 데이터 사용
                     UserData = serverUser;
+
+                    Debug.Log("LoadLoginUserData 7-1");
                 }
                 else
                 {
@@ -310,12 +333,14 @@ public class PersistentObject : MonoBehaviour
                         //서버 유저 데이터 사용
                         UserData = serverUser;
 
-
+                        Debug.Log("LoadLoginUserData 7-2");
                     }, () => {
                         //게스트 데이터 사용
                         saveToServer = true;
 
                         //익명 계정 연결
+
+                        Debug.Log("LoadLoginUserData 7-3");
                     });
 
                 }
@@ -323,13 +348,18 @@ public class PersistentObject : MonoBehaviour
 
             userData.userId = userId;
             userData.lastUserId = userId;
+
+            Debug.Log("LoadLoginUserData 8");
         }
         //마지막 로그인 아이디와 현재 로그인 아이디가 동일함
         else if (userData.lastUserId == userId)
         {
+            Debug.Log("LoadLoginUserData 9");
             //서버에서 유저 데이터 가져옴
             yield return SaveLoadManager.LoadUserDataFromServer(userId, (result) => {
                 serverUser = result;
+
+                Debug.Log("LoadLoginUserData 10");
             });
             if (serverUser != null)
             {
@@ -338,20 +368,26 @@ public class PersistentObject : MonoBehaviour
 
             userData.userId = userId;
             userData.lastUserId = userId;
+
+            Debug.Log("LoadLoginUserData 11");
         }
         //이전과 다른 새로운 아이디로 로그인
         else
         {
             //이전 아이디는 모두 저장되었으므로 이전 아이디로 로그인하면 모두 복구됨
             //그러므로 지금 로그인 아이디는 서버에서 가져오거나 없으면 원래 있던 데이터가 아닌 초기화 후 새로운 데이터 사용
-
+            Debug.Log("LoadLoginUserData 12");
             yield return SaveLoadManager.LoadUserDataFromServer(userId, (result) => {
                 serverUser = result;
+
+                Debug.Log("LoadLoginUserData 13");
             });
             if (serverUser != null)
             {
                 //데이터 있음
                 UserData = serverUser;
+
+                Debug.Log("LoadLoginUserData 14");
             }
             else
             {
@@ -362,15 +398,20 @@ public class PersistentObject : MonoBehaviour
                 userData.lastUserId = userId;
                 userData.isGuest = false;
                 saveToServer = true;
+
+                Debug.Log("LoadLoginUserData 15");
             }
         }
-
+        Debug.Log("LoadLoginUserData 16");
         SaveLoadManager.SaveUserData(UserData);
+        Debug.Log("LoadLoginUserData 17");
         if (saveToServer)
         {
+            Debug.Log("LoadLoginUserData 18");
             StartCoroutine(SaveLoadManager.SendUserDataToServer(PersistentObject.Instance.UserData));
         }
 
+        Debug.Log("LoadLoginUserData 19");
         IsLogin = true;
     }
 

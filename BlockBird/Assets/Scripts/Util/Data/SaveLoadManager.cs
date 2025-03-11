@@ -42,7 +42,7 @@ public class SaveLoadManager : MonoBehaviour
 
     public static string LoadData(string path)
     {
-        if (File.Exists(path))
+        try
         {
             // 파일에서 암호화된 데이터 읽기
             string encryptedData = File.ReadAllText(path);
@@ -50,9 +50,9 @@ public class SaveLoadManager : MonoBehaviour
             // AES로 복호화
             return AESEncryption.Decrypt(encryptedData);
         }
-        else
+        catch (Exception ex)
         {
-            Debug.LogWarning("No save file found at " + path);
+            Debug.LogWarning("LoadData exception : " + ex.Message);
             return null;
         }
     }
@@ -74,10 +74,13 @@ public class SaveLoadManager : MonoBehaviour
     // JSON 파일에서 데이터를 읽어 복호화한 후 게임 데이터로 불러오기
     public static User LoadUserData()
     {
-        if (File.Exists(PlayerPrefsManager.GetUserDataPath()))
-        {
             // AES로 복호화
             string jsonData = LoadData(PlayerPrefsManager.GetUserDataPath());
+            if(jsonData == null)
+            {
+                return GetDefaultData();
+            }
+
 
             // JSON을 게임 데이터로 역직렬화
             User data = JsonUtility.FromJson<User>(jsonData);
@@ -89,12 +92,6 @@ public class SaveLoadManager : MonoBehaviour
             //}
 
             return data;
-        }
-
-        User user = GetDefaultData();
-        SaveUserData(user);
-        return user;
-        
     }
 
     public static User GetDefaultData()

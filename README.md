@@ -22,7 +22,7 @@ Block Birds를 지금 다운로드하세요!
 ## 기술 스택
 - **게임 엔진**: Unity 6
 - **프로그래밍 언어**: C#
-- **백엔드 & 데이터**: AWS, Lambda, DynamoDB (유저 데이터 저장, 인앱결제 이력)
+- **백엔드 & 데이터**: AWS Lambda, DynamoDB (유저 데이터 저장, 인앱결제 이력)
 - **로그인** : Google Play Games Services, Apple Game Center, 게스트 모드, 오프라인 모드
 - **UI, 아트, 이펙트, 사운드** : Unity Asset Store
 - **기타 사용 패키지** : Google Mobile Ads, Unity IAP, Google Play In-app Review, Google Play In-app Updates, Google Play In-app Review

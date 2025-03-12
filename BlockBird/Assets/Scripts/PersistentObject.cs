@@ -46,6 +46,7 @@ public class PersistentObject : MonoBehaviour
     public WaitMessagePopup firstLoginMessagePopupPrefab;
 
     public SettingData setting;
+    public bool isShowAdAgreement { get; set; } = false;
 
     void Awake()
     {
@@ -75,12 +76,17 @@ public class PersistentObject : MonoBehaviour
         SceneManager.sceneLoaded -= OnSceneLoaded;
     }
 
-    public IEnumerator Init()
+    public void ShowAdAgreement()
     {
+        if (isShowAdAgreement)
+            return;
+        isShowAdAgreement = true;
 
 #if UNITY_IOS
-        yield return new WaitForSeconds(1f);
-        StopSpinningLoading();
+        if (Application.platform == RuntimePlatform.IPhonePlayer)
+        {
+            RequestTrackingAuthorization();
+        }
 #endif
 
         ConsentRequestParameters requestParameters = new ConsentRequestParameters();
@@ -132,10 +138,11 @@ public class PersistentObject : MonoBehaviour
                 Debug.Log("동의 폼을 사용할 수 없습니다.");
             }
         });
+    }
 
-
-
-
+    public IEnumerator Init()
+    {
+        StartSpinningLoading();
         SaveLoadManager.LoadNoADData();
 
         //애드몹 초기화
@@ -176,7 +183,7 @@ public class PersistentObject : MonoBehaviour
         iOSUpdateChecker.CheckAppUpdate();
 #endif
 
-
+        StopSpinningLoading();
 
         //로그인
         GetComponent<Login>().StartLogin();
@@ -186,14 +193,6 @@ public class PersistentObject : MonoBehaviour
 
     void Start()
     {
-#if UNITY_IOS
-        if (Application.platform == RuntimePlatform.IPhonePlayer)
-        {
-            RequestTrackingAuthorization();
-            StartSpinningLoading();
-        }
-#endif
-
         StartCoroutine(Init());
     }
 

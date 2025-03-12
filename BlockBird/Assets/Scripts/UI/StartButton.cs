@@ -18,8 +18,14 @@ public class StartButton : MonoBehaviour
             5f,      //리뷰
     };
 
+    
+
     public void OnStart()
     {
+        //게임시작
+        PersistentObject.Instance.ShowAdAgreement();
+
+
         //새로운 캐릭터
         if (CharacterSelect.SelectedCharacter == 0)
         {

@@ -344,23 +344,9 @@ public class Character : MonoBehaviour
 
         if (isClear)
         {
-            Exp += GameManager.Instance.Score;
-            
-            if (GetExpForLevel() < Exp)
-            {
-                Level += 1;
-                ExpLevel += 1;
-                Exp = 0;
-            }
-
-            //경험치, 레벨 저장
-            BirdData birdData = PersistentObject.Instance.UserData.birdList.Where(x => x.name == characterName).FirstOrDefault();
-
-            birdData.expLevel = ExpLevel;
-            birdData.exp = Exp;
             PersistentObject.Instance.UserData.stage++;
 
-            if ( PersistentObject.Instance.UserData.maxStage < PersistentObject.Instance.UserData.stage)
+            if (PersistentObject.Instance.UserData.maxStage < PersistentObject.Instance.UserData.stage)
             {
                 PersistentObject.Instance.UserData.maxStage = PersistentObject.Instance.UserData.stage;
                 PersistentObject.Instance.UserData.currentBossMapIndex = MapManager.Instance.GetBossMapIndex();
@@ -372,12 +358,7 @@ public class Character : MonoBehaviour
                 PersistentObject.Instance.UserData.currentLifeWeight = MapBase.CurrentLifeWeight;
             }
 
-
-            SaveLoadManager.SaveUserData(PersistentObject.Instance.UserData);
-            StartCoroutine(SaveLoadManager.SendUserDataToServer(PersistentObject.Instance.UserData));
             //PersistentObject.Instance.UserData = SaveLoadManager.LoadUserData();
-
-
             rb.constraints = RigidbodyConstraints2D.FreezeAll;
         }
         else
@@ -386,6 +367,27 @@ public class Character : MonoBehaviour
             rb.freezeRotation = false;
             rb.AddTorque(Random.Range(-50f, 50f));
         }
+
+
+        Exp += GameManager.Instance.Score;
+
+        if (GetExpForLevel() < Exp)
+        {
+            Level += 1;
+            ExpLevel += 1;
+            Exp = 0;
+        }
+
+        //경험치, 레벨 저장
+        BirdData birdData = PersistentObject.Instance.UserData.birdList.Where(x => x.name == characterName).FirstOrDefault();
+
+        birdData.expLevel = ExpLevel;
+        birdData.exp = Exp;
+
+
+        SaveLoadManager.SaveUserData(PersistentObject.Instance.UserData);
+        StartCoroutine(SaveLoadManager.SendUserDataToServer(PersistentObject.Instance.UserData));
+
 
         StartCoroutine(AfterDie());
     }

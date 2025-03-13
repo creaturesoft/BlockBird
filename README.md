@@ -25,7 +25,7 @@ Block Birds를 지금 다운로드하세요!
 - **백엔드 & 데이터**: AWS Lambda, DynamoDB (유저 데이터 저장, 인앱결제 이력)
 - **로그인** : Google Play Games Services, Apple Game Center, 게스트 모드, 오프라인 모드
 - **UI, 아트, 이펙트, 사운드** : Unity Asset Store
-- **기타 사용 패키지** : Google Mobile Ads, Unity IAP, Google Play In-app Review, Google Play In-app Updates, Google Play In-app Review
+- **기타 사용 패키지** : Google Mobile Ads, Unity IAP, Google Play In-app Review, Google Play In-app Updates
 
 ## 개발 및 빌드 이슈
 - Unity 6 관련 GPGS 패키지 이슈 : GPGS 패키지 사용 시 자동 생성되는 파일(gpgs-plugin-support-2.0.0)의 옵션이 자동으로 체크되지 않아서 빌드 시 오류 발생

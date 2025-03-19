@@ -450,13 +450,15 @@ public class PersistentObject : MonoBehaviour
 
     public string GetStoreURL()
     {
-#if UNITY_ANDROID
-        return "https://play.google.com/store/apps/details?id=com.Creaturesoft.BlockBird";
-#elif UNITY_IOS
-        return "https://apps.apple.com/app/id6741071606";
-#else
-        return "";
-#endif
+        return "https://creaturesoft.s3.ap-northeast-2.amazonaws.com/blockBirdsAppLink.html";
+
+//#if UNITY_ANDROID
+//        return "https://play.google.com/store/apps/details?id=com.Creaturesoft.BlockBird";
+//#elif UNITY_IOS
+//        return "https://apps.apple.com/app/id6741071606";
+//#else
+//        return "";
+//#endif
 
     }
 }

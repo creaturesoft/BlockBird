@@ -77,31 +77,35 @@ public class PlayerPrefsManager : MonoBehaviour
     {
         if (PlayerPrefs.HasKey("UserDataPath"))
         {
-            return Path.Combine(Application.persistentDataPath, PlayerPrefs.GetString("UserDataPath"));
-        }
-        else
-        {
-            string fileName = Guid.NewGuid().ToString();
-            string path = Path.Combine(Application.persistentDataPath, fileName);
-            PlayerPrefs.SetString("UserDataPath", fileName);
-            PlayerPrefs.Save();
-            return path;
-        }
+            string path = Path.Combine(Application.persistentDataPath, PlayerPrefs.GetString("UserDataPath"));
+            if (File.Exists(path)) {
+                return path;
+            }
+        }   
+
+        string fileName = Guid.NewGuid().ToString();
+        PlayerPrefs.SetString("UserDataPath", fileName);
+        PlayerPrefs.Save();
+        return Path.Combine(Application.persistentDataPath, fileName);
+
     }
 
     static public string GetNoADPath()
     {
         if (PlayerPrefs.HasKey("NoADPath"))
         {
-            return AESEncryption.Decrypt(PlayerPrefs.GetString("NoADPath"));
+            string path = Path.Combine(Application.persistentDataPath, PlayerPrefs.GetString("NoADPath"));
+            if (File.Exists(path))
+            {
+                return path;
+            }
         }
-        else
-        {
-            string path = Path.Combine(Application.persistentDataPath, Guid.NewGuid().ToString());
-            PlayerPrefs.SetString("NoADPath", AESEncryption.Encrypt(path));
-            PlayerPrefs.Save();
-            return path;
-        }
+
+        string fileName = Guid.NewGuid().ToString();
+        PlayerPrefs.SetString("NoADPath", fileName);
+        PlayerPrefs.Save();
+        return Path.Combine(Application.persistentDataPath, fileName);
+
     }
 
     // 설정 저장

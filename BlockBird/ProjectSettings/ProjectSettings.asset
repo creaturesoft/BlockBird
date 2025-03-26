@@ -828,7 +828,7 @@ PlayerSettings:
     PS5: TextMeshPro
     QNX: TextMeshPro
     ReservedCFE: TextMeshPro
-    Standalone: TextMeshPro
+    Standalone: TextMeshPro;LEVELPLAY_DEPENDENCIES_INSTALLED
     VisionOS: TextMeshPro
     WebGL: TextMeshPro
     XboxOne: TextMeshPro

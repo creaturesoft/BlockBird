@@ -214,7 +214,17 @@ public class PersistentObject : MonoBehaviour
         }
 
 
+
+        StopSpinningLoading();
+
+        //로그인
+        GetComponent<Login>().StartLogin();
+
+
+
+
         //앱업데이트 체크
+        yield return new WaitForSeconds(1f);
 #if UNITY_ANDROID
         InAppUpdateManager inAppUpdateManager = GetComponent<InAppUpdateManager>();
         inAppUpdateManager.CheckAppUpdate();
@@ -223,10 +233,6 @@ public class PersistentObject : MonoBehaviour
         iOSUpdateChecker.CheckAppUpdate();
 #endif
 
-        StopSpinningLoading();
-
-        //로그인
-        GetComponent<Login>().StartLogin();
 
         yield return null;
     }

@@ -397,7 +397,7 @@ public class IAPManager : MonoBehaviour, IStoreListener, IDetailedStoreListener
     }
 
 
-    public void GemProcessPurchase(int amount)
+    public void GemProcessPurchase(int amount, bool showMessageBox = true)
     {
         string data = "{\"userId\": \"" + PersistentObject.Instance.UserData.userId + "\", " +
                 "\"type\": \"PURCHASE\", " +
@@ -416,7 +416,11 @@ public class IAPManager : MonoBehaviour, IStoreListener, IDetailedStoreListener
                 PersistentObject.Instance.UserData.gem += (int)result.GetValue("amount");
 
                 SaveLoadManager.SaveUserData(PersistentObject.Instance.UserData);
-                PersistentObject.Instance.ShowMessagePopup(1, () => { });
+
+                if (showMessageBox)
+                {
+                    PersistentObject.Instance.ShowMessagePopup(1, () => { });
+                }
             }
         }));
     }

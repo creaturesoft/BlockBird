@@ -224,14 +224,22 @@ public class PersistentObject : MonoBehaviour
 
 
         //앱업데이트 체크
+
         yield return new WaitForSeconds(1f);
-#if UNITY_ANDROID
-        InAppUpdateManager inAppUpdateManager = GetComponent<InAppUpdateManager>();
-        inAppUpdateManager.CheckAppUpdate();
-#elif UNITY_IOS
-        iOSUpdateChecker iOSUpdateChecker = GetComponent<iOSUpdateChecker>();
-        iOSUpdateChecker.CheckAppUpdate();
-#endif
+        try
+        {
+    #if UNITY_ANDROID
+            InAppUpdateManager inAppUpdateManager = GetComponent<InAppUpdateManager>();
+            inAppUpdateManager.CheckAppUpdate();
+    #elif UNITY_IOS
+            iOSUpdateChecker iOSUpdateChecker = GetComponent<iOSUpdateChecker>();
+            iOSUpdateChecker.CheckAppUpdate();
+    #endif
+        }
+        catch (System.Exception e)
+        {
+            Debug.LogError($"Failed to update check: {e.Message}");
+        }
 
 
         yield return null;
@@ -463,6 +471,12 @@ public class PersistentObject : MonoBehaviour
     public void LoadGuestUserData()
     {
         userData = SaveLoadManager.LoadUserData();
+
+        if (userData.isFirstLogin)
+        {
+            StartCoroutine(SaveLoadManager.SendUserDataToServer(userData));
+        }
+
         IsLogin = true;
     }
 

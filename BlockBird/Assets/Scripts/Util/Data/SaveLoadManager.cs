@@ -105,6 +105,7 @@ public class SaveLoadManager : MonoBehaviour
 
         User user = new User()
         {
+            isFirstLogin = true,
             userId = userId,
             stage = 1,
             maxStage = 1,
@@ -162,12 +163,14 @@ public class SaveLoadManager : MonoBehaviour
         callback?.Invoke(serverUser);
     }
 
+
     public static IEnumerator SendUserDataToServer(User user, Action callback = null)
     {
-        if (user.isGuest)
+        if (user.isGuest && !user.isFirstLogin)
         {
             yield break;
         }
+
 
         string data = "{\"userId\": \"" + user.userId + "\", " +
                 "\"type\": \"UPDATE_USER\", " +
@@ -189,12 +192,20 @@ public class SaveLoadManager : MonoBehaviour
                 PersistentObject.Instance.ShowMessagePopup(0, () => { });
             }
 
-            if(callback != null)
+
+            if (user.isFirstLogin)
+            {
+                PersistentObject.Instance.UserData.isFirstLogin = false;
+                PersistentObject.Instance.IAPManager.GemProcessPurchase(user.gem, false);
+            }
+
+            if (callback != null)
             {
                 callback();
             }
         });
     }
+
 
 
 }
@@ -204,6 +215,7 @@ public class SaveLoadManager : MonoBehaviour
 public class User
 {
     public string userId;
+    public bool isFirstLogin;
     public string lastUserId;
     public int stage;
     public int maxStage;

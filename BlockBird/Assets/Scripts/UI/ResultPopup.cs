@@ -105,7 +105,8 @@ public class ResultPopup : MonoBehaviour
     }
 
     public void GetRewardGem(int amount) 
-    { 
+    {
+
         string data = "{\"userId\": \"" + PersistentObject.Instance.UserData.userId + "\", " +
                 "\"type\": \"REWARD\", " +
                 "\"amount\": " + amount + "}";

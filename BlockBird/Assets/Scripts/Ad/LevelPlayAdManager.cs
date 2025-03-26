@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -70,8 +71,8 @@ public class LevelPlayAdManager : MonoBehaviour
 
     public void DestroyBanner()
     {
+        Debug.Log("DestroyBanner");
         IronSource.Agent.destroyBanner();
-
         isBanner = false;
     }
 
@@ -79,11 +80,19 @@ public class LevelPlayAdManager : MonoBehaviour
     {
         Debug.Log("배너 광고 로딩 완료");
 
-        //안드로이드 이미 광고제거를 구입한 후에는 배너 광고는 로드 후에도 계속해서 광고가 나오는 문제가 있어서 로드 후에는 바로 제거
         if (!isBanner)
         {
-            DestroyBanner();
+            StartCoroutine(DestroyBannerSafely());
         }
+    }
+
+    IEnumerator DestroyBannerSafely()
+    {
+        yield return new WaitForSeconds(1f); // 살짝 대기
+
+        Debug.Log("DestroyBanner (BannerLoaded)");
+
+        DestroyBanner();
     }
 
     void BannerLoadFailed(IronSourceError error)

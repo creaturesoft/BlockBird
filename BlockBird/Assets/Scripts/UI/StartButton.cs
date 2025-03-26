@@ -67,8 +67,8 @@ public class StartButton : MonoBehaviour
                 {
                     if (!PersistentObject.Instance.IsNoAd)
                     {
-                        PersistentObject.Instance.interstitialAdManager.ShowInterstitial();
-                        while (PersistentObject.Instance.interstitialAdManager.IsPlaying)
+                        PersistentObject.Instance.adManager.ShowInterstitial();
+                        while (PersistentObject.Instance.adManager.IsPlayingInterstitial)
                         {
                             yield return new WaitForSecondsRealtime(0.2f); // 실시간 대기
                         }

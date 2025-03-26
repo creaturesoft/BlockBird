@@ -10,9 +10,9 @@ public class RegisterRank : MonoBehaviour
 
     IEnumerator ProcessRegister()
     {
-        PersistentObject.Instance.interstitialAdManager.ShowInterstitial();
+        PersistentObject.Instance.adManager.ShowInterstitial();
 
-        while (PersistentObject.Instance.interstitialAdManager.IsPlaying)
+        while (PersistentObject.Instance.adManager.IsPlayingInterstitial)
         {
             yield return new WaitForSecondsRealtime(0.2f); // 실시간 대기
         }

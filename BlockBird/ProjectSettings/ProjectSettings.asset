@@ -140,9 +140,12 @@ PlayerSettings:
   loadStoreDebugModeEnabled: 0
   visionOSBundleVersion: 1.0
   tvOSBundleVersion: 1.0
-  bundleVersion: 1.1.53
+  bundleVersion: 1.1.55
   preloadedAssets:
   - {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
+  - {fileID: -3766064202041142671, guid: d05d923a51a306248a86b40e67622128, type: 2}
+  - {fileID: 11400000, guid: fbf7666b7c932f241ab36e63f9b61088, type: 2}
+  - {fileID: 11400000, guid: c391f35d01382a847991043e10021e1e, type: 2}
   metroInputSource: 0
   wsaTransparentSwapchain: 0
   m_HolographicPauseOnTrackingLoss: 1
@@ -175,7 +178,7 @@ PlayerSettings:
     iPhone: 25
     tvOS: 0
   overrideDefaultApplicationIdentifier: 1
-  AndroidBundleVersionCode: 129
+  AndroidBundleVersionCode: 131
   AndroidMinSdkVersion: 24
   AndroidTargetSdkVersion: 0
   AndroidPreferredInstallLocation: 1
@@ -269,7 +272,7 @@ PlayerSettings:
   AndroidTargetArchitectures: 11
   AndroidSplashScreenScale: 0
   androidSplashScreen: {fileID: 0}
-  AndroidKeystoreName: C:/Users/water/OneDrive/1.Projects/Block Bird/key/user.keystore
+  AndroidKeystoreName: C:/Key/Block Birds/user.keystore
   AndroidKeyaliasName: 20250127
   AndroidEnableArmv9SecurityFeatures: 0
   AndroidEnableArm64MTE: 0
@@ -817,7 +820,7 @@ PlayerSettings:
   webGLCloseOnQuit: 0
   webWasm2023: 0
   scriptingDefineSymbols:
-    Android: TextMeshPro
+    Android: TextMeshPro;LEVELPLAY_DEPENDENCIES_INSTALLED
     EmbeddedLinux: TextMeshPro
     GameCoreXboxOne: TextMeshPro
     Nintendo Switch: TextMeshPro
@@ -829,7 +832,7 @@ PlayerSettings:
     VisionOS: TextMeshPro
     WebGL: TextMeshPro
     XboxOne: TextMeshPro
-    iPhone: TextMeshPro
+    iPhone: TextMeshPro;LEVELPLAY_DEPENDENCIES_INSTALLED
     tvOS: TextMeshPro
   additionalCompilerArguments: {}
   platformArchitecture: {}

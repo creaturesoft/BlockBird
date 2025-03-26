@@ -6329,8 +6329,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1453390909}
   - component: {fileID: 1453390911}
-  - component: {fileID: 1453390910}
-  - component: {fileID: 1453390912}
   - component: {fileID: 1453390915}
   - component: {fileID: 1453390914}
   - component: {fileID: 1453390913}
@@ -6338,6 +6336,7 @@ GameObject:
   - component: {fileID: 1453390917}
   - component: {fileID: 1453390918}
   - component: {fileID: 1453390919}
+  - component: {fileID: 1453390920}
   m_Layer: 0
   m_Name: PersistentObject
   m_TagString: Untagged
@@ -6360,18 +6359,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1453390910
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1453390908}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 107fd6aa70f9874468093b78d86e8915, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &1453390911
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6385,8 +6372,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   IAPManager: {fileID: 1453390916}
-  interstitialAdManager: {fileID: 1453390910}
-  rewardedAdManager: {fileID: 1453390912}
+  adManager: {fileID: 1453390920}
   backgroundAudioSources:
   - {fileID: 1453390915}
   - {fileID: 1453390914}
@@ -6397,18 +6383,6 @@ MonoBehaviour:
   setting:
     SFXVolume: 0
     BGMVolume: 0
---- !u!114 &1453390912
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1453390908}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 63659b3c93f7143449e6e3916200dab3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!82 &1453390913
 AudioSource:
   m_ObjectHideFlags: 0
@@ -6746,6 +6720,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 73be9208a20bccf49922aa41444dc4f6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1453390920
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1453390908}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6ce770895ec890b49825f1bcd5dfdfb3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &1492103110

@@ -31,8 +31,9 @@ public class PersistentObject : MonoBehaviour
     public bool IsNoAd { get; set; }
     public static float RewardedAdRate = 100f;   //3;
 
-    public InterstitialAdManager interstitialAdManager;
-    public RewardedAdManager rewardedAdManager;
+    //public InterstitialAdManager interstitialAdManager;
+    //public RewardedAdManager rewardedAdManager;
+    public LevelPlayAdManager adManager;
 
     public AudioSource[] backgroundAudioSources;
     private int currentSound;
@@ -89,6 +90,19 @@ public class PersistentObject : MonoBehaviour
         }
 #endif
 
+
+        #region 규정 동의 디버깅용
+        //ConsentInformation.Reset();
+        //ConsentDebugSettings debugSettings = new ConsentDebugSettings
+        //{
+        //    DebugGeography = DebugGeography.RegulatedUSState // GDPR 지역 강제 설정
+        //};
+        //ConsentRequestParameters requestParameters = new ConsentRequestParameters
+        //{
+        //    ConsentDebugSettings = debugSettings
+        //};
+        #endregion
+
         ConsentRequestParameters requestParameters = new ConsentRequestParameters();
 
         // 동의 정보 업데이트
@@ -97,13 +111,20 @@ public class PersistentObject : MonoBehaviour
             if (updateError != null)
             {
                 Debug.LogError($"동의 정보 업데이트 실패: {updateError.Message}");
-                return;
             }
 
             // 동의 상태가 이미 동의된 경우 폼을 표시하지 않음
             if (ConsentInformation.ConsentStatus == ConsentStatus.Obtained)
             {
                 Debug.Log("동의 상태가 이미 동의로 설정되었습니다. 동의 창을 표시하지 않습니다.");
+
+                //동의 상태 확인
+                bool userConsented = ConsentInformation.ConsentStatus == ConsentStatus.Obtained;
+
+                //IronSource SDK에 동의 상태 전달
+                IronSource.Agent.setConsent(userConsented);
+                InitIronSource(); // 폼 없이 바로 초기화
+
                 return;
             }
 
@@ -116,28 +137,47 @@ public class PersistentObject : MonoBehaviour
                     if (loadError != null)
                     {
                         Debug.LogError($"동의 폼 로드 실패: {loadError.Message}");
+                        InitIronSource(); // 폼 없이 초기화
                         return;
                     }
 
-                    // 동의 폼이 성공적으로 로드되었으므로 표시
+                    //동의 폼이 성공적으로 로드되었으므로 표시
                     consentForm.Show((FormError showError) =>
                     {
                         if (showError != null)
                         {
                             Debug.LogError($"동의 폼 표시 실패: {showError.Message}");
                         }
-                        else
-                        {
-                            Debug.Log("동의 폼이 성공적으로 표시되었습니다.");
-                        }
+
+                        // 폼 닫힌 후 동의 상태 다시 확인
+                        bool userConsented = ConsentInformation.ConsentStatus == ConsentStatus.Obtained;
+                        IronSource.Agent.setConsent(userConsented); // 다시 한 번 명시적으로 전달
+                        InitIronSource();
+
                     });
                 });
             }
             else
             {
                 Debug.Log("동의 폼을 사용할 수 없습니다.");
+                InitIronSource(); // 폼 없이 바로 초기화
             }
         });
+
+    }
+
+    private void InitIronSource()
+    {
+        Debug.Log("Initializing IronSource...");
+
+        string appKey = "";
+#if UNITY_ANDROID
+        appKey = "2177cd555";
+#elif UNITY_IOS
+        appKey = "2177d4865";
+#endif
+        PersistentObject.Instance.adManager.InitAds(appKey, false, true, true);
+
     }
 
     public IEnumerator Init()
@@ -146,21 +186,21 @@ public class PersistentObject : MonoBehaviour
         SaveLoadManager.LoadNoADData();
 
         //애드몹 초기화
-        MobileAds.Initialize(initStatus =>
-        {
-            Debug.Log("[AdMob initialized]");
+        //MobileAds.Initialize(initStatus =>
+        //{
+        //    Debug.Log("[AdMob initialized]");
 
-            if (PersistentObject.Instance.IsNoAd == true)
-            {
-                IsNoAd = true;
-            }
-            else
-            {
-                interstitialAdManager.LoadInterstitialAd();
-            }
+        //    if (PersistentObject.Instance.IsNoAd == true)
+        //    {
+        //        IsNoAd = true;
+        //    }
+        //    else
+        //    {
+        //        interstitialAdManager.LoadInterstitialAd();
+        //    }
 
-            rewardedAdManager.LoadRewardedAd();
-        });
+        //    rewardedAdManager.LoadRewardedAd();
+        //});
 
         //유니티 게임 서비스 초기화
         try

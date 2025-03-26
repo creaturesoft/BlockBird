@@ -80,7 +80,8 @@ public class ResultPopup : MonoBehaviour
     {
         claimButton.SetActive(false);
         claim.SetActive(false);
-        PersistentObject.Instance.rewardedAdManager.ShowRewardedAd();
+
+        PersistentObject.Instance.adManager.ShowRewardedAd(GetAdReardGem, true);
 
     }
 
@@ -93,8 +94,36 @@ public class ResultPopup : MonoBehaviour
         OnShare();
 
         int amount = UnityEngine.Random.Range(1, 6);
-        PersistentObject.Instance.rewardedAdManager.GetRewardGem(amount);
+        GetRewardGem(amount);
         //ToastNotification.Show("+" + amount);
+    }
+
+    public void GetAdReardGem()
+    {
+        int amount = UnityEngine.Random.Range(5, 11);
+        GetRewardGem(amount);
+    }
+
+    public void GetRewardGem(int amount) 
+    { 
+        string data = "{\"userId\": \"" + PersistentObject.Instance.UserData.userId + "\", " +
+                "\"type\": \"REWARD\", " +
+                "\"amount\": " + amount + "}";
+
+        StartCoroutine(WebRequest.Post(WebRequest.GemTransactionURL, data, (result) =>
+        {
+            if (result == null)
+            {
+                //실패
+                PersistentObject.Instance.ShowMessagePopup(0, () => { });
+            }
+            else
+            {
+                //성공
+                PersistentObject.Instance.UserData.gem += (int)result.GetValue("amount");
+                SaveLoadManager.SaveUserData(PersistentObject.Instance.UserData);
+            }
+        }));
     }
 
 

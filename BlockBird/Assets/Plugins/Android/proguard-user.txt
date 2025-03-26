@@ -52,7 +52,6 @@
 -dontwarn com.SmileSoft.unityplugin.Share.**
 
 -keep class com.google.android.ump.** { *; }
--keep class com.google.android.gms.ads.** { *; }
 -keep interface com.google.games.** { *; }
 
 -dontwarn com.google.vr.ndk.base.DaydreamApi
@@ -60,3 +59,40 @@
 
 -keep class com.google.android.play.** { *; }
 -keep class com.google.android.play.core.** { *; }
+
+
+# ====== IronSource ======
+-keep class com.ironsource.** { *; }
+-keepclassmembers class com.ironsource.** { *; }
+-dontwarn com.ironsource.**
+
+# ====== AdMob (Google Mobile Ads) ======
+-keep class com.google.android.gms.ads.** { *; }
+-keep interface com.google.android.gms.ads.** { *; }
+-dontwarn com.google.android.gms.ads.**
+
+# ====== Unity Ads ======
+-keep class com.unity3d.ads.** { *; }
+-keepclassmembers class com.unity3d.ads.** { *; }
+-dontwarn com.unity3d.ads.**
+
+# ====== AppLovin ======
+-keep class com.applovin.** { *; }
+-keepclassmembers class com.applovin.** { *; }
+-dontwarn com.applovin.**
+
+# ====== AndroidX (일부 SDK에서 사용) ======
+-keep class androidx.** { *; }
+-dontwarn androidx.**
+
+# ====== OkHttp / Gson (사용 시 대비) ======
+-keep class com.google.gson.** { *; }
+-keep class okhttp3.** { *; }
+-dontwarn com.google.gson.**
+-dontwarn okhttp3.**
+
+# ====== General Rules ======
+-keep class * extends java.util.ListResourceBundle
+-keep public class * extends android.app.Activity
+-keep public class * extends android.app.Application
+-keep public class com.unity3d.player.**

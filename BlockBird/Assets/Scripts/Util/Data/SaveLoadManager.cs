@@ -108,7 +108,7 @@ public class SaveLoadManager : MonoBehaviour
             userId = userId,
             stage = 1,
             maxStage = 1,
-            gem = 0,
+            gem = 200,
             isGuest = true,
             birdList = birdList
         };

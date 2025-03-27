@@ -58,7 +58,7 @@ public class CharacterDraw : MonoBehaviour
 
     void SetGemText()
     {
-        gemText.text = "X " + PersistentObject.Instance.UserData.gem.ToString();
+        gemText.text = PersistentObject.Instance.UserData.gem.ToString();
     }
 
     public void OnCharacterDraw(int buttonIndex)

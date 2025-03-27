@@ -21,7 +21,7 @@ try {
 
 try {
     Write-Host "Pulling latest code with rebase..."
-    git pull --rebase
+    git pull --rebase -X ours
 } catch {
     Show-ErrorMessage "Pull failed: $($_.Exception.Message)"
 }

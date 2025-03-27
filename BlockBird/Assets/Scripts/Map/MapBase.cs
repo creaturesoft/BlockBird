@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class MapBase : MonoBehaviour
 {
-    public float BlockGap { get; set; } = 1.2f;
+    public float BlockGap { get; set; } = 1.15f;
     
     public int Steps { get; set; } = 3;
 

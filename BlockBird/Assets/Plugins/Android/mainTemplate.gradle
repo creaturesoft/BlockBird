@@ -7,7 +7,8 @@ dependencies {
 // Android Resolver Dependencies Start
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4' // Assets/GoogleMobileAds/Editor/GoogleMobileAdsDependencies.xml:12
     implementation 'com.applovin:applovin-sdk:13.1.0' // Assets/LevelPlay/Editor/ISAppLovinAdapterDependencies.xml:12
-    implementation 'com.google.android.gms:play-services-ads:23.6.0' // Assets/LevelPlay/Editor/ISAdMobAdapterDependencies.xml:8
+    // implementation 'com.google.android.gms:play-services-ads:23.6.0' // Assets/LevelPlay/Editor/ISAdMobAdapterDependencies.xml:8
+    implementation 'com.google.android.gms:play-services-ads:24.1.0' // Assets/GoogleMobileAds/Editor/GoogleMobileAdsDependencies.xml:7
     implementation 'com.google.android.gms:play-services-ads-identifier:18.1.0' // Assets/LevelPlay/Editor/IronSourceSDKDependencies.xml:12
     implementation 'com.google.android.gms:play-services-base:18.5.0' // Assets/Firebase/Editor/AppDependencies.xml:17
     implementation 'com.google.android.play:app-update:2.1.0' // Packages/com.google.play.appupdate/Editor/Dependencies.xml:3

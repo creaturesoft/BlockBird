@@ -23,8 +23,9 @@ public class LevelPlayAdManager : MonoBehaviour
         isInterstitial = useInterstitial;
         isRewarded = useRewarded;
 
-        IronSource.Agent.setAdaptersDebug(true);
-        IronSource.Agent.validateIntegration();
+        //IronSource.Agent.setAdaptersDebug(true);
+        //IronSource.Agent.validateIntegration();
+
         IronSourceEvents.onSdkInitializationCompletedEvent += OnIronSourceInitialized;
 
         List<string> adUnits = new List<string>();
@@ -66,7 +67,7 @@ public class LevelPlayAdManager : MonoBehaviour
     void LoadBanner()
     {
         IronSource.Agent.destroyBanner();
-        IronSource.Agent.loadBanner(IronSourceBannerSize.BANNER, IronSourceBannerPosition.TOP);
+        IronSource.Agent.loadBanner(IronSourceBannerSize.BANNER, IronSourceBannerPosition.BOTTOM);
     }
 
     public void DestroyBanner()

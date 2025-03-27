@@ -1,11 +1,10 @@
-using GoogleMobileAds.Api;
-using GoogleMobileAds.Ump.Api;
 using System;
 using System.Runtime.InteropServices;
 using Unity.Services.Core;
 using UnityEngine;
 using System.Collections;
 using UnityEngine.SceneManagement;
+using GoogleMobileAds.Ump.Api;
 
 public class PersistentObject : MonoBehaviour
 {
@@ -176,7 +175,18 @@ public class PersistentObject : MonoBehaviour
 #elif UNITY_IOS
         appKey = "2177d4865";
 #endif
-        PersistentObject.Instance.adManager.InitAds(appKey, false, true, true);
+
+        if (PersistentObject.Instance.IsNoAd)
+        {
+            PersistentObject.Instance.adManager.InitAds(
+                appKey, useBanner:false, useInterstitial:false, useRewarded:true);
+        }
+        else
+        {
+            PersistentObject.Instance.adManager.InitAds(
+              appKey, useBanner: true, useInterstitial: true, useRewarded: true);
+        }
+
 
     }
 
@@ -225,16 +235,16 @@ public class PersistentObject : MonoBehaviour
 
         //앱업데이트 체크
 
-        yield return new WaitForSeconds(1f);
+        //yield return new WaitForSeconds(1f);
         try
         {
-    #if UNITY_ANDROID
+#if UNITY_ANDROID && !UNITY_EDITOR
             InAppUpdateManager inAppUpdateManager = GetComponent<InAppUpdateManager>();
             inAppUpdateManager.CheckAppUpdate();
-    #elif UNITY_IOS
+#elif UNITY_IOS
             iOSUpdateChecker iOSUpdateChecker = GetComponent<iOSUpdateChecker>();
             iOSUpdateChecker.CheckAppUpdate();
-    #endif
+#endif
         }
         catch (System.Exception e)
         {

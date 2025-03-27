@@ -3,6 +3,7 @@
     <package>androidx.constraintlayout:constraintlayout:2.1.4</package>
     <package>com.applovin:applovin-sdk:13.1.0</package>
     <package>com.google.android.gms:play-services-ads:23.6.0</package>
+    <package>com.google.android.gms:play-services-ads:24.1.0</package>
     <package>com.google.android.gms:play-services-ads-identifier:18.1.0</package>
     <package>com.google.android.gms:play-services-base:18.5.0</package>
     <package>com.google.android.play:app-update:2.1.0</package>
@@ -23,7 +24,6 @@
   <files>
     <file>Assets/GeneratedLocalRepo/Firebase/m2repository/com/google/firebase/firebase-analytics-unity/12.5.0/firebase-analytics-unity-12.5.0.aar</file>
     <file>Assets/GeneratedLocalRepo/Firebase/m2repository/com/google/firebase/firebase-analytics-unity/12.5.0/firebase-analytics-unity-12.5.0.pom</file>
-    <file>Assets/GeneratedLocalRepo/Firebase/m2repository/com/google/firebase/firebase-app-unity/12.5.0/firebase-app-unity-12.5.0.aar</file>
     <file>Assets/GeneratedLocalRepo/Firebase/m2repository/com/google/firebase/firebase-app-unity/12.5.0/firebase-app-unity-12.5.0.pom</file>
     <file>Assets/GeneratedLocalRepo/GooglePlayGames/com.google.play.games/Editor/m2repository/com/google/games/gpgs-plugin-support/2.0.0/gpgs-plugin-support-2.0.0.aar</file>
     <file>Assets/GeneratedLocalRepo/GooglePlayGames/com.google.play.games/Editor/m2repository/com/google/games/gpgs-plugin-support/2.0.0/gpgs-plugin-support-2.0.0.pom</file>

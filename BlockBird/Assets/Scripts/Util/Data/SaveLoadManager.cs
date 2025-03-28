@@ -168,6 +168,10 @@ public class SaveLoadManager : MonoBehaviour
     {
         if (user.isGuest && !user.isFirstLogin)
         {
+            if (callback != null)
+            {
+                callback();
+            }
             yield break;
         }
 

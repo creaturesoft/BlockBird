@@ -10,7 +10,7 @@ public class SunShineNativeShare : MonoBehaviour
     public static string TYPE_FILE = "file/*";
     public static string TYPE_PDF = "application/pdf*";
 
-    public static string fileProviderName = "com.Creaturesoft.BlockBird";
+    public static string fileProviderName;
 
     private INativeShare _nativeShare;
 
@@ -20,6 +20,8 @@ public class SunShineNativeShare : MonoBehaviour
     {
         if (instance == null)
             instance = this;
+
+        fileProviderName = Application.identifier;
     }
 
     private void Start()

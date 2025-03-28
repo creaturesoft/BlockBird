@@ -11,6 +11,8 @@ using System.Runtime.InteropServices;
 public class ReviewManagerScript : MonoBehaviour
 {
 
+    [SerializeField] private AppInfoSO appInfo;
+
 #if UNITY_ANDROID
     private ReviewManager _reviewManager;
     private PlayReviewInfo _playReviewInfo;
@@ -39,24 +41,32 @@ public class ReviewManagerScript : MonoBehaviour
     // 인앱 리뷰 요청 코루틴
     public void RequestInAppReview()
     {
+
+        OpenAppStore();
+
 #if UNITY_ANDROID
-        StartCoroutine(RequestReviewFlow());
+        //StartCoroutine(RequestReviewFlow());
 #elif UNITY_IOS
-        try
-        {
-            if (RequestReviewiOS() == false)
-            {
-                OpenAppStore();
-            }
-        }
-        catch
-        {
-            OpenAppStore();
-        }
+
+        //try
+        //{
+        //    if (RequestReviewiOS() == false)
+        //    {
+        //        OpenAppStore();
+        //    }
+        //}
+        //catch
+        //{
+        //    OpenAppStore();
+        //}
 #endif
 
-        StartCoroutine(CheckTime());
-        PersistentObject.Instance.ShowMessagePopup(3, CompleteReview, CompleteReview);
+        PersistentObject.Instance.UserData.isReviewed = true;
+        SaveLoadManager.SaveUserData(PersistentObject.Instance.UserData);
+        StartCoroutine(SaveLoadManager.SendUserDataToServer(PersistentObject.Instance.UserData, Close));
+
+        //StartCoroutine(CheckTime());
+        //PersistentObject.Instance.ShowMessagePopup(3, CompleteReview, CompleteReview);
     }
 
     public bool IsPlaying { get; set; } = true;
@@ -120,13 +130,12 @@ public class ReviewManagerScript : MonoBehaviour
 
     private void OpenAppStore()
     {
+
 #if UNITY_ANDROID
-            string packageName = "com.Creaturesoft.BlockBird"; // 앱 패키지명 변경
-            string reviewUrl = "https://play.google.com/store/apps/details?id=" + packageName + "&reviewId=0";
+            string reviewUrl = $"https://play.google.com/store/apps/details?id={Application.identifier}&reviewId=0";
             Application.OpenURL(reviewUrl);
 #elif UNITY_IOS
-            string appId = "6741071606"; // iOS 앱스토어 ID 입력
-            string reviewUrl = "itms-apps://itunes.apple.com/app/id" + appId + "?action=write-review";
+            string reviewUrl = $"itms-apps://itunes.apple.com/app/id{appInfo.appStoreID}?action=write-review";
             Application.OpenURL(reviewUrl);
 #endif
     }

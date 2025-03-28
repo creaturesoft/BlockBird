@@ -5,10 +5,17 @@ using UnityEngine.Networking;
 
 public class iOSUpdateChecker : MonoBehaviour
 {
+    [SerializeField] private AppInfoSO appInfo;
+
     // iTunes Lookup API URL
-    // TODO! : YOUR_BUNDLE_ID, YOUR_APP_ID ¼öÁ¤
-    private string appStoreURL = "https://itunes.apple.com/lookup?bundleId=com.Creaturesoft.BlockBird";
-    private string appStoreOpenURL = "https://apps.apple.com/app/id6741071606";
+    private string appStoreURL;
+    private string appStoreOpenURL;
+
+    private void Start()
+    {
+        appStoreURL = $"https://itunes.apple.com/lookup?bundleId={Application.identifier}";
+        appStoreOpenURL = $"https://apps.apple.com/app/id{appInfo.appStoreID}";
+    }
 
     public void CheckAppUpdate()
     {

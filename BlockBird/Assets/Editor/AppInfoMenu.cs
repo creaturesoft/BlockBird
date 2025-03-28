@@ -1,10 +1,9 @@
 using UnityEngine;
 using UnityEditor;
-using System.IO;
 
 public static class AppInfoMenu
 {
-    private const string assetPath = "Assets/AppInfo.asset";
+    private const string assetPath = "Assets/Resources/AppInfo.asset";
 
     [MenuItem("App Tools/AppInfo")]
     public static void OpenOrCreateAppInfoAsset()

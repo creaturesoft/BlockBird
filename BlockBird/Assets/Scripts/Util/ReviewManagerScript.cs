@@ -11,8 +11,6 @@ using System.Runtime.InteropServices;
 public class ReviewManagerScript : MonoBehaviour
 {
 
-    [SerializeField] private AppInfoSO appInfo;
-
 #if UNITY_ANDROID
     private ReviewManager _reviewManager;
     private PlayReviewInfo _playReviewInfo;
@@ -135,7 +133,7 @@ public class ReviewManagerScript : MonoBehaviour
             string reviewUrl = $"https://play.google.com/store/apps/details?id={Application.identifier}&reviewId=0";
             Application.OpenURL(reviewUrl);
 #elif UNITY_IOS
-            string reviewUrl = $"itms-apps://itunes.apple.com/app/id{appInfo.appStoreID}?action=write-review";
+            string reviewUrl = $"itms-apps://itunes.apple.com/app/id{AppInfoProvider.Get().appStoreID}?action=write-review";
             Application.OpenURL(reviewUrl);
 #endif
     }

@@ -5,8 +5,6 @@ using UnityEngine.Networking;
 
 public class iOSUpdateChecker : MonoBehaviour
 {
-    [SerializeField] private AppInfoSO appInfo;
-
     public void CheckAppUpdate()
     {
         StartCoroutine(CheckForiOSUpdate());
@@ -67,7 +65,7 @@ public class iOSUpdateChecker : MonoBehaviour
         // 예시: 사용자가 '업데이트' 버튼을 눌렀을 때 App Store로 이동
         PersistentObject.Instance.ShowMessagePopup(2, () =>
         {
-            Application.OpenURL($"https://apps.apple.com/app/id{appInfo.appStoreID}");
+            Application.OpenURL($"https://apps.apple.com/app/id{AppInfoProvider.Get().appStoreID}");
         }, null);
 
     }

@@ -7,16 +7,6 @@ public class iOSUpdateChecker : MonoBehaviour
 {
     [SerializeField] private AppInfoSO appInfo;
 
-    // iTunes Lookup API URL
-    private string appStoreURL;
-    private string appStoreOpenURL;
-
-    private void Start()
-    {
-        appStoreURL = $"https://itunes.apple.com/lookup?bundleId={Application.identifier}";
-        appStoreOpenURL = $"https://apps.apple.com/app/id{appInfo.appStoreID}";
-    }
-
     public void CheckAppUpdate()
     {
         StartCoroutine(CheckForiOSUpdate());
@@ -24,7 +14,7 @@ public class iOSUpdateChecker : MonoBehaviour
 
     IEnumerator CheckForiOSUpdate()
     {
-        UnityWebRequest request = UnityWebRequest.Get(appStoreURL);
+        UnityWebRequest request = UnityWebRequest.Get($"https://itunes.apple.com/lookup?bundleId={Application.identifier}");
         yield return request.SendWebRequest();
 
         if (request.result == UnityWebRequest.Result.Success)
@@ -77,7 +67,7 @@ public class iOSUpdateChecker : MonoBehaviour
         // 예시: 사용자가 '업데이트' 버튼을 눌렀을 때 App Store로 이동
         PersistentObject.Instance.ShowMessagePopup(2, () =>
         {
-            Application.OpenURL(appStoreOpenURL);
+            Application.OpenURL($"https://apps.apple.com/app/id{appInfo.appStoreID}");
         }, null);
 
     }

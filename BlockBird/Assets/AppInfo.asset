@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b6dcf80e260f324b9967cd657fd605c, type: 3}
   m_Name: AppInfo
   m_EditorClassIdentifier: 
-  appStoreID: 6741071606
+  appStoreID: 

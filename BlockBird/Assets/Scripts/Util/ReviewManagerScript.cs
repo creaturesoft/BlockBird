@@ -66,8 +66,8 @@ public class ReviewManagerScript : MonoBehaviour
     private bool isDone;
     IEnumerator CheckTime()
     {
-        //2초 후에 ok 누르면 리뷰 작성한 것으로 간주
-        yield return new WaitForSecondsRealtime(2.0f);
+        //4초 후에 ok 누르면 리뷰 작성한 것으로 간주
+        yield return new WaitForSecondsRealtime(4.0f);
         isDone = true;
     }
 

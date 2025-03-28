@@ -40,11 +40,10 @@ public class ReviewManagerScript : MonoBehaviour
     public void RequestInAppReview()
     {
 
-        OpenAppStore();
-
 #if UNITY_ANDROID
-        //StartCoroutine(RequestReviewFlow());
+        StartCoroutine(RequestReviewFlow());
 #elif UNITY_IOS
+        OpenAppStore();
 
         //try
         //{
@@ -59,12 +58,8 @@ public class ReviewManagerScript : MonoBehaviour
         //}
 #endif
 
-        PersistentObject.Instance.UserData.isReviewed = true;
-        SaveLoadManager.SaveUserData(PersistentObject.Instance.UserData);
-        StartCoroutine(SaveLoadManager.SendUserDataToServer(PersistentObject.Instance.UserData, Close));
-
-        //StartCoroutine(CheckTime());
-        //PersistentObject.Instance.ShowMessagePopup(3, CompleteReview, CompleteReview);
+        StartCoroutine(CheckTime());
+        PersistentObject.Instance.ShowMessagePopup(3, CompleteReview, CompleteReview);
     }
 
     public bool IsPlaying { get; set; } = true;

@@ -1,0 +1,12 @@
+# ninja log v5
+38	217	7648371735672264	FramePacing/CMakeFiles/swappywrapper.dir/UnitySwappyWrapper.cpp.o	fbce5e46f78ee11e
+219	400	7648371737560410	C:/Users/hong/Documents/BlockBird/BlockBird/Library/Bee/Android/Prj/IL2CPP/Gradle/unityLibrary/build/intermediates/cxx/Debug/4m5o1a33/obj/x86_64/libswappywrapper.so	df07e373b349ea5d
+0	1255	7648371746045045	GameActivity/CMakeFiles/game.dir/UGAConfiguration.cpp.o	2025612505c6b2e6
+22	1266	7648371746143213	GameActivity/CMakeFiles/game.dir/UGAEntry.cpp.o	961e8e83edbabc4e
+27	1300	7648371746491677	GameActivity/CMakeFiles/game.dir/UGAInputMotionEvent.cpp.o	df9fadd162183049
+18	1330	7648371746756898	GameActivity/CMakeFiles/game.dir/UGAInputKeyEvent.cpp.o	55539d1322b3703f
+32	1332	7648371746822694	GameActivity/CMakeFiles/game.dir/UGASoftKeyboard.cpp.o	a19c7400c74633da
+9	1365	7648371747129251	GameActivity/CMakeFiles/game.dir/UGADebug.cpp.o	8f5db39e778f76c6
+13	1387	7648371747315428	GameActivity/CMakeFiles/game.dir/UGAInput.cpp.o	779b6b96f92fc4f9
+5	1423	7648371747684790	GameActivity/CMakeFiles/game.dir/UGAApplication.cpp.o	800aba599d776c8d
+1423	1505	7648371748596151	C:/Users/hong/Documents/BlockBird/BlockBird/Library/Bee/Android/Prj/IL2CPP/Gradle/unityLibrary/build/intermediates/cxx/Debug/4m5o1a33/obj/x86_64/libgame.so	26db0936bf6d9c49
